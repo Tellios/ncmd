@@ -1,0 +1,46 @@
+{
+  "name": "sojo-node-scripts",
+  "version": "0.0.1",
+  "description": "Helper scripts for easing workflow",
+  "main": "index.js",
+  "engines": {
+    "node": ">= 6.10.3"
+  },
+  "bin": {
+    "nclone": "./bin/git/clone",
+    "ncommit": "./bin/git/commit",
+    "ncb": "./bin/git/createBranch",
+    "ngcb": "./bin/git/getCurrentBranch",
+    "ngb": "./bin/git/getBranches",
+    "nmf": "./bin/git/mergeFrom",
+    "nmt": "./bin/git/mergeTo",
+    "nrb": "./bin/git/removeBranch",
+    "nstatus": "./bin/git/status",
+    "nsb": "./bin/git/switchBranch",
+    "npull": "./bin/git/pull",
+    "npush": "./bin/git/push",
+    "nupstream": "./bin/git/setUpstream",
+    "ndps": "./bin/docker/processes",
+    "ndrm": "./bin/docker/remove",
+    "ndstart": "./bin/docker/start",
+    "ndstop": "./bin/docker/stop"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watchAll"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "cli-table2": "^0.2.0",
+    "lodash": "^4.17.4",
+    "nodegit": "^0.20.1",
+    "readline-sync": "^1.4.7",
+    "yargs": "^8.0.1"
+  },
+  "devDependencies": {
+    "jest": "^20.0.4",
+    "sinon": "^2.3.2"
+  }
+}
