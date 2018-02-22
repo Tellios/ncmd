@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('../../lib/git/getCurrentBranch.js');
+require('../../dist/lib/git/getCurrentBranch.js');

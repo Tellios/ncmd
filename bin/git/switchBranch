@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('../../lib/git/switchBranch.js');
+require('../../dist/lib/git/switchBranch.js');

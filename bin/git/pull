@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('../../lib/git/pull.js');
+require('../../dist/lib/git/pull.js');

@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('../../lib/git/push.js');
+require('../../dist/lib/git/push.js');

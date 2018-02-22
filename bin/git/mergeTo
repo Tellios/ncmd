@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('../../lib/git/mergeTo.js');
+require('../../dist/lib/git/mergeTo.js');
