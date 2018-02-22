@@ -1,9 +1,10 @@
 'use strict';
 
-describe('parseBranch', () => {
-    let parseBranch;
+import * as Git from 'nodegit';
+import { parseBranch } from '../../../src/git/utils/parseBranch';
 
-    const getMockReference = (name, isHead) => {
+describe('parseBranch', () => {
+    const getMockReference = (name: string, isHead?: boolean): Git.Reference => {
         return {
             name() {
                 return name;
@@ -12,12 +13,8 @@ describe('parseBranch', () => {
             isHead() {
                 return isHead ? 1 : 0;
             }
-        }
+        } as any;
     };
-
-    beforeEach(() => {
-        parseBranch = require('../../../src/git/utils/parseBranch');
-    });
 
     it('can determine if branch is local', () => {
         const reference = getMockReference('refs/heads/master');

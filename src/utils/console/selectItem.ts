@@ -1,19 +1,16 @@
 'use strict';
 
 import { ConsoleInterface } from './consoleInterface';
+
 const MAX_TRIES = 3;
 
-export const selectItem = (items: string[], message: string) => {
-    if (!items || !Array.isArray(items) || items.length === 0) {
+export const selectItem = (items: string[], message?: string) => {
+    if (items.length === 0) {
         throw 'Items must be an instantiated array with items';
     }
 
     if (message === undefined) {
         message = 'Select an item';
-    }
-
-    if (typeof message !== 'string') {
-        throw 'Message must be a string';
     }
 
     const output = [

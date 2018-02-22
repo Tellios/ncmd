@@ -1,8 +1,8 @@
 'use strict';
 
-describe('parse docker processes', () => {
-    let parseProcessRows;
+import { parseProcessRows } from '../../../src/docker/utils/parseProcessRows';
 
+describe('parse docker processes', () => {
     const processes = [
         'CONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS                      PORTS               NAMES',
         '15902284efe8        nginx:1.13.1-alpine   "nginx -g \'daemon ..."   33 minutes ago      Up 33 minutes               80/tcp              agitated_leakey',
@@ -19,10 +19,6 @@ describe('parse docker processes', () => {
         'CONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS                      PORTS               NAMES',
         ''
     ];
-
-    beforeEach(() => {
-        parseProcessRows = require('../../../src/docker/utils/parseProcessRows');
-    });
 
     it('can parse process rows', () => {
         const result = parseProcessRows(processes);

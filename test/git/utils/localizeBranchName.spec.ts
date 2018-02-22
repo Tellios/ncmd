@@ -1,12 +1,8 @@
 'use strict';
 
+import { localizeBranchName } from '../../../src/git/utils/localizeBranchName';
+
 describe('parseBranch', () => {
-    let localizeBranchName;
-
-    beforeEach(() => {
-        localizeBranchName = require('../../../src/git/utils/localizeBranchName');
-    });
-
     it('does not change local branch name', () => {
         const name = localizeBranchName('master');
         expect(name).toBe('master');
