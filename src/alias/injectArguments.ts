@@ -1,3 +1,5 @@
+import { colorizeCommand } from './colorizeCommand';
+
 export const injectArguments = (
     command: Alias.ICommand,
     userArguments: string[],
@@ -5,7 +7,7 @@ export const injectArguments = (
 ): string => {
     if (command.positionalArguments.length > 0
         && userArguments.length < command.positionalArguments.length) {
-        throw new Error(`Some positional arguments are missing: ${command.commandText}`);
+        throw new Error(`Some positional arguments are missing: ${colorizeCommand(command.commandText)}`);
     }
 
     let commandWithArgs = command.commandText;

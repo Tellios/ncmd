@@ -1,9 +1,11 @@
+import { positionalArgsRegexProvider } from "./positionalArgsRegexProvider";
+
 export const parseCommand = (commandText: string): Alias.ICommand => {
     if (commandText === '') {
         throw new Error('Command text is an empty string');
     }
 
-    const positionalArgsRegex = /(\$\d+)/g;
+    const positionalArgsRegex = positionalArgsRegexProvider();
     let matches: string[] | null;
     const positionalArguments: string[] = [];
 
