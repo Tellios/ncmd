@@ -8,7 +8,7 @@ export const runCmdInConsole = (cmd: string, args: string[]): Promise<void> => {
             stdio: 'inherit'
         });
 
-        child.on('close', (code) => {
+        child.on('close', code => {
             if (code !== 0) {
                 reject(new Error('Command failed'));
                 return;
@@ -17,4 +17,4 @@ export const runCmdInConsole = (cmd: string, args: string[]): Promise<void> => {
             resolve();
         });
     });
-}
+};

@@ -16,7 +16,8 @@ export const commit = (message: string, pushCommit: boolean): Promise<void> => {
             }
 
             return Promise.resolve();
-        }).catch(() => {
+        })
+        .catch(() => {
             throw new Error('Commit action failed');
         });
-}
+};

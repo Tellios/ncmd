@@ -11,7 +11,7 @@ export const Type = {
 };
 
 export class ConsoleInterface {
-    constructor() { }
+    constructor() {}
 
     public static printLine(line: string, type = Type.log) {
         switch (type) {

@@ -1,4 +1,4 @@
-import { positionalArgsRegexProvider } from "./positionalArgsRegexProvider";
+import { positionalArgsRegexProvider } from './positionalArgsRegexProvider';
 
 export const parseCommand = (commandText: string): Alias.ICommand => {
     if (commandText === '') {
@@ -10,7 +10,7 @@ export const parseCommand = (commandText: string): Alias.ICommand => {
     const positionalArguments: string[] = [];
 
     while ((matches = positionalArgsRegex.exec(commandText)) !== null) {
-        const existingArg = positionalArguments.find((arg) => {
+        const existingArg = positionalArguments.find(arg => {
             return arg === matches![0];
         });
 
@@ -23,4 +23,4 @@ export const parseCommand = (commandText: string): Alias.ICommand => {
         commandText,
         positionalArguments
     };
-}
+};

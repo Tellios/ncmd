@@ -16,23 +16,20 @@ const args = yargsWrapper()
         alias: 'r',
         describe: 'Include remote branches when selecting branches',
         type: 'boolean'
-    })
-    .argv;
+    }).argv;
 
 function getBranchToSwitchTo(workingDirectory: string) {
     if (args.branch && args.branch.length > 0) {
         return Promise.resolve(args.branch);
     }
 
-    return selectBranch(workingDirectory, args.remote)
-        .then(branch => {
-            return localizeBranchName(branch.name);
-        });
+    return selectBranch(workingDirectory, args.remote).then(branch => {
+        return localizeBranchName(branch.name);
+    });
 }
 
-commandBase((workingDirectory) => {
-    return getBranchToSwitchTo(workingDirectory)
-        .then(branch => {
-            return checkout(branch);
-        });
+commandBase(workingDirectory => {
+    return getBranchToSwitchTo(workingDirectory).then(branch => {
+        return checkout(branch);
+    });
 });

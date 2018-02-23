@@ -8,4 +8,4 @@ export const localizeBranchName = (branchName: string): string => {
     }
 
     return branchName;
-}
+};

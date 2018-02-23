@@ -20,31 +20,30 @@ const args = yargsWrapper()
     })
     .option('code', {
         alias: 'c',
-        describe: 'If you want to start Visual Studio Code for the cloned repository',
+        describe:
+            'If you want to start Visual Studio Code for the cloned repository',
         type: 'boolean'
-    })
-    .argv;
+    }).argv;
 
 commandBase((workingDirectory: string): Promise<any> =>
-    clone(args.url, args.directory)
-        .then((result: string) => {
-            ConsoleInterface.printLine('Repository cloned');
+    clone(args.url, args.directory).then((result: string) => {
+        ConsoleInterface.printLine('Repository cloned');
 
-            return new Promise((resolve, reject) => {
-                try {
-                    if (args.code) {
-                        spawn('code', [result], {
-                            cwd: workingDirectory,
-                            detached: true,
-                            stdio: 'ignore',
-                            shell: true
-                        });
-                    }
-
-                    resolve();
-                } catch (e) {
-                    reject(e);
+        return new Promise((resolve, reject) => {
+            try {
+                if (args.code) {
+                    spawn('code', [result], {
+                        cwd: workingDirectory,
+                        detached: true,
+                        stdio: 'ignore',
+                        shell: true
+                    });
                 }
-            });
-        })
+
+                resolve();
+            } catch (e) {
+                reject(e);
+            }
+        });
+    })
 );

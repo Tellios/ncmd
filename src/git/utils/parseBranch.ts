@@ -28,5 +28,5 @@ export const parseBranch = (branchReference: Git.Reference): IBranch => {
         isRemote: isRemote,
         // Since the API actually returns numbers we use '==' instead of '==='
         isCurrent: branchReference.isHead() == true
-    }
-}
+    };
+};

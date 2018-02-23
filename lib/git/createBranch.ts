@@ -15,9 +15,6 @@ const args = yargsWrapper()
         alias: 'p',
         describe: 'If the branch should be pushed to the remote',
         type: 'boolean'
-    })
-    .argv;
+    }).argv;
 
-commandBase((workingDirectory) =>
-    createBranch(args.branch, args.push)
-);
+commandBase(workingDirectory => createBranch(args.branch, args.push));

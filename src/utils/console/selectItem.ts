@@ -17,8 +17,8 @@ export const selectItem = (items: string[], message?: string) => {
         `${message}:`,
         ...items.map((value, index) => {
             return `${index + 1}: ${value}`;
-        }),
-    ]
+        })
+    ];
 
     let itemIndex = NaN;
     let tries = -1;
@@ -32,11 +32,11 @@ export const selectItem = (items: string[], message?: string) => {
 
         ConsoleInterface.printLines(output);
         const input = ConsoleInterface.readInput('Item #');
-        
+
         itemIndex = parseInt(input);
     }
 
     itemIndex += -1;
 
     return itemIndex;
-}
+};

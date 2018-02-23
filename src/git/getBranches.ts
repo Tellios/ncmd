@@ -7,11 +7,16 @@ function getAllReferences(repository: Git.Repository) {
     return repository.getReferences(Git.Reference.TYPE.LISTALL);
 }
 
-function getBranchReferences(references: Git.Reference[], includeRemote: boolean) {
-    return references.filter((reference) => {
-        return reference.isBranch() === 1
-            || (includeRemote && reference.isRemote() === 1);
-    })
+function getBranchReferences(
+    references: Git.Reference[],
+    includeRemote: boolean
+) {
+    return references.filter(reference => {
+        return (
+            reference.isBranch() === 1 ||
+            (includeRemote && reference.isRemote() === 1)
+        );
+    });
 }
 
 function parseBranches(branchReferences: Git.Reference[]): IBranch[] {
@@ -32,10 +37,13 @@ function sortBranches(branches: IBranch[]): IBranch[] {
     });
 }
 
-export const getBranches = (repositoryPath: string, includeRemote: boolean): Promise<IBranch[]> => {
+export const getBranches = (
+    repositoryPath: string,
+    includeRemote: boolean
+): Promise<IBranch[]> => {
     return Git.Repository.open(repositoryPath)
         .then(getAllReferences)
         .then(references => getBranchReferences(references, includeRemote))
         .then(parseBranches)
         .then(sortBranches);
-}
+};

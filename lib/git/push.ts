@@ -3,6 +3,4 @@
 import { commandBase } from '../base/commandBase';
 import { push } from '../../src/git/push';
 
-commandBase(() => 
-    push()
-);
+commandBase(() => push());

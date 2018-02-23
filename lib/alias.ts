@@ -3,10 +3,7 @@
 import * as process from 'process';
 import { commandBase } from './base/commandBase';
 import { runCmdInConsole, yargsWrapper } from '../src/utils/console';
-import {
-    injectArguments,
-    parseCommand
-} from '../src/alias';
+import { injectArguments, parseCommand } from '../src/alias';
 import chalk from 'chalk';
 import * as jsYaml from 'js-yaml';
 import * as fse from 'fs-extra';
@@ -26,31 +23,35 @@ if (args.length === 0) {
     const configPath = path.join(os.homedir(), '.ncli', 'alias.yml');
 
     commandBase(() =>
-        fse.readFile(configPath, 'utf8')
-            .then((config) => {
-                const doc = jsYaml.safeLoad(config);
+        fse.readFile(configPath, 'utf8').then(config => {
+            const doc = jsYaml.safeLoad(config);
 
-                const matchingAlias = doc.aliases.find((item: IAlias) => {
-                    return item.name === args[0];
-                });
+            const matchingAlias = doc.aliases.find((item: IAlias) => {
+                return item.name === args[0];
+            });
 
-                if (matchingAlias === undefined) {
-                    return Promise.reject(new Error(`No alias matching ${args[0]}`));
-                }
-
-                if (!matchingAlias.cmd || matchingAlias.cmd.length === 0) {
-                    return Promise.reject(new Error(`Alias ${matchingAlias.name} has no cmd defined`));
-                }
-
-                const command = parseCommand(matchingAlias.cmd);
-                const commandText = injectArguments(command, args.slice(1), process.cwd());
-
-                const cmdSplit = commandText.split(' ');
-
-                return runCmdInConsole(
-                    cmdSplit[0],
-                    cmdSplit.slice(1)
+            if (matchingAlias === undefined) {
+                return Promise.reject(
+                    new Error(`No alias matching ${args[0]}`)
                 );
-            })
+            }
+
+            if (!matchingAlias.cmd || matchingAlias.cmd.length === 0) {
+                return Promise.reject(
+                    new Error(`Alias ${matchingAlias.name} has no cmd defined`)
+                );
+            }
+
+            const command = parseCommand(matchingAlias.cmd);
+            const commandText = injectArguments(
+                command,
+                args.slice(1),
+                process.cwd()
+            );
+
+            const cmdSplit = commandText.split(' ');
+
+            return runCmdInConsole(cmdSplit[0], cmdSplit.slice(1));
+        })
     );
 }

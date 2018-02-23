@@ -26,4 +26,4 @@ export const processStatusColoring = (process: any): any => {
         default:
             throw new Error(`Unknown state: ${state.Status}`);
     }
-}
+};

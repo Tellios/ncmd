@@ -14,4 +14,4 @@ export const branchNameColoring = (branches: IBranch[]): string[] => {
             return chalk.cyan(branch.name);
         }
     });
-}
+};

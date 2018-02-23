@@ -8,23 +8,24 @@ import { checkout } from '../../src/git/checkout';
 import { merge } from '../../src/git/merge';
 import { localizeBranchName } from '../../src/git/utils/localizeBranchName';
 
-const args = yargsWrapper()
-    .option('branch', {
-        alias: 'b',
-        describe: 'Specifies the branch to merge to',
-        type: 'string'
-    })
-    .argv;
+const args = yargsWrapper().option('branch', {
+    alias: 'b',
+    describe: 'Specifies the branch to merge to',
+    type: 'string'
+}).argv;
 
 function getBranchToMergeTo(workingDirectory: string) {
     if (args.branch && args.branch.length > 0) {
         return Promise.resolve(args.branch);
     }
 
-    return selectBranch(workingDirectory, false, 'Select branch to merge TO')
-        .then(branch => {
-            return branch.name;
-        });
+    return selectBranch(
+        workingDirectory,
+        false,
+        'Select branch to merge TO'
+    ).then(branch => {
+        return branch.name;
+    });
 }
 
 commandBase((workingDirectory: string) =>
@@ -34,7 +35,8 @@ commandBase((workingDirectory: string) =>
     ]).then(result => {
         const [sourceBranch, targetBranch] = result;
 
-        return checkout(localizeBranchName(targetBranch))
-            .then(() => merge(localizeBranchName(sourceBranch.name)));
+        return checkout(localizeBranchName(targetBranch)).then(() =>
+            merge(localizeBranchName(sourceBranch.name))
+        );
     })
 );

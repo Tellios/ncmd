@@ -6,12 +6,14 @@ import { ConsoleInterface, Type } from '../../src/utils/console';
 import { IBranch } from '../../src/git/utils/parseBranch';
 
 commandBase(workingDirectory =>
-    getCurrentBranch(workingDirectory)
-        .then((branch: IBranch | undefined) => {
-            if (branch) {
-                ConsoleInterface.printLine(branch.name);
-            } else {
-                ConsoleInterface.printLine('Unable to determine current branch from working directory', Type.error);
-            }
-        })
+    getCurrentBranch(workingDirectory).then((branch: IBranch | undefined) => {
+        if (branch) {
+            ConsoleInterface.printLine(branch.name);
+        } else {
+            ConsoleInterface.printLine(
+                'Unable to determine current branch from working directory',
+                Type.error
+            );
+        }
+    })
 );

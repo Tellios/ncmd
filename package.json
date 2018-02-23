@@ -27,6 +27,7 @@
     "ndstop": "./bin/docker/stop"
   },
   "scripts": {
+    "pretty": "prettier --config .prettierrc.json --write \"{lib,src}/**/*.ts\"",
     "test": "jest",
     "test:watch": "jest --watchAll --runInBand",
     "build": "rimraf dist && tsc -p tsconfig.build.json",
@@ -56,6 +57,7 @@
     "@types/sinon": "^4.1.3",
     "@types/yargs": "^11.0.0",
     "jest": "^20.0.4",
+    "prettier": "^1.10.2",
     "rimraf": "^2.6.2",
     "sinon": "^2.3.2",
     "ts-jest": "^22.0.4",
