@@ -1,7 +1,7 @@
 'use strict';
 
 import * as process from 'process';
-import { ConsoleInterface } from '../../src/utils/console/consoleInterface';
+import { ConsoleInterface } from '../../src/utils/console';
 
 export const commandBase = (executor: (workingDirectory: string) => Promise<void>) => {
     const workingDirectory = process.cwd();

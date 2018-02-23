@@ -1,7 +1,7 @@
 'use strict';
 
 import { commandBase } from '../base/commandBase';
-import { yargsWrapper } from '../../src/utils/console/yargsWrapper';
+import { yargsWrapper } from '../../src/utils/console';
 import chalk from 'chalk';
 import { getStatus } from '../../src/git/getStatus';
 import { addAll } from '../../src/git/addAll';

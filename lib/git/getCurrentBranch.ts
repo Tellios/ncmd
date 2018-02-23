@@ -2,7 +2,7 @@
 
 import { commandBase } from '../base/commandBase';
 import { getCurrentBranch } from '../../src/git/getCurrentBranch';
-import { ConsoleInterface, Type } from '../../src/utils/console/consoleInterface';
+import { ConsoleInterface, Type } from '../../src/utils/console';
 import { IBranch } from '../../src/git/utils/parseBranch';
 
 commandBase(workingDirectory =>

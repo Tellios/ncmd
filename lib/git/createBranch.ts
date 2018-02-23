@@ -1,7 +1,7 @@
 'use strict';
 
 import { commandBase } from '../base/commandBase';
-import { yargsWrapper } from '../../src/utils/console/yargsWrapper';
+import { yargsWrapper } from '../../src/utils/console';
 import { createBranch } from '../../src/git/createBranch';
 
 const args = yargsWrapper()

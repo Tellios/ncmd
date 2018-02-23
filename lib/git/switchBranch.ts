@@ -1,11 +1,10 @@
 'use strict';
 
 import { commandBase } from '../base/commandBase';
-import { yargsWrapper } from '../../src/utils/console/yargsWrapper';
+import { yargsWrapper, ConsoleInterface } from '../../src/utils/console';
 import { selectBranch } from '../../src/git/selectBranch';
 import { localizeBranchName } from '../../src/git/utils/localizeBranchName';
 import { checkout } from '../../src/git/checkout';
-import { ConsoleInterface } from '../../src/utils/console/consoleInterface';
 
 const args = yargsWrapper()
     .option('branch', {

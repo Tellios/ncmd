@@ -2,8 +2,7 @@
 
 import * as process from 'process';
 import { commandBase } from './base/commandBase';
-import { runCmdInConsole } from '../src/utils/console/runCmdInConsole';
-import { yargsWrapper } from '../src/utils/console/yargsWrapper';
+import { runCmdInConsole, yargsWrapper } from '../src/utils/console';
 import {
     injectArguments,
     parseCommand

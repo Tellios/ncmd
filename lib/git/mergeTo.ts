@@ -1,13 +1,12 @@
 'use strict';
 
 import { commandBase } from '../base/commandBase';
-import { yargsWrapper } from '../../src/utils/console/yargsWrapper';
+import { yargsWrapper, ConsoleInterface } from '../../src/utils/console';
 import { getCurrentBranch } from '../../src/git/getCurrentBranch';
 import { selectBranch } from '../../src/git/selectBranch';
 import { checkout } from '../../src/git/checkout';
 import { merge } from '../../src/git/merge';
 import { localizeBranchName } from '../../src/git/utils/localizeBranchName';
-import { ConsoleInterface } from '../../src/utils/console/consoleInterface';
 
 const args = yargsWrapper()
     .option('branch', {

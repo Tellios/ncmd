@@ -1,10 +1,9 @@
 'use strict';
 
 import { commandBase } from '../base/commandBase';
-import { yargsWrapper } from '../../src/utils/console/yargsWrapper';
+import { yargsWrapper, ConsoleInterface } from '../../src/utils/console';
 import chalk from 'chalk';
 import { getStatus, IGitStatus } from '../../src/git/getStatus';
-import { ConsoleInterface } from '../../src/utils/console/consoleInterface';
 
 const args = yargsWrapper()
     .option('new', {

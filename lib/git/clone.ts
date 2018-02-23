@@ -2,10 +2,9 @@
 
 import { commandBase } from '../base/commandBase';
 import { spawn } from 'child_process';
-import { yargsWrapper } from '../../src/utils/console/yargsWrapper';
+import { yargsWrapper, ConsoleInterface } from '../../src/utils/console';
 import chalk from 'chalk';
 import { clone } from '../../src/git/clone';
-import { ConsoleInterface } from '../../src/utils/console/consoleInterface';
 
 const args = yargsWrapper()
     .option('url', {
