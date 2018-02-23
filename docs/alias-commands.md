@@ -29,3 +29,28 @@ This is equal to running:
 ```bash
 docker system prune --all --volumes
 ```
+
+## Positional arguments
+Commands can also have positional arguments and are defined by a `$` followed by a number. The number indicates the order the arguments will be injected in. Multiple positional arguments can therefore be combined. A positional argument can also be repeated multiple times in the command.
+
+```yaml
+aliases:
+  - name: my-alias
+    cmd: foo $1 --arg --other-arg
+```
+
+Positional arguments will be treated as required arguments and must be supplied when invoking the alias:
+
+```bash
+# Will create an error
+na my-alias
+
+# Will work because we supplied an argument
+na my-alias --my-arg
+```
+
+Positional arguments can still be combined with ordinary arguments:
+
+```bash
+na my-alias --my-positional-arg --my-ordinary-arg
+```

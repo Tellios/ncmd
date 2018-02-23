@@ -4,6 +4,10 @@ import * as process from 'process';
 import { commandBase } from './base/commandBase';
 import { runCmdInConsole } from '../src/utils/console/runCmdInConsole';
 import { yargsWrapper } from '../src/utils/console/yargsWrapper';
+import {
+    injectArguments,
+    parseCommand
+} from '../src/alias';
 import chalk from 'chalk';
 import * as jsYaml from 'js-yaml';
 import * as fse from 'fs-extra';
@@ -39,14 +43,14 @@ if (args.length === 0) {
                     return Promise.reject(new Error(`Alias ${matchingAlias.name} has no cmd defined`));
                 }
 
-                const cmd = matchingAlias.cmd.replace(/\${cwd}/g, process.cwd());
+                const command = parseCommand(matchingAlias.cmd);
+                const commandText = injectArguments(command, args.slice(1), process.cwd());
 
-                const cmdSplit = cmd.split(' ');
+                const cmdSplit = commandText.split(' ');
 
                 return runCmdInConsole(
                     cmdSplit[0],
                     cmdSplit.slice(1)
-                        .concat(args.slice(1))
                 );
             })
     );

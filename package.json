@@ -28,9 +28,9 @@
   },
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watchAll",
-    "build": "rimraf dist && tsc",
-    "build:watch": "rimraf dist && tsc --watch"
+    "test:watch": "jest --watchAll --runInBand",
+    "build": "rimraf dist && tsc -p tsconfig.build.json",
+    "build:watch": "rimraf dist && tsc --watch -p tsconfig.build.json"
   },
   "author": "",
   "license": "ISC",
