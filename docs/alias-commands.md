@@ -54,3 +54,17 @@ Positional arguments can still be combined with ordinary arguments:
 ```bash
 na my-alias --my-positional-arg --my-ordinary-arg
 ```
+
+## Examples
+
+```yaml
+aliases:
+  # Run npm wrapped in a docker container using working directory argument
+  # Triggerd by running na npm install
+  - name: npm
+    cmd: docker run --rm -w /opt/workdir -v ${cwd}/:/opt/workdir node:8.9.4-alpine npm
+  # Run npm wrapped in a docker container with version as a positional argument
+  # Triggerd by running na npm 8.9.4 install
+  - name: npm-v
+    cmd: docker run --rm -w /opt/workdir -v ${cwd}/:/opt/workdir node:$1-alpine npm
+```
