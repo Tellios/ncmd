@@ -1,8 +1,8 @@
 'use strict';
 
 import * as process from 'process';
-import { commandBase } from './base/commandBase';
-import { runCmdInConsole, yargsWrapper } from '../src/utils/console';
+import { commandBase } from './base';
+import { runCmdInConsole, yargsWrapper } from '../src/utils';
 import { injectArguments, parseCommand } from '../src/alias';
 import chalk from 'chalk';
 import * as jsYaml from 'js-yaml';

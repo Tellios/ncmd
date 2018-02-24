@@ -1,11 +1,9 @@
 'use strict';
 
-import { commandBase } from '../base/commandBase';
-import { yargsWrapper } from '../../src/utils/console';
+import { commandBase } from '../base';
+import { yargsWrapper } from '../../src/utils';
 import chalk from 'chalk';
-import { getStatus } from '../../src/git/getStatus';
-import { addAll } from '../../src/git/addAll';
-import { commit } from '../../src/git/commit';
+import { getStatus, addAll, commit } from '../../src/git';
 
 const args = yargsWrapper()
     .option('message', {

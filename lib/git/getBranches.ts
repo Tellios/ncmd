@@ -1,9 +1,8 @@
 'use strict';
 
-import { commandBase } from '../base/commandBase';
-import { yargsWrapper, ConsoleInterface } from '../../src/utils/console';
-import { branchNameColoring } from '../../src/git/utils/branchNameColoring';
-import { getBranches } from '../../src/git/getBranches';
+import { commandBase } from '../base';
+import { yargsWrapper, ConsoleInterface } from '../../src/utils';
+import { branchNameColoring, getBranches } from '../../src/git';
 
 const args = yargsWrapper().option('remote', {
     alias: 'r',

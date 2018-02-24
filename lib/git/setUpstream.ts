@@ -1,9 +1,7 @@
 'use strict';
 
-import { commandBase } from '../base/commandBase';
-import { getCurrentBranch } from '../../src/git/getCurrentBranch';
-import { localizeBranchName } from '../../src/git/utils/localizeBranchName';
-import { setUpstream } from '../../src/git/setUpstream';
+import { commandBase } from '../base';
+import { getCurrentBranch, localizeBranchName, setUpstream } from '../../src/git';
 
 commandBase(workingDirectory =>
     getCurrentBranch(workingDirectory).then(branch =>

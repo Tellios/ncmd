@@ -1,16 +1,14 @@
 'use strict';
 
-import { commandBase } from '../base/commandBase';
+import { commandBase } from '../base';
 import {
     yargsWrapper,
     selectItem,
     ConsoleInterface,
     Type
-} from '../../src/utils/console';
+} from '../../src/utils';
 import * as chalk from 'chalk';
-import { getProcesses } from '../../src/docker/getProcesses';
-import { removeProcess } from '../../src/docker/removeProcess';
-import { processStatusColoring } from '../../src/docker/utils/processStatusColoring';
+import { getProcesses, removeProcess, processStatusColoring } from '../../src/docker';
 
 const args = yargsWrapper()
     .option('running', {

@@ -1,10 +1,9 @@
 'use strict';
 
-import { commandBase } from '../base/commandBase';
-import { yargsWrapper, ConsoleInterface } from '../../src/utils/console';
+import { commandBase } from '../base';
+import { yargsWrapper, ConsoleInterface } from '../../src/utils';
 import * as chalk from 'chalk';
-import { getProcesses } from '../../src/docker/getProcesses';
-import { processStatusColoring } from '../../src/docker/utils/processStatusColoring';
+import { getProcesses, processStatusColoring } from '../../src/docker';
 
 const args = yargsWrapper().option('running', {
     alias: 'r',

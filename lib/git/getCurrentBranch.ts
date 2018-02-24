@@ -1,9 +1,8 @@
 'use strict';
 
-import { commandBase } from '../base/commandBase';
-import { getCurrentBranch } from '../../src/git/getCurrentBranch';
-import { ConsoleInterface, Type } from '../../src/utils/console';
-import { IBranch } from '../../src/git/utils/parseBranch';
+import { commandBase } from '../base';
+import { getCurrentBranch, IBranch } from '../../src/git';
+import { ConsoleInterface, Type } from '../../src/utils';
 
 commandBase(workingDirectory =>
     getCurrentBranch(workingDirectory).then((branch: IBranch | undefined) => {

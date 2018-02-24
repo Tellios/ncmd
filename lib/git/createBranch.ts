@@ -1,8 +1,8 @@
 'use strict';
 
-import { commandBase } from '../base/commandBase';
-import { yargsWrapper } from '../../src/utils/console';
-import { createBranch } from '../../src/git/createBranch';
+import { commandBase } from '../base';
+import { yargsWrapper } from '../../src/utils';
+import { createBranch } from '../../src/git';
 
 const args = yargsWrapper()
     .option('branch', {

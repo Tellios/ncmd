@@ -1,11 +1,8 @@
 'use strict';
 
-import { commandBase } from '../base/commandBase';
-import { yargsWrapper, ConsoleInterface } from '../../src/utils/console';
-import { selectBranch } from '../../src/git/selectBranch';
-import { localizeBranchName } from '../../src/git/utils/localizeBranchName';
-import { getCurrentBranch } from '../../src/git/getCurrentBranch';
-import { deleteBranch } from '../../src/git/deleteBranch';
+import { commandBase } from '../base';
+import { yargsWrapper, ConsoleInterface } from '../../src/utils';
+import { selectBranch, localizeBranchName, getCurrentBranch, deleteBranch } from '../../src/git';
 
 const args = yargsWrapper()
     .option('branch', {

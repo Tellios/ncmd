@@ -1,6 +1,6 @@
 'use strict';
 
-import { commandBase } from '../base/commandBase';
-import { pull } from '../../src/git/pull';
+import { commandBase } from '../base';
+import { pull } from '../../src/git';
 
 commandBase(() => pull());

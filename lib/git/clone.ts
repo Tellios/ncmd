@@ -1,10 +1,10 @@
 'use strict';
 
-import { commandBase } from '../base/commandBase';
+import { commandBase } from '../base';
 import { spawn } from 'child_process';
-import { yargsWrapper, ConsoleInterface } from '../../src/utils/console';
+import { yargsWrapper, ConsoleInterface } from '../../src/utils';
 import chalk from 'chalk';
-import { clone } from '../../src/git/clone';
+import { clone } from '../../src/git';
 
 const args = yargsWrapper()
     .option('url', {
