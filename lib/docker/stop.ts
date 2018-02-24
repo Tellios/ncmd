@@ -8,7 +8,11 @@ import {
     Type
 } from '../../src/utils';
 import * as chalk from 'chalk';
-import { getProcesses, stopProcess, processStatusColoring } from '../../src/docker';
+import {
+    getProcesses,
+    stopProcess,
+    processStatusColoring
+} from '../../src/docker';
 
 const args = yargsWrapper().argv;
 

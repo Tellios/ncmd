@@ -2,7 +2,12 @@
 
 import { commandBase } from '../base';
 import { yargsWrapper, ConsoleInterface } from '../../src/utils';
-import { selectBranch, localizeBranchName, getCurrentBranch, deleteBranch } from '../../src/git';
+import {
+    selectBranch,
+    localizeBranchName,
+    getCurrentBranch,
+    deleteBranch
+} from '../../src/git';
 
 const args = yargsWrapper()
     .option('branch', {
