@@ -44,7 +44,15 @@ export class ConsoleInterface {
 
         (table as any).push(rows);
 
-        // rows.forEach((row: string[]) => table.push(row));
+        console.log(table.toString());
+    }
+
+    public static printVerticalTable(rows: Array<Object>) {
+        const table = new Table();
+
+        rows.forEach((row) => {
+            (table as any).push(row);
+        });
 
         console.log(table.toString());
     }
