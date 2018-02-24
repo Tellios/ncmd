@@ -2,8 +2,18 @@
 
 import * as process from 'process';
 import { commandBase } from './base';
-import { runCmdInConsole, yargsWrapper, ConsoleInterface, Type } from '../src/utils';
-import { injectArguments, parseCommand, getAliases, getAliasHelpTableContent } from '../src/alias';
+import {
+    runCmdInConsole,
+    yargsWrapper,
+    ConsoleInterface,
+    Type
+} from '../src/utils';
+import {
+    injectArguments,
+    parseCommand,
+    getAliases,
+    getAliasHelpTableContent
+} from '../src/alias';
 import chalk from 'chalk';
 import * as jsYaml from 'js-yaml';
 import * as fse from 'fs-extra';
@@ -14,8 +24,8 @@ const args = process.argv.slice(2);
 
 if (args.length === 0) {
     commandBase(() =>
-        getAliases().then((aliases) => {
-            aliases.forEach((alias) => {
+        getAliases().then(aliases => {
+            aliases.forEach(alias => {
                 const helpContent = getAliasHelpTableContent(alias);
                 ConsoleInterface.printLine(chalk.bold(alias.name), Type.log);
                 ConsoleInterface.printVerticalTable(helpContent);
@@ -24,8 +34,8 @@ if (args.length === 0) {
     );
 } else {
     commandBase(() =>
-        getAliases().then((aliases) => {
-            const matchingAlias = aliases.find((item) => {
+        getAliases().then(aliases => {
+            const matchingAlias = aliases.find(item => {
                 return item.name === args[0];
             });
 

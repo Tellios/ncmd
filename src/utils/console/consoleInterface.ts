@@ -50,7 +50,7 @@ export class ConsoleInterface {
     public static printVerticalTable(rows: Array<Object>) {
         const table = new Table();
 
-        rows.forEach((row) => {
+        rows.forEach(row => {
             (table as any).push(row);
         });
 

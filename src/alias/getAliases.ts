@@ -12,12 +12,14 @@ export const getAliases = (): Promise<Alias.IAlias[]> => {
                 try {
                     const doc: Alias.IAliasesConfig = jsYaml.safeLoad(config);
 
-                    const invalidAliases = doc.aliases.filter((alias) => {
+                    const invalidAliases = doc.aliases.filter(alias => {
                         return !alias.cmd || !alias.name;
                     });
 
                     if (invalidAliases && invalidAliases.length) {
-                        reject('One or more aliases are missing the required fields "name" and/or "cmd"');
+                        reject(
+                            'One or more aliases are missing the required fields "name" and/or "cmd"'
+                        );
                     } else {
                         resolve(doc.aliases);
                     }
@@ -29,4 +31,4 @@ export const getAliases = (): Promise<Alias.IAlias[]> => {
             reject(new Error(`No alias file found at: ${configPath}`));
         }
     });
-}
+};
