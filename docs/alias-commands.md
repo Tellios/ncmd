@@ -13,6 +13,10 @@ aliases:
   - name: foo
     # Working directory can also be injected into the command
     cmd: bar ${cwd}
+  - name: my-command
+    cmd: do stuff
+    # Aliases also have an optional field to provide some help text which will be displayed when displaying alias help.
+    description: This is my description
 ```
 
 With the file above you can then invoke aliases like this:
@@ -28,6 +32,11 @@ na dprune --volumes
 This is equal to running:
 ```bash
 docker system prune --all --volumes
+```
+
+You can display help and all available aliases by running:
+```bash
+na
 ```
 
 ## Positional arguments
