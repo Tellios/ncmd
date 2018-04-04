@@ -42,7 +42,7 @@ export class ConsoleInterface {
             head: columns
         });
 
-        (table as any).push(rows);
+        (table as any).push(...rows);
 
         console.log(table.toString());
     }
