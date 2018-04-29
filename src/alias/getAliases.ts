@@ -10,7 +10,16 @@ export const getAliases = (): Promise<Alias.IAlias[]> => {
         if (fse.existsSync(configPath)) {
             fse.readFile(configPath, 'utf8').then((config: string) => {
                 try {
-                    const doc: Alias.IAliasesConfig = jsYaml.safeLoad(config);
+                    const doc: Alias.IAliasesConfig = jsYaml.safeLoad(
+                        config
+                    ) as Alias.IAliasesConfig;
+
+                    if (!doc) {
+                        reject(
+                            'Failed to load yaml config, expected object but got undefined'
+                        );
+                        return;
+                    }
 
                     const invalidAliases = doc.aliases.filter(alias => {
                         return !alias.cmd || !alias.name;
