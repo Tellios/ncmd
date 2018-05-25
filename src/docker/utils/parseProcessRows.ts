@@ -13,9 +13,9 @@ function hasPortColumn(dataColumns: string[]): boolean {
     return dataColumns.length === 7;
 }
 
-export const parseProcessRows = (
-    processRows: string[]
-): Array<Record<string, string | null>> => {
+export type ProcessRowsResult = Array<Record<string, string | null>>;
+
+export const parseProcessRows = (processRows: string[]): ProcessRowsResult => {
     if (
         !Array.isArray(processRows) ||
         processRows.length <= 1 ||
