@@ -1,6 +1,8 @@
 {
     "compilerOptions": {
         "strict": true,
+        "alwaysStrict": true,
+        "forceConsistentCasingInFileNames": true,
         "lib": [
             "es2017"
         ],

@@ -56,8 +56,4 @@ export class ConsoleInterface {
 
         console.log(table.toString());
     }
-
-    public static readInput(message: string) {
-        return readline.question(`${message}: `);
-    }
 }

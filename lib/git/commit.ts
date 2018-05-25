@@ -22,7 +22,7 @@ commandBase(workingDirectory =>
     getStatus(workingDirectory).then(status => {
         if (status.hasChanges) {
             return addAll(workingDirectory).then(() => {
-                return commit(args.message, args.push);
+                return commit(workingDirectory, args.message, args.push);
             });
         } else {
             throw new Error('Nothing to commit');

@@ -1,3 +1,4 @@
+export * from './CmdError';
 export * from './consoleInterface';
 export * from './getCmdResult';
 export * from './runCmdInConsole';

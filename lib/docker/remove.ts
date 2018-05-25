@@ -26,33 +26,32 @@ const args = yargsWrapper()
         type: 'boolean'
     }).argv;
 
-commandBase(() =>
-    getProcesses().then(processes => {
-        processes = processes.filter(
-            process => process.properties.State.Running || !args.running
-        );
+commandBase(async () => {
+    let processes = await getProcesses();
+    processes = processes.filter(
+        process => process.properties.State.Running || !args.running
+    );
 
-        if (processes.length === 0) {
-            ConsoleInterface.printLine('No containers found', Type.warn);
-            return;
-        }
+    if (processes.length === 0) {
+        ConsoleInterface.printLine('No containers found', Type.warn);
+        return;
+    }
 
-        const rows = processes.map(process => {
-            const color = processStatusColoring(process);
+    const rows = processes.map(process => {
+        const color = processStatusColoring(process);
 
-            let row = [
-                process.names,
-                process.image,
-                process.status,
-                process.containerId
-            ].join(' - ');
+        let row = [
+            process.names,
+            process.image,
+            process.status,
+            process.containerId
+        ].join(' - ');
 
-            return color(row);
-        });
+        return color(row);
+    });
 
-        const selectedItem = selectItem(rows, 'Select container to remove');
-        const processToRemove = processes[selectedItem];
+    const selectedItem = await selectItem(rows, 'Select container to remove');
+    const processToRemove = processes[selectedItem];
 
-        return removeProcess(args.force, processToRemove.containerId);
-    })
-);
+    return removeProcess(args.force, processToRemove.containerId);
+});
