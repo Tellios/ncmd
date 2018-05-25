@@ -1,20 +1,25 @@
 'use strict';
 
 import { spawn } from 'child_process';
+import { CmdError } from './CmdError';
+import * as execa from 'execa';
+import { ExecaError } from 'execa';
 
-export const runCmdInConsole = (cmd: string, args: string[]): Promise<void> => {
-    return new Promise((resolve, reject) => {
-        const child = spawn(cmd, args, {
-            stdio: 'inherit'
-        });
+function isExecaError(error: any): error is ExecaError {
+    return error.code != null;
+}
 
-        child.on('close', code => {
-            if (code !== 0) {
-                reject(new Error('Command failed'));
-                return;
-            }
+export async function runCmdInConsole(
+    cmd: string,
+    args: string[]
+): Promise<void> {
+    try {
+        await execa(cmd, args);
+    } catch (error) {
+        if (isExecaError(error)) {
+            throw new CmdError(error.code, error.message, 'Command failed');
+        }
 
-            resolve();
-        });
-    });
-};
+        throw new Error('Command failed with an unknown error');
+    }
+}
