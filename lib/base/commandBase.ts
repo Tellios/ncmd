@@ -3,9 +3,9 @@
 import * as process from 'process';
 import { ConsoleInterface, CmdError } from '../../src/utils/console';
 
-export const commandBase = (
+export function commandBase(
     executor: (workingDirectory: string) => Promise<void>
-) => {
+) {
     const workingDirectory = process.cwd();
 
     executor(workingDirectory).catch(err => {
@@ -17,4 +17,4 @@ export const commandBase = (
 
         process.exit(1);
     });
-};
+}

@@ -11,25 +11,24 @@ const args = yargsWrapper().option('running', {
     type: 'boolean'
 }).argv;
 
-commandBase(() =>
-    getProcesses().then(processes => {
-        const rows: string[][] = processes.map(process => {
-            const color = processStatusColoring(process);
+commandBase(async () => {
+    const processes = await getProcesses();
+    const rows: string[][] = processes.map(process => {
+        const color = processStatusColoring(process);
 
-            let row = [
-                process.names,
-                process.image,
-                process.status,
-                process.ports,
-                process.containerId
-            ];
+        let row = [
+            process.names,
+            process.image,
+            process.status,
+            process.ports,
+            process.containerId
+        ];
 
-            return row.map(text => color(text) as string);
-        });
+        return row.map(text => color(text) as string);
+    });
 
-        ConsoleInterface.printTable(
-            ['Name', 'Image', 'Status', 'Ports', 'Container Id'],
-            rows
-        );
-    })
-);
+    ConsoleInterface.printTable(
+        ['Name', 'Image', 'Status', 'Ports', 'Container Id'],
+        rows
+    );
+});

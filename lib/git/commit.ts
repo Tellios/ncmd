@@ -18,14 +18,13 @@ const args = yargsWrapper()
         type: 'boolean'
     }).argv;
 
-commandBase(workingDirectory =>
-    getStatus(workingDirectory).then(status => {
-        if (status.hasChanges) {
-            return addAll(workingDirectory).then(() => {
-                return commit(workingDirectory, args.message, args.push);
-            });
-        } else {
-            throw new Error('Nothing to commit');
-        }
-    })
-);
+commandBase(async workingDirectory => {
+    const status = await getStatus(workingDirectory);
+
+    if (status.hasChanges) {
+        await addAll(workingDirectory);
+        await commit(workingDirectory, args.message, args.push);
+    } else {
+        throw new Error('Nothing to commit');
+    }
+});

@@ -30,15 +30,12 @@ function getBranchToMergeTo(workingDirectory: string) {
     });
 }
 
-commandBase((workingDirectory: string) =>
-    Promise.all([
+commandBase(async (workingDirectory: string) => {
+    const [sourceBranch, targetBranch] = await Promise.all([
         getCurrentBranch(workingDirectory),
         getBranchToMergeTo(workingDirectory)
-    ]).then(result => {
-        const [sourceBranch, targetBranch] = result;
+    ]);
 
-        return checkout(localizeBranchName(targetBranch)).then(() =>
-            merge(localizeBranchName(sourceBranch.name))
-        );
-    })
-);
+    await checkout(localizeBranchName(targetBranch));
+    await merge(localizeBranchName(sourceBranch.name));
+});

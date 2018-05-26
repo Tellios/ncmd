@@ -10,8 +10,7 @@ const args = yargsWrapper().option('remote', {
     type: 'boolean'
 }).argv;
 
-commandBase(workingDirectory =>
-    getBranches(workingDirectory, args.remote).then(branches => {
-        ConsoleInterface.printLines(branchNameColoring(branches));
-    })
-);
+commandBase(async workingDirectory => {
+    const branches = await getBranches(workingDirectory, args.remote);
+    ConsoleInterface.printLines(branchNameColoring(branches));
+});
