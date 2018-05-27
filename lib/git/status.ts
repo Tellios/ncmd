@@ -47,12 +47,12 @@ function getStatusOutput(status: IGitStatus) {
     ];
 }
 
-commandBase(workingDirectory =>
-    getStatus(workingDirectory).then(status => {
-        if (status.hasChanges) {
-            ConsoleInterface.printLines(getStatusOutput(status));
-        } else {
-            ConsoleInterface.printLine('Nothing to commit');
-        }
-    })
-);
+commandBase(async workingDirectory => {
+    const status = await getStatus(workingDirectory);
+
+    if (status.hasChanges) {
+        ConsoleInterface.printLines(getStatusOutput(status));
+    } else {
+        ConsoleInterface.printLine('Nothing to commit');
+    }
+});

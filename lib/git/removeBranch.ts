@@ -35,16 +35,15 @@ function getBranchToDelete(workingDirectory: string) {
     });
 }
 
-commandBase((workingDirectory: string) => {
-    return getBranchToDelete(workingDirectory).then(branch => {
-        return getCurrentBranch(workingDirectory).then(currentBranch => {
-            if (branch === localizeBranchName(currentBranch.name)) {
-                throw new Error(
-                    "Can't delete the current branch, you need to switch branch first"
-                );
-            }
+commandBase(async (workingDirectory: string) => {
+    const branch = await getBranchToDelete(workingDirectory);
+    const currentBranch = await getCurrentBranch(workingDirectory);
 
-            return deleteBranch(branch, args.push);
-        });
-    });
+    if (branch === localizeBranchName(currentBranch.name)) {
+        throw new Error(
+            "Can't delete the current branch, you need to switch branch first"
+        );
+    }
+
+    await deleteBranch(branch, args.push);
 });

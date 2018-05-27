@@ -23,38 +23,36 @@ import * as path from 'path';
 const args = process.argv.slice(2);
 
 if (args.length === 0) {
-    commandBase(() =>
-        getAliases().then(aliases => {
-            aliases.forEach(alias => {
-                const helpContent = getAliasHelpTableContent(alias);
-                ConsoleInterface.printLine(chalk.bold(alias.name), Type.log);
-                ConsoleInterface.printVerticalTable(helpContent);
-            });
-        })
-    );
+    commandBase(async () => {
+        const aliases = await getAliases();
+
+        aliases.forEach(alias => {
+            const helpContent = getAliasHelpTableContent(alias);
+            ConsoleInterface.printLine(chalk.bold(alias.name), Type.log);
+            ConsoleInterface.printVerticalTable(helpContent);
+        });
+    });
 } else {
-    commandBase(() =>
-        getAliases().then(aliases => {
-            const matchingAlias = aliases.find(item => {
-                return item.name === args[0];
-            });
+    commandBase(async () => {
+        const aliases = await getAliases();
 
-            if (matchingAlias === undefined) {
-                return Promise.reject(
-                    new Error(`No alias matching ${args[0]}`)
-                );
-            }
+        const matchingAlias = aliases.find(item => {
+            return item.name === args[0];
+        });
 
-            const command = parseCommand(matchingAlias.cmd);
-            const commandText = injectArguments(
-                command,
-                args.slice(1),
-                process.cwd()
-            );
+        if (matchingAlias === undefined) {
+            return Promise.reject(new Error(`No alias matching ${args[0]}`));
+        }
 
-            const cmdSplit = commandText.split(' ');
+        const command = parseCommand(matchingAlias.cmd);
+        const commandText = injectArguments(
+            command,
+            args.slice(1),
+            process.cwd()
+        );
 
-            return runCmdInConsole(cmdSplit[0], cmdSplit.slice(1));
-        })
-    );
+        const cmdSplit = commandText.split(' ');
+
+        return runCmdInConsole(cmdSplit[0], cmdSplit.slice(1), true);
+    });
 }

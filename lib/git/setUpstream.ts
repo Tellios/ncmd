@@ -7,8 +7,7 @@ import {
     setUpstream
 } from '../../src/git';
 
-commandBase(workingDirectory =>
-    getCurrentBranch(workingDirectory).then(branch =>
-        setUpstream(localizeBranchName(branch.name))
-    )
-);
+commandBase(async workingDirectory => {
+    const branch = await getCurrentBranch(workingDirectory);
+    await setUpstream(localizeBranchName(branch.name));
+});

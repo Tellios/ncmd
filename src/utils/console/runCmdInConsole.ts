@@ -11,10 +11,13 @@ function isExecaError(error: any): error is ExecaError {
 
 export async function runCmdInConsole(
     cmd: string,
-    args: string[]
+    args: string[],
+    inheritStdio?: boolean
 ): Promise<void> {
     try {
-        await execa(cmd, args);
+        await execa(cmd, args, {
+            stdio: inheritStdio ? 'inherit' : undefined
+        });
     } catch (error) {
         if (isExecaError(error)) {
             throw new CmdError(error.code, error.message, 'Command failed');

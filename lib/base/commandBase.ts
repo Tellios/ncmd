@@ -3,12 +3,14 @@
 import * as process from 'process';
 import { ConsoleInterface, CmdError } from '../../src/utils/console';
 
-export function commandBase(
+export async function commandBase(
     executor: (workingDirectory: string) => Promise<void>
 ) {
     const workingDirectory = process.cwd();
 
-    executor(workingDirectory).catch(err => {
+    try {
+        await executor(workingDirectory);
+    } catch (err) {
         if (err instanceof CmdError) {
             ConsoleInterface.printLine(err.processMessage);
         } else {
@@ -16,5 +18,5 @@ export function commandBase(
         }
 
         process.exit(1);
-    });
+    }
 }
