@@ -8,7 +8,11 @@ import { push } from './push';
  * nodegit I just use git cli instead. Git cli will take the necessary
  * steps needed to select proper configurations and such.
  */
-export const commit = (workingDirectory: string, message: string, pushCommit: boolean): Promise<void> => {
+export const commit = (
+    workingDirectory: string,
+    message: string,
+    pushCommit: boolean
+): Promise<void> => {
     return runCmdInConsole('git', ['commit', '-m', message])
         .then(() => {
             if (pushCommit) {
