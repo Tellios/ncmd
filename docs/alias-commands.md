@@ -39,6 +39,19 @@ You can display help and all available aliases by running:
 na
 ```
 
+Or:
+```bash
+na --print
+```
+
+You can also print the command that will be executed without running it:
+```bash
+na --print dprune --volumes
+
+# Prints
+docker system prune --all --volumes
+```
+
 ## Positional arguments
 Commands can also have positional arguments and are defined by a `$` followed by a number. The number indicates the order the arguments will be injected in. Multiple positional arguments can therefore be combined. A positional argument can also be repeated multiple times in the command.
 
