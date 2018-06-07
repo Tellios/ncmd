@@ -18,6 +18,7 @@ export async function selectItem(items: string[], message?: string) {
         {
             type: 'list',
             name: 'item',
+            pageSize: 10,
             message,
             choices: items
         }
