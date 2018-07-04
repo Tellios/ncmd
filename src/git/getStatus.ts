@@ -18,17 +18,17 @@ function getChanges(
         .map((status: Git.StatusFile) => status.path());
 }
 
-function getGitStatus(repository: Git.Repository): Promise<IGitStatus> {
-    return repository.getStatusExt().then(statuses => {
-        return {
-            hasChanges: statuses.length > 0,
-            newFiles: getChanges(statuses, change => change.isNew()),
-            changedFiles: getChanges(statuses, change => change.isModified()),
-            deletedFiles: getChanges(statuses, change => change.isDeleted())
-        };
-    });
+async function getGitStatus(repository: Git.Repository): Promise<IGitStatus> {
+    const statuses = await repository.getStatusExt();
+    return {
+        hasChanges: statuses.length > 0,
+        newFiles: getChanges(statuses, change => change.isNew()),
+        changedFiles: getChanges(statuses, change => change.isModified()),
+        deletedFiles: getChanges(statuses, change => change.isDeleted())
+    };
 }
 
-export const getStatus = (repositoryPath: string): Promise<IGitStatus> => {
-    return Git.Repository.open(repositoryPath).then(getGitStatus);
-};
+export async function getStatus(repositoryPath: string): Promise<IGitStatus> {
+    const repository = await Git.Repository.open(repositoryPath);
+    return await getGitStatus(repository);
+}

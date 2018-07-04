@@ -9,7 +9,11 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}/bin/git/push"
+            "program": "${workspaceFolder}/bin/git/status",
+            "sourceMaps": true,
+            "outFiles": [
+                "${workspaceFolder}/dist/**/*.js"
+            ]
         },
         {
             "type": "node",

@@ -1,5 +1,3 @@
-'use strict';
-
 import { spawn } from 'child_process';
 import { CmdError } from './CmdError';
 import * as execa from 'execa';
@@ -12,7 +10,7 @@ function isExecaError(error: any): error is ExecaError {
 export async function runCmdInConsole(
     cmd: string,
     args: string[],
-    inheritStdio?: boolean
+    inheritStdio: boolean = true
 ): Promise<void> {
     try {
         await execa(cmd, args, {
