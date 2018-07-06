@@ -1,6 +1,6 @@
 'use strict';
 
-const yargs = require('yargs');
+import * as yargs from 'yargs';
 
 export const yargsWrapper = (useStrict = true) => {
     let wrapper = yargs.help();

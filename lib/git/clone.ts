@@ -3,7 +3,6 @@
 import { commandBase } from '../base';
 import { spawn } from 'child_process';
 import { yargsWrapper, ConsoleInterface } from '../../src/utils';
-import chalk from 'chalk';
 import { clone } from '../../src/git';
 
 const args = yargsWrapper()

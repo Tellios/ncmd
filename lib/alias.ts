@@ -4,7 +4,6 @@ import * as process from 'process';
 import { commandBase } from './base';
 import {
     runCmdInConsole,
-    yargsWrapper,
     ConsoleInterface,
     Type
 } from '../src/utils';
@@ -15,10 +14,6 @@ import {
     getAliasHelpTableContent
 } from '../src/alias';
 import chalk from 'chalk';
-import * as jsYaml from 'js-yaml';
-import * as fse from 'fs-extra';
-import * as os from 'os';
-import * as path from 'path';
 
 const args = process.argv.slice(2);
 const printArg = '--print';

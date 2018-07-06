@@ -8,6 +8,7 @@
   },
   "bin": {
     "na": "./bin/alias",
+    "nr": "./bin/node/nr",
     "nclone": "./bin/git/clone",
     "ncommit": "./bin/git/commit",
     "ncb": "./bin/git/createBranch",
