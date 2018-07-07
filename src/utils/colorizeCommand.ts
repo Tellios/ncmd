@@ -1,4 +1,5 @@
 import { positionalArgsRegexProvider } from './positionalArgsRegexProvider';
+import { dashArgsRegexProvider } from './dashArgsRegexProvider';
 import chalk from 'chalk';
 
 export const colorizeCommand = (commandText: string) => {
@@ -10,6 +11,10 @@ export const colorizeCommand = (commandText: string) => {
                 return chalk.greenBright(cmdPart);
             } else if (positionalArgsRegexProvider().test(cmdPart)) {
                 return chalk.yellow(cmdPart);
+            } else if (dashArgsRegexProvider().test(cmdPart)) {
+                return chalk.blue(cmdPart);
+            } else if (cmdPart === '&&' || cmdPart === '||') {
+                return chalk.cyanBright(cmdPart);
             } else {
                 return cmdPart;
             }

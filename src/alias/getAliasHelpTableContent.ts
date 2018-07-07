@@ -1,4 +1,4 @@
-import { colorizeCommand } from './colorizeCommand';
+import { colorizeCommand } from '../utils';
 
 export const getAliasHelpTableContent = (
     alias: Alias.IAlias

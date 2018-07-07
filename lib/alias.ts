@@ -2,11 +2,7 @@
 
 import * as process from 'process';
 import { commandBase } from './base';
-import {
-    runCmdInConsole,
-    ConsoleInterface,
-    Type
-} from '../src/utils';
+import { runCmdInConsole, ConsoleInterface, Type } from '../src/utils';
 import {
     injectArguments,
     parseCommand,

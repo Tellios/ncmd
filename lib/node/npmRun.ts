@@ -1,56 +1,57 @@
 'use strict';
 
 import { commandBase } from '../base';
+import { yargsWrapper } from '../../src/utils';
 import {
-    yargsWrapper,
-    ConsoleInterface,
-    runCmdInConsole,
-    selectItem
-} from '../../src/utils';
-import { colorizeCommand } from '../../src/alias';
-import { parsePackageJson } from '../../src/node';
+    parsePackageJson,
+    executePackageJsonScript,
+    selectScript
+} from '../../src/node';
+import {
+    listPackageJsonScripts,
+    addPackageJsonScript,
+    deletePackageJsonScript,
+    editPackageJsonScript
+} from './subCommands';
 
-const args = yargsWrapper().option('list', {
-    alias: 'l',
-    describe: 'Lists the available NPM scripts',
-    type: 'boolean'
-}).argv;
+const args = yargsWrapper()
+    .option('list', {
+        alias: 'l',
+        describe: 'Lists the available NPM scripts',
+        type: 'boolean'
+    })
+    .option('add', {
+        alias: 'a',
+        describe: 'Add a new NPM script',
+        type: 'boolean'
+    })
+    .option('edit', {
+        alias: 'e',
+        describe: 'Edit an existing NPM script',
+        type: 'boolean'
+    })
+    .option('delete', {
+        alias: 'd',
+        describe: 'Delete an existing NPM script',
+        type: 'boolean'
+    }).argv;
 
 commandBase(async (workingDirectory: string): Promise<any> => {
-    const availableScripts = await getPackageJsonScripts(workingDirectory);
+    const packageJson = await parsePackageJson(workingDirectory);
 
     if (args.list) {
-        const scriptsTable = Object.keys(availableScripts).map(script => [
-            script,
-            colorizeCommand(availableScripts[script])
-        ]);
-
-        ConsoleInterface.printTable(['Script', 'Command'], scriptsTable);
+        listPackageJsonScripts(packageJson.scripts);
+    } else if (args.add) {
+        await addPackageJsonScript(workingDirectory, packageJson);
+    } else if (args.edit) {
+        await editPackageJsonScript(workingDirectory, packageJson);
+    } else if (args.delete) {
+        await deletePackageJsonScript(workingDirectory, packageJson);
     } else if (args._ && args._.length > 0) {
         const script = args._[0];
-        await executeScript(script, availableScripts);
+        await executePackageJsonScript(script, packageJson.scripts);
     } else {
-        const scriptNames = Object.keys(availableScripts);
-        const selectedIndex = await selectItem(scriptNames, 'Select script');
-        const selectedScript = scriptNames[selectedIndex];
-        await executeScript(selectedScript, availableScripts);
+        const selectedScript = await selectScript(packageJson.scripts);
+        await executePackageJsonScript(selectedScript, packageJson.scripts);
     }
 });
-
-async function getPackageJsonScripts(
-    workingDirectory: string
-): Promise<NcliNode.Scripts> {
-    const packageJson = await parsePackageJson(workingDirectory);
-    return packageJson.scripts;
-}
-
-async function executeScript(
-    script: string,
-    availableScripts: NcliNode.Scripts
-) {
-    if (script in availableScripts) {
-        await runCmdInConsole('npm', ['run', script]);
-    } else {
-        throw Error(`'${script}' not found in package.json`);
-    }
-}

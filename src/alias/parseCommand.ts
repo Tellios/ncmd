@@ -1,4 +1,4 @@
-import { positionalArgsRegexProvider } from './positionalArgsRegexProvider';
+import { positionalArgsRegexProvider } from '../utils';
 
 export const parseCommand = (commandText: string): Alias.ICommand => {
     if (commandText === '') {
