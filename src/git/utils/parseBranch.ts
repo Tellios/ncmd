@@ -1,5 +1,3 @@
-'use strict';
-
 import * as Git from 'nodegit';
 
 const localBranchPrefix = 'refs/heads/';

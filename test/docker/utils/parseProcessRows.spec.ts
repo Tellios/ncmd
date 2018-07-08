@@ -1,4 +1,4 @@
-'use strict';
+
 
 import { parseProcessRows } from '../../../src/docker/utils/parseProcessRows';
 

@@ -1,4 +1,4 @@
-'use strict';
+
 
 import * as Git from 'nodegit';
 import { parseBranch } from '../../../src/git/utils/parseBranch';

@@ -1,5 +1,3 @@
-'use strict';
-
 const remoteText = 'remotes/origin/';
 
 export const localizeBranchName = (branchName: string): string => {

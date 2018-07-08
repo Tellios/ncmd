@@ -1,5 +1,3 @@
-'use strict';
-
 import { commandBase } from '../base';
 import { spawn } from 'child_process';
 import { yargsWrapper, ConsoleInterface } from '../../src/utils';

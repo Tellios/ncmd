@@ -1,5 +1,3 @@
-'use strict';
-
 import * as _ from 'lodash';
 
 const delimiterRegex = /\s{2,100}/g;

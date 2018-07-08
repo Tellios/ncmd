@@ -1,5 +1,3 @@
-'use strict';
-
 import * as Git from 'nodegit';
 import { getBranches } from './getBranches';
 import { branchNameColoring } from './utils/branchNameColoring';

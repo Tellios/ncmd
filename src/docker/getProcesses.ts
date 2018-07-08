@@ -1,5 +1,3 @@
-'use strict';
-
 import { getCmdResult } from '../utils/console/getCmdResult';
 import { parseProcessRows } from './utils/parseProcessRows';
 

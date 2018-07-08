@@ -1,5 +1,3 @@
-'use strict';
-
 import * as readline from 'readline-sync';
 import * as Table from 'cli-table2';
 import chalk from 'chalk';

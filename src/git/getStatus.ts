@@ -1,5 +1,3 @@
-'use strict';
-
 import * as Git from 'nodegit';
 
 export interface IGitStatus {

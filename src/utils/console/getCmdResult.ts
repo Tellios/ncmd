@@ -1,5 +1,3 @@
-'use strict';
-
 const exec = require('child_process').exec;
 
 export const getCmdResult = (cmd: string, args: string[]): Promise<string> => {

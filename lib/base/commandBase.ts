@@ -1,5 +1,3 @@
-'use strict';
-
 import * as process from 'process';
 import { ConsoleInterface, CmdError } from '../../src/utils/console';
 

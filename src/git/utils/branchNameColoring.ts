@@ -1,5 +1,3 @@
-'use strict';
-
 import * as Git from 'nodegit';
 import chalk from 'chalk';
 import { IBranch } from './parseBranch';

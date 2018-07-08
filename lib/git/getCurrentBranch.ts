@@ -1,5 +1,3 @@
-'use strict';
-
 import { commandBase } from '../base';
 import { getCurrentBranch, IBranch } from '../../src/git';
 import { ConsoleInterface, Type } from '../../src/utils';

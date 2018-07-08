@@ -1,5 +1,3 @@
-'use strict';
-
 import { commandBase } from '../base';
 import { yargsWrapper, ConsoleInterface } from '../../src/utils';
 import { selectBranch, merge } from '../../src/git';

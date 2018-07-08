@@ -1,5 +1,3 @@
-'use strict';
-
 import chalk from 'chalk';
 
 export const processStatusColoring = (process: any): any => {
