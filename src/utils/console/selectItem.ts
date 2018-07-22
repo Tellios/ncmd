@@ -1,7 +1,4 @@
 import * as inquirer from 'inquirer';
-import { ConsoleInterface } from './consoleInterface';
-
-const MAX_TRIES = 3;
 
 export async function selectItem(items: string[], message?: string) {
     if (items.length === 0) {
