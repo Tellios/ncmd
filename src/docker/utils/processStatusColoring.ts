@@ -1,6 +1,7 @@
 import chalk from 'chalk';
+import { Chalk } from 'chalk';
 
-export const processStatusColoring = (process: any): any => {
+export const processStatusColoring = (process: any): Chalk => {
     const state = process.properties.State;
 
     switch (state.Status) {

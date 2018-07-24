@@ -1,11 +1,10 @@
 import { commandBase } from '../base';
 import {
     yargsWrapper,
-    selectItem,
+    selectItems,
     ConsoleInterface,
     Type
 } from '../../src/utils';
-import * as chalk from 'chalk';
 import {
     getProcesses,
     removeProcess,
@@ -25,10 +24,7 @@ const args = yargsWrapper()
     }).argv;
 
 commandBase(async () => {
-    let processes = await getProcesses();
-    processes = processes.filter(
-        process => process.properties.State.Running || !args.running
-    );
+    const processes = await getProcesses(args.running);
 
     if (processes.length === 0) {
         ConsoleInterface.printLine('No containers found', Type.warn);
@@ -48,8 +44,14 @@ commandBase(async () => {
         return color(row);
     });
 
-    const selectedItem = await selectItem(rows, 'Select container to remove');
-    const processToRemove = processes[selectedItem];
+    const selectedIndexes = await selectItems(
+        rows,
+        'Select containers to remove'
+    );
 
-    return removeProcess(args.force, processToRemove.containerId);
+    const processesToRemove = selectedIndexes.map(index => processes[index]);
+
+    for (const process of processesToRemove) {
+        await removeProcess(args.force, process.containerId);
+    }
 });

@@ -6,33 +6,32 @@ Prints docker containers.
 | Argument  | Alias | Description |
 | --------- | ----- | ----------- |
 | running   | r     | Optional. Only display running containers |
-| raw       |       | Optional. No coloring or styles applied to output |
 
 ```bash
-ndps -r --raw
+ndps -r
 ```
 
 ## ndrm
-Removes a docker container. Prints a selectable list of all containers.
+Allows the selection and removal of one or multiple containers.
 
 | Argument  | Alias | Description |
 | --------- | ----- | ----------- |
 | running   | r     | Optional. Only display running containers |
-| force     | f     | Optional. Remove container even if it is running |
+| force     | f     | Optional. Remove containers even if they are running |
 
 ```bash
-ndrm -f -r my-container-id
+ndrm -f -r
 ```
 
 ## ndstart
-Starts a stopped docker container.
+Start one or more stopped docker containers.
 
 ```bash
 ndstart
 ```
 
 ## ndstop
-Stops a running docker container.
+Stop one or more running docker containers.
 
 ```bash
 ndstop

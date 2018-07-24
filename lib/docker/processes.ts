@@ -1,6 +1,5 @@
 import { commandBase } from '../base';
 import { yargsWrapper, ConsoleInterface } from '../../src/utils';
-import * as chalk from 'chalk';
 import { getProcesses, processStatusColoring } from '../../src/docker';
 
 const args = yargsWrapper().option('running', {
@@ -10,7 +9,8 @@ const args = yargsWrapper().option('running', {
 }).argv;
 
 commandBase(async () => {
-    const processes = await getProcesses();
+    const processes = await getProcesses(args.running);
+
     const rows: string[][] = processes.map(process => {
         const color = processStatusColoring(process);
 

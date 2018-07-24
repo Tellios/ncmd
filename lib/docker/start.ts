@@ -1,11 +1,10 @@
 import { commandBase } from '../base';
 import {
     yargsWrapper,
-    selectItem,
+    selectItems,
     ConsoleInterface,
     Type
 } from '../../src/utils';
-import * as chalk from 'chalk';
 import {
     getProcesses,
     startProcess,
@@ -43,8 +42,14 @@ commandBase(async () => {
         return color(row);
     });
 
-    const selectedItem = await selectItem(rows, 'Select container to start');
-    const processToStart = processes[selectedItem];
+    const selectedIndexes = await selectItems(
+        rows,
+        'Select container to start'
+    );
 
-    return startProcess(processToStart.containerId);
+    const processesToStart = selectedIndexes.map(index => processes[index]);
+
+    for (const process of processesToStart) {
+        await startProcess(process.containerId);
+    }
 });
