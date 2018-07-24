@@ -6,4 +6,5 @@ export * from './getCmdResult';
 export * from './inputString';
 export * from './runCmdInConsole';
 export * from './selectItem';
+export * from './selectItems';
 export * from './yargsWrapper';

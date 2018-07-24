@@ -1,4 +1,5 @@
 export * from './executePackageJsonScript';
+export * from './executeParallellPackageJsonScripts';
 export * from './packageJsonParser';
 export * from './selectScript';
 export * from './updatePackageJson';

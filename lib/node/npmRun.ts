@@ -5,11 +5,14 @@ import {
     executePackageJsonScript,
     selectScript
 } from '../../src/node';
+import { selectItems } from '../../src/utils';
 import {
     listPackageJsonScripts,
     addPackageJsonScript,
     deletePackageJsonScript,
-    editPackageJsonScript
+    editPackageJsonScript,
+    runScripts,
+    selectScripts
 } from './subCommands';
 
 const args = yargsWrapper()
@@ -22,6 +25,9 @@ const args = yargsWrapper()
         alias: 'a',
         describe: 'Add a new NPM script',
         type: 'boolean'
+    })
+    .option('async', {
+        describe: 'Select multiple NPM scripts to run concurrently'
     })
     .option('edit', {
         alias: 'e',
@@ -45,9 +51,10 @@ commandBase(async (workingDirectory: string): Promise<any> => {
         await editPackageJsonScript(workingDirectory, packageJson);
     } else if (args.delete) {
         await deletePackageJsonScript(workingDirectory, packageJson);
+    } else if (args.async) {
+        await selectScripts(packageJson);
     } else if (args._ && args._.length > 0) {
-        const script = args._[0];
-        await executePackageJsonScript(script, packageJson.scripts);
+        await runScripts(args._, packageJson);
     } else {
         const selectedScript = await selectScript(packageJson.scripts);
         await executePackageJsonScript(selectedScript, packageJson.scripts);
