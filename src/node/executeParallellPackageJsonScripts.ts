@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { runCmdInConsole } from '..//utils';
+import { runCmdInConsole } from '../utils';
 
 export async function executeParallellPackageJsonScripts(
     scripts: string[],

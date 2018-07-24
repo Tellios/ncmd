@@ -5,7 +5,6 @@ import {
     executePackageJsonScript,
     selectScript
 } from '../../src/node';
-import { selectItems } from '../../src/utils';
 import {
     listPackageJsonScripts,
     addPackageJsonScript,
