@@ -9,11 +9,12 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}/bin/git/status",
+            "program": "${workspaceFolder}/bin/git/push",
             "sourceMaps": true,
             "outFiles": [
                 "${workspaceFolder}/dist/**/*.js"
-            ]
+            ],
+            "cwd": "/home/sonnyjn/code/webtools/Products/Axis.WebTools.PiaSyncAgent"
         },
         {
             "type": "node",

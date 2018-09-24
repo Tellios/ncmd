@@ -14,7 +14,7 @@ export async function runCmdInConsole(
 ): Promise<void> {
     try {
         await execa(cmd, args, {
-            stdio: inheritStdio ? 'inherit' : undefined
+            stdio: inheritStdio ? 'inherit' : undefined,
         });
     } catch (error) {
         if (isExecaError(error)) {

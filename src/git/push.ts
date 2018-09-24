@@ -6,13 +6,10 @@ export async function push(workingDirectory: string): Promise<void> {
         await runCmdInConsole('git', ['push']);
     } catch (error) {
         if (error instanceof CmdError) {
-            if (
-                error.exitCode === 128 &&
-                /git push --set-upstream/.test(error.processMessage)
-            ) {
+            if (error.exitCode === 128) {
                 if (
                     await confirm(
-                        'Upstream must be set to push, do you want to set it?'
+                        'Push failed, upstream may be missing, do you want to set it?'
                     )
                 ) {
                     const currentBranch = await getCurrentBranch(
