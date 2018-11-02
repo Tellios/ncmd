@@ -1,5 +1,7 @@
 {
     "compilerOptions": {
+        "baseUrl": ".",
+        "paths": { "*": ["types/*"] },
         "strict": true,
         "alwaysStrict": true,
         "forceConsistentCasingInFileNames": true,

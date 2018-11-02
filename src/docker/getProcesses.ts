@@ -1,7 +1,10 @@
 import { getCmdResult } from '../utils/console/getCmdResult';
 import { parseProcessRows } from './utils/parseProcessRows';
+import { IDockerContainer } from './utils';
 
-export const getProcesses = (onlyRunning: boolean = false): Promise<any[]> => {
+export const getProcesses = (
+    onlyRunning: boolean = false
+): Promise<IDockerContainer[]> => {
     return getCmdResult('docker', ['ps', onlyRunning ? '' : '-a']).then(
         result => {
             const processes = parseProcessRows(result.split('\n'));
@@ -11,11 +14,13 @@ export const getProcesses = (onlyRunning: boolean = false): Promise<any[]> => {
                     return getCmdResult('docker', [
                         'inspect',
                         process.containerId!
-                    ]).then((containerData: string) => {
-                        const container = JSON.parse(containerData);
-                        process.properties = container[0];
+                    ]).then((containerInfoData: string) => {
+                        const containerInfo = JSON.parse(containerInfoData)[0];
 
-                        return process;
+                        return {
+                            ...process,
+                            properties: containerInfo
+                        };
                     });
                 })
             );

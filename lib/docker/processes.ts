@@ -1,6 +1,6 @@
 import { commandBase } from '../base';
 import { yargsWrapper, ConsoleInterface } from '../../src/utils';
-import { getProcesses, processStatusColoring } from '../../src/docker';
+import { getProcesses, containerStatusColoring } from '../../src/docker';
 
 const args = yargsWrapper().option('running', {
     alias: 'r',
@@ -12,13 +12,13 @@ commandBase(async () => {
     const processes = await getProcesses(args.running);
 
     const rows: string[][] = processes.map(process => {
-        const color = processStatusColoring(process);
+        const color = containerStatusColoring(process);
 
         let row = [
             process.names,
             process.image,
             process.status,
-            process.ports,
+            process.ports || '',
             process.containerId
         ];
 

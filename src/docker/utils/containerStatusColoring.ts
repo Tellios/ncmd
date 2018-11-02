@@ -1,8 +1,10 @@
 import chalk from 'chalk';
 import { Chalk } from 'chalk';
+import { ContainerStatus } from './ContainerStatus';
+import { IDockerContainer } from './IDockerContainer';
 
-export const processStatusColoring = (process: any): Chalk => {
-    const state = process.properties.State;
+export const containerStatusColoring = (container: IDockerContainer): Chalk => {
+    const state = container.properties.State;
 
     switch (state.Status) {
         case 'created':

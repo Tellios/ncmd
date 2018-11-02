@@ -1,2 +1,4 @@
+export * from './ContainerStatus';
+export * from './IDockerContainer';
 export * from './parseProcessRows';
-export * from './processStatusColoring';
+export * from './containerStatusColoring';

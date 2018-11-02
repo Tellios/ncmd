@@ -8,7 +8,7 @@ import {
 import {
     getProcesses,
     removeProcess,
-    processStatusColoring
+    containerStatusColoring
 } from '../../src/docker';
 
 const args = yargsWrapper()
@@ -32,7 +32,7 @@ commandBase(async () => {
     }
 
     const rows = processes.map(process => {
-        const color = processStatusColoring(process);
+        const color = containerStatusColoring(process);
 
         let row = [
             process.names,
