@@ -1,6 +1,3 @@
-import * as os from 'os';
-import * as path from 'path';
-import * as Git from 'nodegit';
 import { runCmdInConsole } from '../utils/console/runCmdInConsole';
 
 function getDirectoryNameFromUrl(url: string) {

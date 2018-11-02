@@ -1,6 +1,5 @@
-import * as Git from 'nodegit';
 import { getBranches } from './getBranches';
-import { IBranch } from './utils/parseBranch';
+import { IBranch } from './utils';
 
 export const getCurrentBranch = (
     workingDirectory: string

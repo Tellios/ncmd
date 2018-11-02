@@ -1,4 +1,4 @@
-import * as Git from 'nodegit';
+import { getCmdResult } from '../utils';
 
 export interface IGitStatus {
     hasChanges: boolean;
@@ -8,25 +8,34 @@ export interface IGitStatus {
 }
 
 function getChanges(
-    statuses: Git.StatusFile[],
-    filterFunc: (change: Git.StatusFile) => boolean
+    statuses: string[],
+    filterFunc: (change: string) => boolean
 ): string[] {
     return statuses
-        .filter(filterFunc)
-        .map((status: Git.StatusFile) => status.path());
+        .filter(status => filterFunc(status.slice(0, 2)))
+        .map(status => status.slice(3));
 }
 
-async function getGitStatus(repository: Git.Repository): Promise<IGitStatus> {
-    const statuses = await repository.getStatusExt();
+function parseStatuses(statusData: string): IGitStatus {
+    const statusLines = statusData.split('\n');
+
     return {
-        hasChanges: statuses.length > 0,
-        newFiles: getChanges(statuses, change => change.isNew()),
-        changedFiles: getChanges(statuses, change => change.isModified()),
-        deletedFiles: getChanges(statuses, change => change.isDeleted())
+        hasChanges: statusLines.length > 0,
+        newFiles: getChanges(
+            statusLines,
+            modifiers => modifiers.includes('?') || modifiers.includes('A')
+        ),
+        changedFiles: getChanges(statusLines, modifiers =>
+            modifiers.includes('M')
+        ),
+        deletedFiles: getChanges(statusLines, modifiers =>
+            modifiers.includes('D')
+        )
     };
 }
 
 export async function getStatus(repositoryPath: string): Promise<IGitStatus> {
-    const repository = await Git.Repository.open(repositoryPath);
-    return await getGitStatus(repository);
+    return getCmdResult('git', ['status', '-s'], repositoryPath).then(
+        parseStatuses
+    );
 }

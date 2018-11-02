@@ -1,6 +1,5 @@
-import * as Git from 'nodegit';
 import chalk from 'chalk';
-import { IBranch } from './parseBranch';
+import { IBranch } from './IBranch';
 
 export const branchNameColoring = (branches: IBranch[]): string[] => {
     return branches.map(branch => {

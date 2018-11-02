@@ -1,8 +1,7 @@
-import * as Git from 'nodegit';
 import { getBranches } from './getBranches';
 import { branchNameColoring } from './utils/branchNameColoring';
 import { selectItem } from '../utils/console/selectItem';
-import { IBranch } from './utils/parseBranch';
+import { IBranch } from './utils';
 
 export async function selectBranch(
     workingDirectory: string,

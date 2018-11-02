@@ -1,10 +1,21 @@
-const exec = require('child_process').exec;
+import * as cp from 'child_process';
 
-export const getCmdResult = (cmd: string, args: string[]): Promise<string> => {
+export const getCmdResult = (
+    cmd: string,
+    args: string[],
+    cwd?: string
+): Promise<string> => {
     return new Promise((resolve, reject) => {
-        exec(
+        cp.exec(
             [cmd, ...args].join(' '),
-            (error: Error, stdout: string, stderr: string) => {
+            {
+                cwd
+            },
+            (
+                error: cp.ExecException | null,
+                stdout: string,
+                stderr: string
+            ) => {
                 if (error) {
                     reject(error);
                     return;

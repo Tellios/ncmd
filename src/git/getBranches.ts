@@ -1,47 +1,17 @@
-import * as Git from 'nodegit';
-import { parseBranch, IBranch } from './utils/parseBranch';
-
-function getAllReferences(repository: Git.Repository) {
-    return repository.getReferences(Git.Reference.TYPE.LISTALL);
-}
-
-function getBranchReferences(
-    references: Git.Reference[],
-    includeRemote: boolean
-) {
-    return references.filter(reference => {
-        return (
-            reference.isBranch() === 1 ||
-            (includeRemote && reference.isRemote() === 1)
-        );
-    });
-}
-
-function parseBranches(branchReferences: Git.Reference[]): IBranch[] {
-    return branchReferences.map(reference => parseBranch(reference));
-}
-
-function sortBranches(branches: IBranch[]): IBranch[] {
-    return branches.sort((a, b) => {
-        if (a.isCurrent && !b.isCurrent) {
-            return -1;
-        }
-
-        if (a.isRemote && !b.isRemote) {
-            return 1;
-        }
-
-        return a.name.localeCompare(b.name);
-    });
-}
+import { parseBranches, IBranch, sortBranches } from './utils';
+import { getCmdResult } from '../utils';
 
 export const getBranches = (
     repositoryPath: string,
     includeRemote: boolean
 ): Promise<IBranch[]> => {
-    return Git.Repository.open(repositoryPath)
-        .then(getAllReferences)
-        .then(references => getBranchReferences(references, includeRemote))
+    const gitArgs = ['branch', '--list', '--no-color'];
+
+    if (includeRemote) {
+        gitArgs.push('-a');
+    }
+
+    return getCmdResult('git', gitArgs, repositoryPath)
         .then(parseBranches)
         .then(sortBranches);
 };

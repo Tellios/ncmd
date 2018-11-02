@@ -1,3 +1,5 @@
 export * from './branchNameColoring';
 export * from './localizeBranchName';
-export * from './parseBranch';
+export * from './parseBranches';
+export * from './sortBranches';
+export * from './IBranch';
