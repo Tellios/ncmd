@@ -9,6 +9,7 @@
   "bin": {
     "na": "./bin/alias",
     "nr": "./bin/node/nr",
+    "nt": "./bin/node/nt",
     "nclone": "./bin/git/clone",
     "ncommit": "./bin/git/commit",
     "ncb": "./bin/git/createBranch",
@@ -55,19 +56,19 @@
     "@types/execa": "^0.9.0",
     "@types/fs-extra": "^5.0.4",
     "@types/inquirer": "0.0.43",
-    "@types/jest": "^23.3.9",
+    "@types/jest": "^23.3.12",
     "@types/js-yaml": "^3.11.2",
-    "@types/lodash": "^4.14.117",
-    "@types/node": "^10.12.2",
+    "@types/lodash": "^4.14.119",
+    "@types/node": "^10.12.18",
     "@types/readline-sync": "^1.4.3",
     "@types/sinon": "^5.0.5",
     "@types/yargs": "^12.0.1",
     "jest": "^23.6.0",
-    "prettier": "^1.14.3",
+    "prettier": "^1.15.3",
     "rimraf": "^2.6.2",
     "sinon": "^7.1.1",
-    "ts-jest": "^23.10.4",
-    "typescript": "^3.1.6"
+    "ts-jest": "^23.10.5",
+    "typescript": "^3.2.2"
   },
   "jest": {
     "transform": {

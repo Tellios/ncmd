@@ -11,7 +11,7 @@ describe('parseBranch', () => {
     it('can determine if branch is remote', () => {
         const branch = parseBranches('  remotes/origin/master')[0];
 
-        expect(branch.name).toBe('master');
+        expect(branch.name).toBe('remotes/origin/master');
         expect(branch.isRemote).toBe(true);
     });
 
