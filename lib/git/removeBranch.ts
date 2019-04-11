@@ -17,6 +17,11 @@ const args = yargsWrapper()
         alias: 'p',
         describe: 'If the delete should be pushed (delete branch on remote)',
         type: 'boolean'
+    })
+    .option('filter', {
+        alias: 'f',
+        describe: 'Branch name filter',
+        type: 'string'
     }).argv;
 
 function getBranchToDelete(workingDirectory: string) {
@@ -27,7 +32,8 @@ function getBranchToDelete(workingDirectory: string) {
     return selectBranch(
         workingDirectory,
         args.remote,
-        'Select branch to DELETE'
+        'Select branch to DELETE',
+        args.filter
     ).then(branch => {
         return localizeBranchName(branch.name);
     });
