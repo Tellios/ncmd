@@ -12,6 +12,11 @@ const args = yargsWrapper()
         alias: 'r',
         describe: 'Include remote branches when selecting branches',
         type: 'boolean'
+    })
+    .option('filter', {
+        alias: 'f',
+        describe: 'Branch name filter',
+        type: 'string'
     }).argv;
 
 function getBranchToSwitchTo(workingDirectory: string) {
@@ -19,7 +24,12 @@ function getBranchToSwitchTo(workingDirectory: string) {
         return Promise.resolve(args.branch);
     }
 
-    return selectBranch(workingDirectory, args.remote).then(branch => {
+    return selectBranch(
+        workingDirectory,
+        args.remote,
+        'Select branch to switch to',
+        args.filter
+    ).then(branch => {
         return localizeBranchName(branch.name);
     });
 }

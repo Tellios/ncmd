@@ -1,9 +1,10 @@
-import { parseBranches, IBranch, sortBranches } from './utils';
+import { parseBranches, IBranch, sortBranches, filterBranches } from './utils';
 import { getCmdResult } from '../utils';
 
 export const getBranches = (
     repositoryPath: string,
-    includeRemote: boolean
+    includeRemote: boolean,
+    filter?: string
 ): Promise<IBranch[]> => {
     const gitArgs = ['branch', '--list', '--no-color'];
 
@@ -13,5 +14,6 @@ export const getBranches = (
 
     return getCmdResult('git', gitArgs, repositoryPath)
         .then(parseBranches)
-        .then(sortBranches);
+        .then(sortBranches)
+        .then(branches => filterBranches(branches, filter));
 };

@@ -8,11 +8,17 @@ import {
     localizeBranchName
 } from '../../src/git';
 
-const args = yargsWrapper().option('branch', {
-    alias: 'b',
-    describe: 'Specifies the branch to merge to',
-    type: 'string'
-}).argv;
+const args = yargsWrapper()
+    .option('branch', {
+        alias: 'b',
+        describe: 'Specifies the branch to merge to',
+        type: 'string'
+    })
+    .option('filter', {
+        alias: 'f',
+        describe: 'Optional filter if no branch is specified',
+        type: 'string'
+    }).argv;
 
 function getBranchToMergeTo(workingDirectory: string) {
     if (args.branch && args.branch.length > 0) {
@@ -22,7 +28,8 @@ function getBranchToMergeTo(workingDirectory: string) {
     return selectBranch(
         workingDirectory,
         false,
-        'Select branch to merge TO'
+        'Select branch to merge TO',
+        args.filter
     ).then(branch => {
         return branch.name;
     });

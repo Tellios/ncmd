@@ -53,9 +53,10 @@ Prints available git branches.
 | Argument  | Alias | Description |
 | --------- | ----- | ----------- |
 | remote    | r     | Optional. Include remote branches |
+| filter    | f     | Optional. Branch name filter |
 
 ```bash
-ngb -r
+ngb -r -f my-branch-name
 ```
 
 ## nmf
@@ -64,6 +65,7 @@ Merge from another branch into this branch using `--no-ff`. Will print a list of
 | Argument  | Alias | Description |
 | --------- | ----- | ----------- |
 | branch    | b     | Optional. Name of the branch to merge from |
+| filter    | f     | Optional. Branch name filter if no branch is specified |
 
 ```bash
 nmf -b feature/other-branch
@@ -75,6 +77,7 @@ Merge to another branch from the current branch using `--no-ff`. Will print a li
 | Argument  | Alias | Description |
 | --------- | ----- | ----------- |
 | branch    | b     | Optional. Name of the branch to merge to |
+| filter    | f     | Optional. Branch name filter if no branch is specified |
 
 ```bash
 nmt -b feature/other-branch
@@ -87,6 +90,7 @@ Deletes a branch. Will print a list of all available branches and will allow eas
 | --------- | ----- | ----------- |
 | branch    | b     | Optional. Specifies the branch to delete |
 | push      | p     | Optional. Also delete branch on the remote |
+| filter    | f     | Optional. Branch name filter |
 
 ```bash
 nrb -b feature/branch-to-delete -p
@@ -115,6 +119,7 @@ Checkout/switch branch. Prints all available branches and allows easy selection 
 | --------- | ----- | ----------- |
 | branch    | b     | Optional. Name of the branch |
 | remote    | r     | Optional. Include remote branches when selecting branches |
+| filter    | f     | Optional. Branch name filter |
 
 ```bash
 nsb -r
