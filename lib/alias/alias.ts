@@ -15,9 +15,17 @@ const printArg = '--print';
 const listArg = '--list';
 const listArgShort = '-l';
 
-async function executeCmd(commandText: string): Promise<void> {
+async function executeCmd(
+    commandText: string,
+    workingDirectory?: string
+): Promise<void> {
     const cmdSplit = commandText.split(' ');
-    return runCmdInConsole(cmdSplit[0], cmdSplit.slice(1), true);
+    return runCmdInConsole(
+        cmdSplit[0],
+        cmdSplit.slice(1),
+        true,
+        workingDirectory
+    );
 }
 
 function hasListArg() {
@@ -40,7 +48,7 @@ if (args.length === 0) {
         );
 
         const alias = aliases[selectedIndex];
-        await executeCmd(alias.cmd);
+        await executeCmd(alias.cmd, alias.workingDirectory);
     });
 } else if (hasListArg()) {
     commandBase(async () => {
@@ -81,6 +89,6 @@ if (args.length === 0) {
             return ConsoleInterface.printLine(commandText);
         }
 
-        await executeCmd(commandText);
+        await executeCmd(commandText, matchingAlias.workingDirectory);
     });
 }

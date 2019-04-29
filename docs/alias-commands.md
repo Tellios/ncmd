@@ -17,6 +17,8 @@ aliases:
     cmd: do stuff
     # Aliases also have an optional field to provide some help text which will be displayed when displaying alias help.
     description: This is my description
+    # You can also provide an optional working directory if you want the command to be executed in another directory than where the alias is executed
+    workingDirectory: /some/directory/path
 ```
 
 With the file above you can then invoke aliases like this:

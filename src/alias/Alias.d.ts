@@ -7,6 +7,7 @@ declare namespace Alias {
         name: string;
         cmd: string;
         description?: string;
+        workingDirectory?: string;
     }
 
     interface ICommand {
