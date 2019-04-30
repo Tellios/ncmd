@@ -15,12 +15,14 @@ const args = yargsWrapper()
     .option('running', {
         alias: 'r',
         describe: 'Only display running containers',
-        type: 'boolean'
+        type: 'boolean',
+        default: false
     })
     .option('force', {
         alias: 'f',
         describe: 'Remove container even if it is running',
-        type: 'boolean'
+        type: 'boolean',
+        default: false
     }).argv;
 
 commandBase(async () => {

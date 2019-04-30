@@ -19,7 +19,8 @@ const args = yargsWrapper()
         alias: 'c',
         describe:
             'If you want to start Visual Studio Code for the cloned repository',
-        type: 'boolean'
+        type: 'boolean',
+        default: false
     }).argv;
 
 commandBase(

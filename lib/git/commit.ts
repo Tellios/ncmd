@@ -13,7 +13,8 @@ const args = yargsWrapper()
     .option('push', {
         alias: 'p',
         describe: 'Push to remote after commiting',
-        type: 'boolean'
+        type: 'boolean',
+        default: false
     }).argv;
 
 commandBase(async workingDirectory => {

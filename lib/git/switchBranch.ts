@@ -11,7 +11,8 @@ const args = yargsWrapper()
     .option('remote', {
         alias: 'r',
         describe: 'Include remote branches when selecting branches',
-        type: 'boolean'
+        type: 'boolean',
+        default: false
     })
     .option('filter', {
         alias: 'f',

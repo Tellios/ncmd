@@ -6,15 +6,17 @@ function getDirectoryNameFromUrl(url: string) {
 
 export const clone = (
     cloneUrl: string,
-    directoryName: string
+    directoryName?: string
 ): Promise<string> => {
+    let checkoutDir: string;
+
     if (!directoryName || directoryName.length === 0) {
-        directoryName = getDirectoryNameFromUrl(cloneUrl);
+        checkoutDir = getDirectoryNameFromUrl(cloneUrl);
+    } else {
+        checkoutDir = directoryName;
     }
 
-    return runCmdInConsole('git', ['clone', cloneUrl, directoryName]).then(
-        () => {
-            return directoryName;
-        }
-    );
+    return runCmdInConsole('git', ['clone', cloneUrl, checkoutDir]).then(() => {
+        return checkoutDir;
+    });
 };

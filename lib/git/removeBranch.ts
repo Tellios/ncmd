@@ -1,5 +1,5 @@
 import { commandBase } from '../base';
-import { yargsWrapper, ConsoleInterface } from '../../src/utils';
+import { yargsWrapper } from '../../src/utils';
 import {
     selectBranch,
     localizeBranchName,
@@ -16,7 +16,8 @@ const args = yargsWrapper()
     .option('push', {
         alias: 'p',
         describe: 'If the delete should be pushed (delete branch on remote)',
-        type: 'boolean'
+        type: 'boolean',
+        default: false
     })
     .option('filter', {
         alias: 'f',
@@ -31,7 +32,7 @@ function getBranchToDelete(workingDirectory: string) {
 
     return selectBranch(
         workingDirectory,
-        args.remote,
+        false,
         'Select branch to DELETE',
         args.filter
     ).then(branch => {
