@@ -1,4 +1,7 @@
 # ncli
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/Tellios/ncli.svg)](https://greenkeeper.io/)
+
 Nifty commands for personal use used to improve my day-to-day workflow.
 
 Documentation: [https://tellios.github.io/ncli/](https://tellios.github.io/ncli/)
