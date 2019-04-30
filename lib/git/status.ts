@@ -7,17 +7,20 @@ const args = yargsWrapper()
     .option('new', {
         alias: 'n',
         describe: 'Only show new files',
-        type: 'boolean'
+        type: 'boolean',
+        default: false
     })
     .option('modified', {
         alias: 'm',
         describe: 'Only show modified files',
-        type: 'boolean'
+        type: 'boolean',
+        default: false
     })
     .option('deleted', {
         alias: 'd',
         describe: 'Only show deleted files',
-        type: 'boolean'
+        type: 'boolean',
+        default: false
     }).argv;
 
 function getOrIgnore(ignore: boolean, files: string[]) {
