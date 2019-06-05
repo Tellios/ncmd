@@ -24,7 +24,6 @@
     "npush": "./bin/git/push",
     "nupstream": "./bin/git/setUpstream",
     "ndps": "./bin/docker/processes",
-    "ndstatus": "./bin/docker/status",
     "ndrm": "./bin/docker/remove",
     "ndstart": "./bin/docker/start",
     "ndstop": "./bin/docker/stop"
@@ -43,7 +42,6 @@
     "chalk": "^2.4.1",
     "cli-table2": "^0.2.0",
     "concurrently": "^4.0.1",
-    "ervy": "^1.0.2",
     "execa": "^1.0.0",
     "fs-extra": "^8.0.0",
     "inquirer": "^6.2.0",
