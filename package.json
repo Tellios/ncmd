@@ -48,7 +48,7 @@
     "js-yaml": "^3.13.1",
     "lodash": "^4.17.11",
     "readline-sync": "^1.4.9",
-    "yargs": "^13.2.4"
+    "yargs": "^14.0.0"
   },
   "devDependencies": {
     "@types/cli-table2": "^0.2.2",
