@@ -54,7 +54,11 @@
     "@types/cli-table2": "^0.2.2",
     "@types/execa": "^0.9.0",
     "@types/fs-extra": "^8.0.0",
+<<<<<<< HEAD
     "@types/inquirer": "6.5.0",
+=======
+    "@types/inquirer": "6.0.3",
+>>>>>>> ea6d3266a618a487ac42f523ee10fe36aa3dbf6c
     "@types/jest": "^24.0.12",
     "@types/js-yaml": "^3.11.2",
     "@types/lodash": "^4.14.119",
