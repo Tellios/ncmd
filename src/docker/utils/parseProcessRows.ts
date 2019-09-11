@@ -64,7 +64,7 @@ export const parseProcessRows = (processRows: string[]): IProcessRow[] => {
             {}
         );
 
-        processes.push(process as unknown as IProcessRow);
+        processes.push((process as unknown) as IProcessRow);
     });
 
     return processes;
