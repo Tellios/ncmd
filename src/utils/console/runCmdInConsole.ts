@@ -19,7 +19,7 @@ export async function runCmdInConsole(
         });
     } catch (error) {
         if (isExecaError(error)) {
-            throw new CmdError(error.code, error.message, 'Command failed');
+            throw new CmdError(error.exitCode, error.message, 'Command failed');
         }
 
         throw new Error('Command failed with an unknown error');
