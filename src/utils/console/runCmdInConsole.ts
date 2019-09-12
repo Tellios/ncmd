@@ -3,7 +3,7 @@ import * as execa from 'execa';
 import { ExecaError } from 'execa';
 
 function isExecaError(error: any): error is ExecaError {
-    return error.code != null;
+    return error.exitCode != null;
 }
 
 export async function runCmdInConsole(
