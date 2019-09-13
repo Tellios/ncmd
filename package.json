@@ -8,6 +8,7 @@
   },
   "bin": {
     "na": "./bin/alias",
+    "ni": "./bin/node/ni",
     "nr": "./bin/node/nr",
     "nt": "./bin/node/nt",
     "nclone": "./bin/git/clone",

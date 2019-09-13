@@ -1,63 +1,78 @@
+import { parsePackageJson } from '../../src/node';
+import { yargsWrapper, ConsoleInterface } from '../../src/utils';
 import { commandBase } from '../base';
-import { yargsWrapper } from '../../src/utils';
 import {
-    parsePackageJson,
-    executePackageJsonScript,
-    selectScript
-} from '../../src/node';
-import {
-    listPackageJsonScripts,
-    addPackageJsonScript,
-    deletePackageJsonScript,
-    editPackageJsonScript,
-    runScripts,
-    selectScripts
+    installAllPackagesUsingLockFile,
+    uninstallPackages,
+    installPackages,
+    AutoInstallTypingsMode,
+    updatePackages
 } from './subCommands';
 
-const args = yargsWrapper()
-    .option('list', {
-        alias: 'l',
-        describe: 'Lists the available NPM scripts',
-        type: 'boolean'
+const args = yargsWrapper(false)
+    .command('add', 'Install one or more packages', {
+        dev: {
+            alias: 'd',
+            desc: 'All packages after dev will be installed as dev packages'
+        },
+        'auto-types': {
+            alias: 'a',
+            desc: [
+                'Automatically install @types packages for the packages being installed. ',
+                'If autoTypes is provided after the dev flag, ',
+                'they will be installed as dev packages'
+            ].join('')
+        }
     })
-    .option('add', {
-        alias: 'a',
-        describe: 'Add a new NPM script',
-        type: 'boolean'
-    })
-    .option('async', {
-        describe: 'Select multiple NPM scripts to run concurrently'
-    })
-    .option('edit', {
-        alias: 'e',
-        describe: 'Edit an existing NPM script',
-        type: 'boolean'
-    })
-    .option('delete', {
-        alias: 'd',
-        describe: 'Delete an existing NPM script',
-        type: 'boolean'
-    }).argv;
+    .command('del', 'Uninstall one or more packages')
+    .command(
+        'update',
+        'Update one or more packages to the latest version. Packages will be specified using a multiselect list'
+    ).argv;
 
 commandBase(
     async (workingDirectory: string): Promise<any> => {
         const packageJson = await parsePackageJson(workingDirectory);
 
-        if (args.list) {
-            listPackageJsonScripts(packageJson.scripts);
-        } else if (args.add) {
-            await addPackageJsonScript(workingDirectory, packageJson);
-        } else if (args.edit) {
-            await editPackageJsonScript(workingDirectory, packageJson);
-        } else if (args.delete) {
-            await deletePackageJsonScript(workingDirectory, packageJson);
-        } else if (args.async) {
-            await selectScripts(packageJson);
-        } else if (args._ && args._.length > 0) {
-            await runScripts(args._, packageJson);
+        if (args._[0] === 'add') {
+            const addArgs = process.argv.slice(3);
+            const packagesToInstall: string[] = [];
+            const devPackagesToInstall: string[] = [];
+            let devFlag = false;
+            let typingsMode: AutoInstallTypingsMode = 'ignore';
+
+            addArgs.forEach(addArg => {
+                if (addArg === '-da') {
+                    devFlag = true;
+                    typingsMode = 'installAsDev';
+                } else if (addArg === '-ad') {
+                    devFlag = true;
+                    typingsMode = 'install';
+                } else if (addArg === '--dev' || addArg === '-d') {
+                    devFlag = true;
+                } else if (addArg === '--auto-types' || addArg === '-a') {
+                    typingsMode = devFlag ? 'installAsDev' : 'install';
+                } else if (devFlag) {
+                    devPackagesToInstall.push(addArg);
+                } else {
+                    packagesToInstall.push(addArg);
+                }
+            });
+
+            return await installPackages(
+                workingDirectory,
+                packagesToInstall,
+                devPackagesToInstall,
+                typingsMode
+            );
+        } else if (args._[0] === 'del') {
+            return await uninstallPackages(workingDirectory, packageJson);
+        } else if (args._[0] === 'update') {
+            return await updatePackages(workingDirectory, packageJson);
+        } else if (args._.length > 0) {
+            ConsoleInterface.printLine('Unknown command');
         } else {
-            const selectedScript = await selectScript(packageJson.scripts);
-            await executePackageJsonScript(selectedScript, packageJson.scripts);
+            await installAllPackagesUsingLockFile(workingDirectory);
         }
     }
 );
