@@ -18,6 +18,7 @@ Stages all un-staged files, commits the changes, and optionally pushes them to t
 
 | Argument  | Alias | Description |
 | --------- | ----- | ----------- |
+| addAll    | a     | Stage all git changes (git add .) before commit |
 | message   | m     | Commit message |
 | push      | p     | Optional. Push to the remote after commit |
 
