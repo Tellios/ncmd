@@ -35,7 +35,7 @@
     "test:watch": "jest --watchAll --runInBand",
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "build:watch": "rimraf dist && tsc --watch -p tsconfig.build.json",
-    "setup": "npm run pretty && npm run test && npm run build && npm link"
+    "setup": "npm ci && npm run pretty && npm run test && npm run build && npm link"
   },
   "author": "",
   "license": "ISC",
