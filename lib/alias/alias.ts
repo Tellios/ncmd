@@ -16,11 +16,11 @@ const listArg = '--list';
 const listArgShort = '-l';
 
 async function executeCmd(
-    commandText: string | string,
+    cmd: string,
     workingDirectory?: string
 ): Promise<void> {
-    const cmdSplit = commandText.split(' ');
-    
+    const cmdSplit = cmd.split(' ');
+
     return runCmdInConsole(
         cmdSplit[0],
         cmdSplit.slice(1),
@@ -49,7 +49,14 @@ if (args.length === 0) {
         );
 
         const alias = aliases[selectedIndex];
-        await executeCmd(alias.cmd, alias.workingDirectory);
+
+        if (Array.isArray(alias.cmd)) {
+            for (const cmd of alias.cmd) {
+                await executeCmd(cmd, alias.workingDirectory);
+            }
+        } else {
+            await executeCmd(alias.cmd, alias.workingDirectory);
+        }
     });
 } else if (hasListArg()) {
     commandBase(async () => {
@@ -80,16 +87,20 @@ if (args.length === 0) {
         }
 
         const command = parseCommand(matchingAlias.cmd);
-        const commandText = injectArguments(
+        const commandTexts = injectArguments(
             command,
             args.slice(1),
             process.cwd()
         );
 
         if (print) {
-            return ConsoleInterface.printLine(commandText);
+            for (const commandText of commandTexts) {
+                ConsoleInterface.printLine(commandText);
+            }
+        } else {
+            for (const commandText of commandTexts) {
+                await executeCmd(commandText, matchingAlias.workingDirectory);
+            }
         }
-
-        await executeCmd(commandText, matchingAlias.workingDirectory);
     });
 }
