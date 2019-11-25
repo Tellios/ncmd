@@ -1,37 +1,61 @@
 import { colorizeCommand } from '../utils';
+import { IUserArguments } from './parseUserArguments';
 
 export const injectArguments = (
-    command: Alias.ICommand,
-    userArguments: string[],
+    commands: Alias.ICommand[],
+    userArguments: IUserArguments,
     workingDirectory: string
-): string => {
+): string[] => {
+    return commands.map(command =>
+        injectArgumentsIntoCommandText(
+            command.commandText,
+            command.positionalArguments,
+            userArguments,
+            workingDirectory
+        )
+    );
+};
+
+function injectArgumentsIntoCommandText(
+    commandText: string,
+    positionalArguments: string[],
+    userArguments: IUserArguments,
+    workingDirectory: string
+): string {
     if (
-        command.positionalArguments.length > 0 &&
-        userArguments.length < command.positionalArguments.length
+        positionalArguments.length > 0 &&
+        userArguments.positional.length < positionalArguments.length
     ) {
         throw new Error(
             `Some positional arguments are missing: ${colorizeCommand(
-                command.commandText
+                commandText
             )}`
         );
     }
 
-    let commandWithArgs = command.commandText;
+    let commandWithArgs = commandText;
 
-    userArguments.forEach((userArg: string, index: number) => {
-        if (index < command.positionalArguments.length) {
-            const positionalArgument = command.positionalArguments[index];
+    positionalArguments.forEach(posArg => {
+        const userArgumentsIndex = Number(posArg.substr(1)) - 1;
+        const userArg = userArguments.positional[userArgumentsIndex];
 
-            while (commandWithArgs.indexOf(positionalArgument) !== -1) {
-                commandWithArgs = commandWithArgs.replace(
-                    positionalArgument,
-                    userArg
-                );
-            }
-        } else {
-            commandWithArgs += ` ${userArg}`;
+        while (commandWithArgs.indexOf(posArg) !== -1) {
+            commandWithArgs = commandWithArgs.replace(posArg, userArg);
         }
     });
 
+    Object.entries(userArguments.named).forEach(entry => {
+        const [key, value] = entry;
+        const commandKey = `\${${key}}`;
+
+        while (commandWithArgs.indexOf(commandKey) !== -1) {
+            commandWithArgs = commandWithArgs.replace(commandKey, value);
+        }
+    });
+
+    if (userArguments.appended.length > 0) {
+        commandWithArgs += ' ' + userArguments.appended.join(' ');
+    }
+
     return commandWithArgs.replace(/\${cwd}/g, workingDirectory);
-};
+}

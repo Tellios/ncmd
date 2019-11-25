@@ -35,7 +35,7 @@
     "test:watch": "jest --watchAll --runInBand",
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "build:watch": "rimraf dist && tsc --watch -p tsconfig.build.json",
-    "setup": "npm run pretty && npm run test && npm run build && npm link"
+    "setup": "npm ci && npm run pretty && npm run test && npm run build && npm link"
   },
   "author": "",
   "license": "ISC",
@@ -43,13 +43,13 @@
     "chalk": "^2.4.1",
     "cli-table2": "^0.2.0",
     "concurrently": "^5.0.0",
-    "execa": "^2.0.0",
+    "execa": "^3.4.0",
     "fs-extra": "^8.0.0",
     "inquirer": "^7.0.0",
     "js-yaml": "^3.13.1",
     "lodash": "^4.17.11",
     "readline-sync": "^1.4.9",
-    "yargs": "^14.0.0"
+    "yargs": "^15.0.1"
   },
   "devDependencies": {
     "@types/cli-table2": "^0.2.2",
@@ -58,7 +58,7 @@
     "@types/jest": "^24.0.12",
     "@types/js-yaml": "^3.11.2",
     "@types/lodash": "^4.14.119",
-    "@types/node": "^12.0.0",
+    "@types/node": "^12.12.12",
     "@types/readline-sync": "^1.4.3",
     "@types/sinon": "^7.0.11",
     "@types/yargs": "^13.0.0",
