@@ -10,7 +10,7 @@ describe('injectArguments', () => {
                         positionalArguments: ['$1']
                     }
                 ],
-                { positional: [], named: {} },
+                { positional: [], named: {}, appended: [] },
                 '/opt'
             )
         ).toThrowError();
@@ -23,7 +23,7 @@ describe('injectArguments', () => {
                         positionalArguments: ['$1', '$2']
                     }
                 ],
-                { positional: ['1'], named: {} },
+                { positional: ['1'], named: {}, appended: [] },
                 '/opt'
             )
         ).toThrowError();
@@ -37,7 +37,7 @@ describe('injectArguments', () => {
                     positionalArguments: []
                 }
             ],
-            { positional: ['1', '2'], named: {} },
+            { positional: ['1', '2'], named: {}, appended: [] },
             '/opt'
         );
 
@@ -52,7 +52,7 @@ describe('injectArguments', () => {
                     positionalArguments: ['$1', '$2']
                 }
             ],
-            { positional: ['1', '2'], named: {} },
+            { positional: ['1', '2'], named: {}, appended: [] },
             '/opt'
         );
 
@@ -67,7 +67,7 @@ describe('injectArguments', () => {
                     positionalArguments: ['$1', '$3']
                 }
             ],
-            { positional: ['1', '2', '3', '4'], named: {} },
+            { positional: ['1', '2', '3', '4'], named: {}, appended: [] },
             '/opt'
         );
 
@@ -82,7 +82,7 @@ describe('injectArguments', () => {
                     positionalArguments: ['$2']
                 }
             ],
-            { positional: ['1', '2'], named: {} },
+            { positional: ['1', '2'], named: {}, appended: [] },
             '/opt'
         );
 
@@ -105,7 +105,7 @@ describe('injectArguments', () => {
                     positionalArguments: ['$1', '$2']
                 }
             ],
-            { positional: ['1', '2'], named: {} },
+            { positional: ['1', '2'], named: {}, appended: [] },
             '/opt'
         );
 
@@ -128,7 +128,11 @@ describe('injectArguments', () => {
                     positionalArguments: ['$1', '$2']
                 }
             ],
-            { positional: ['1', '2'], named: { name: 'foo', test: 'bar' } },
+            {
+                positional: ['1', '2'],
+                named: { name: 'foo', test: 'bar' },
+                appended: []
+            },
             '/opt'
         );
 
@@ -136,6 +140,37 @@ describe('injectArguments', () => {
             'test /opt --name=foo',
             'echo 2 --test=bar',
             'foo 1 2 /opt --name=foo'
+        ]);
+    });
+
+    it('should handle append arguments', () => {
+        const commandTexts = injectArguments(
+            [
+                {
+                    commandText: 'test ${cwd} --name=${name}',
+                    positionalArguments: []
+                },
+                {
+                    commandText: 'echo $2 --test=${test}',
+                    positionalArguments: ['$2']
+                },
+                {
+                    commandText: 'foo $1 $2 ${cwd} --name=${name}',
+                    positionalArguments: ['$1', '$2']
+                }
+            ],
+            {
+                positional: ['1', '2'],
+                named: { name: 'foo', test: 'bar' },
+                appended: ['install']
+            },
+            '/opt'
+        );
+
+        expect(commandTexts).toEqual([
+            'test /opt --name=foo install',
+            'echo 2 --test=bar install',
+            'foo 1 2 /opt --name=foo install'
         ]);
     });
 });

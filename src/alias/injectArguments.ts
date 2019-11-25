@@ -53,5 +53,9 @@ function injectArgumentsIntoCommandText(
         }
     });
 
+    if (userArguments.appended.length > 0) {
+        commandWithArgs += ' ' + userArguments.appended.join(' ');
+    }
+
     return commandWithArgs.replace(/\${cwd}/g, workingDirectory);
 }

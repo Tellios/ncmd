@@ -1,6 +1,7 @@
 export interface IUserArguments {
     positional: string[];
     named: Record<string, string>;
+    appended: string[];
 }
 
 export class UserArgumentParseError extends Error {
@@ -11,10 +12,19 @@ export class UserArgumentParseError extends Error {
 }
 
 export function parseUserArguments(userArgs: string[]): IUserArguments {
-    const parsedUserArgs: IUserArguments = { positional: [], named: {} };
+    const parsedUserArgs: IUserArguments = {
+        positional: [],
+        named: {},
+        appended: []
+    };
+    let appendArgs = false;
 
     userArgs.forEach(arg => {
-        if (arg.startsWith('--')) {
+        if (arg === '--') {
+            appendArgs = true;
+        } else if (appendArgs) {
+            parsedUserArgs.appended.push(arg);
+        } else if (arg.startsWith('--')) {
             const [key, value] = arg.substring(2).split('=');
 
             if (value === undefined) {

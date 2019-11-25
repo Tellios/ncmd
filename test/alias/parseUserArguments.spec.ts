@@ -8,7 +8,8 @@ describe('parseUserArguments', () => {
         const parsedUserArgs = parseUserArguments(['foo', 'bar']);
         expect(parsedUserArgs).toEqual({
             positional: ['foo', 'bar'],
-            named: {}
+            named: {},
+            appended: []
         });
     });
 
@@ -16,7 +17,8 @@ describe('parseUserArguments', () => {
         const parsedUserArgs = parseUserArguments(['--foo=bar', '--pew=dew']);
         expect(parsedUserArgs).toEqual({
             positional: [],
-            named: { foo: 'bar', pew: 'dew' }
+            named: { foo: 'bar', pew: 'dew' },
+            appended: []
         });
     });
 
@@ -24,7 +26,23 @@ describe('parseUserArguments', () => {
         const parsedUserArgs = parseUserArguments(['--foo=bar', 'dew']);
         expect(parsedUserArgs).toEqual({
             positional: ['dew'],
-            named: { foo: 'bar' }
+            named: { foo: 'bar' },
+            appended: []
+        });
+    });
+
+    it('should handle append args', () => {
+        const parsedUserArgs = parseUserArguments([
+            '--foo=bar',
+            'dew',
+            '--',
+            'install',
+            'test'
+        ]);
+        expect(parsedUserArgs).toEqual({
+            positional: ['dew'],
+            named: { foo: 'bar' },
+            appended: ['install', 'test']
         });
     });
 
@@ -32,7 +50,8 @@ describe('parseUserArguments', () => {
         const parsedUserArgs = parseUserArguments([]);
         expect(parsedUserArgs).toEqual({
             positional: [],
-            named: {}
+            named: {},
+            appended: []
         });
     });
 
