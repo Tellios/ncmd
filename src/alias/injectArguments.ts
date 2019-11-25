@@ -1,8 +1,9 @@
 import { colorizeCommand } from '../utils';
+import { IUserArguments } from './parseUserArguments';
 
 export const injectArguments = (
     commands: Alias.ICommand[],
-    userArguments: string[],
+    userArguments: IUserArguments,
     workingDirectory: string
 ): string[] => {
     return commands.map(command =>
@@ -18,12 +19,12 @@ export const injectArguments = (
 function injectArgumentsIntoCommandText(
     commandText: string,
     positionalArguments: string[],
-    userArguments: string[],
+    userArguments: IUserArguments,
     workingDirectory: string
 ): string {
     if (
         positionalArguments.length > 0 &&
-        userArguments.length < positionalArguments.length
+        userArguments.positional.length < positionalArguments.length
     ) {
         throw new Error(
             `Some positional arguments are missing: ${colorizeCommand(
@@ -32,35 +33,25 @@ function injectArgumentsIntoCommandText(
         );
     }
 
-    // TODO: Rebuild entire command parsing...
-    // Currently we can't handle the case where we have both positional,
-    // and ordinary args since we can't determine which args are ordinary
-    // args for which command
     let commandWithArgs = commandText;
 
     positionalArguments.forEach(posArg => {
         const userArgumentsIndex = Number(posArg.substr(1)) - 1;
-        const userArg = userArguments[userArgumentsIndex];
+        const userArg = userArguments.positional[userArgumentsIndex];
 
         while (commandWithArgs.indexOf(posArg) !== -1) {
             commandWithArgs = commandWithArgs.replace(posArg, userArg);
         }
     });
 
-    // userArguments.forEach((userArg: string, index: number) => {
-    //     if (index < positionalArguments.length) {
-    //         const positionalArgument = positionalArguments[index];
+    Object.entries(userArguments.named).forEach(entry => {
+        const [key, value] = entry;
+        const commandKey = `\${${key}}`;
 
-    //         while (commandWithArgs.indexOf(positionalArgument) !== -1) {
-    //             commandWithArgs = commandWithArgs.replace(
-    //                 positionalArgument,
-    //                 userArg
-    //             );
-    //         }
-    //     } else {
-    //         commandWithArgs += ` ${userArg}`;
-    //     }
-    // });
+        while (commandWithArgs.indexOf(commandKey) !== -1) {
+            commandWithArgs = commandWithArgs.replace(commandKey, value);
+        }
+    });
 
     return commandWithArgs.replace(/\${cwd}/g, workingDirectory);
 }

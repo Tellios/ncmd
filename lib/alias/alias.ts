@@ -5,7 +5,8 @@ import {
     injectArguments,
     parseCommand,
     getAliases,
-    getAliasHelpTableContent
+    getAliasHelpTableContent,
+    parseUserArguments
 } from '../../src/alias';
 import { selectItem } from '../../src/utils';
 import chalk from 'chalk';
@@ -87,9 +88,10 @@ if (args.length === 0) {
         }
 
         const command = parseCommand(matchingAlias.cmd);
+        const userArguments = parseUserArguments(args.slice(1));
         const commandTexts = injectArguments(
             command,
-            args.slice(1),
+            userArguments,
             process.cwd()
         );
 

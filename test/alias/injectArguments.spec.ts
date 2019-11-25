@@ -1,7 +1,7 @@
 import { injectArguments } from '../../src/alias/injectArguments';
 
 describe('injectArguments', () => {
-    it('should throw if arguments are missing', () => {
+    it('should throw if positional arguments are missing', () => {
         expect(() =>
             injectArguments(
                 [
@@ -10,7 +10,7 @@ describe('injectArguments', () => {
                         positionalArguments: ['$1']
                     }
                 ],
-                [],
+                { positional: [], named: {} },
                 '/opt'
             )
         ).toThrowError();
@@ -23,13 +23,13 @@ describe('injectArguments', () => {
                         positionalArguments: ['$1', '$2']
                     }
                 ],
-                ['1'],
+                { positional: ['1'], named: {} },
                 '/opt'
             )
         ).toThrowError();
     });
 
-    it('should return command text with arguments', () => {
+    it('should return command text without arguments if no arguments are specified in command text', () => {
         const commandTexts = injectArguments(
             [
                 {
@@ -37,11 +37,11 @@ describe('injectArguments', () => {
                     positionalArguments: []
                 }
             ],
-            ['1', '2'],
+            { positional: ['1', '2'], named: {} },
             '/opt'
         );
 
-        expect(commandTexts).toEqual(['test 1 2']);
+        expect(commandTexts).toEqual(['test']);
     });
 
     it('should inject positional arguments into command text', () => {
@@ -52,41 +52,41 @@ describe('injectArguments', () => {
                     positionalArguments: ['$1', '$2']
                 }
             ],
-            ['1', '2'],
+            { positional: ['1', '2'], named: {} },
             '/opt'
         );
 
         expect(commandTexts).toEqual(['test 1 2']);
     });
 
-    it('should append normal arguments into command text even with positional arguments', () => {
+    it('should only inject positional arguments that are available in command text', () => {
         const commandTexts = injectArguments(
             [
                 {
-                    commandText: 'test $1 $2',
-                    positionalArguments: ['$1', '$2']
+                    commandText: 'test $1 $3',
+                    positionalArguments: ['$1', '$3']
                 }
             ],
-            ['1', '2', '3', '4'],
+            { positional: ['1', '2', '3', '4'], named: {} },
             '/opt'
         );
 
-        expect(commandTexts).toEqual(['test 1 2 3 4']);
+        expect(commandTexts).toEqual(['test 1 3']);
     });
 
     it('should inject working directory', () => {
         const commandTexts = injectArguments(
             [
                 {
-                    commandText: 'test ${cwd}',
-                    positionalArguments: []
+                    commandText: 'test ${cwd} $2',
+                    positionalArguments: ['$2']
                 }
             ],
-            ['1', '2'],
+            { positional: ['1', '2'], named: {} },
             '/opt'
         );
 
-        expect(commandTexts).toEqual(['test /opt 1 2']);
+        expect(commandTexts).toEqual(['test /opt 2']);
     });
 
     it('should handle multiple commands', () => {
@@ -105,10 +105,37 @@ describe('injectArguments', () => {
                     positionalArguments: ['$1', '$2']
                 }
             ],
-            ['1', '2'],
+            { positional: ['1', '2'], named: {} },
             '/opt'
         );
 
-        expect(commandTexts).toEqual(['test /opt 1 2', 'echo 2', 'foo 1 2 /opt']);
+        expect(commandTexts).toEqual(['test /opt', 'echo 2', 'foo 1 2 /opt']);
+    });
+
+    it('should handle both named and positional arguments', () => {
+        const commandTexts = injectArguments(
+            [
+                {
+                    commandText: 'test ${cwd} --name=${name}',
+                    positionalArguments: []
+                },
+                {
+                    commandText: 'echo $2 --test=${test}',
+                    positionalArguments: ['$2']
+                },
+                {
+                    commandText: 'foo $1 $2 ${cwd} --name=${name}',
+                    positionalArguments: ['$1', '$2']
+                }
+            ],
+            { positional: ['1', '2'], named: { name: 'foo', test: 'bar' } },
+            '/opt'
+        );
+
+        expect(commandTexts).toEqual([
+            'test /opt --name=foo',
+            'echo 2 --test=bar',
+            'foo 1 2 /opt --name=foo'
+        ]);
     });
 });
