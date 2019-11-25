@@ -42,7 +42,7 @@
   "dependencies": {
     "chalk": "^2.4.1",
     "cli-table2": "^0.2.0",
-    "concurrently": "^4.0.1",
+    "concurrently": "^5.0.0",
     "execa": "^3.4.0",
     "fs-extra": "^8.0.0",
     "inquirer": "^7.0.0",
