@@ -5,7 +5,7 @@ declare namespace Alias {
 
     interface IAlias {
         name: string;
-        cmd: string;
+        cmd: string | string[];
         description?: string;
         workingDirectory?: string;
     }

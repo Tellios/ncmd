@@ -1,4 +1,4 @@
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 import { Chalk } from 'chalk';
 import { ContainerStatus } from './ContainerStatus';
 import { IDockerContainer } from './IDockerContainer';

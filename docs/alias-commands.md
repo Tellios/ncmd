@@ -19,6 +19,11 @@ aliases:
     description: This is my description
     # You can also provide an optional working directory if you want the command to be executed in another directory than where the alias is executed
     workingDirectory: /some/directory/path
+  - name: multiline
+    # cmd property can also be an array
+    cmd:
+      - do --this
+      - do --that
 ```
 
 With the file above you can then invoke aliases like this:
@@ -54,7 +59,9 @@ na --print dprune --volumes
 docker system prune --all --volumes
 ```
 
-## Positional arguments
+## Arguments
+
+### Positional
 Commands can also have positional arguments and are defined by a `$` followed by a number. The number indicates the order the arguments will be injected in. Multiple positional arguments can therefore be combined. A positional argument can also be repeated multiple times in the command.
 
 ```yaml
@@ -73,13 +80,7 @@ na my-alias
 na my-alias --my-arg
 ```
 
-Positional arguments can still be combined with ordinary arguments:
-
-```bash
-na my-alias --my-positional-arg --my-ordinary-arg
-```
-
-## Examples
+#### Examples
 
 ```yaml
 aliases:
@@ -91,4 +92,42 @@ aliases:
   # Triggerd by running na npm 8.9.4 install
   - name: npm-v
     cmd: docker run --rm -w /opt/workdir -v ${cwd}/:/opt/workdir node:$1-alpine npm
+```
+
+### Named
+Instead of relying on positional arguments, you can also rely on named arguments to make them easier to remember/understand.
+
+So if we wanted to insert a node version into a docker script like the one below:
+
+```yaml
+aliases:
+  - name: npm
+    cmd: docker run --rm -w /opt/workdir -v ${cwd}/:/opt/workdir node:${nodeVersion}-alpine npm
+  #                                      Argument name provided here: ^^^^^^^^^^^^^^
+```
+
+We would trigger it like this:
+
+```bash
+na npm --nodeVersion=10.12
+```
+
+#### Built-in named parameters
+Some named parameters are provied out-of-the-box and do not need to be provided when using an alias on the command-line.
+
+| Name       | Description                    |
+| ---------- | ------------------------------ |
+| `${cwd}`   | Injects the current working directory |
+
+### Appended
+In some cases you may want to append whatever argument you are typing into the command. To do this you can use `--` after all other arguments followed by the arguments you want to append directly to the command.
+
+#### Examples
+
+```bash
+na npm -- install --save-dev typescript
+```
+
+```bash
+na npm positionalArg --named=${arg} -- --appended-arg
 ```
