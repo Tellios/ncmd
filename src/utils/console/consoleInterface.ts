@@ -1,6 +1,6 @@
 import * as readline from 'readline-sync';
 import * as Table from 'cli-table2';
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 
 export const Type = {
     log: 1,

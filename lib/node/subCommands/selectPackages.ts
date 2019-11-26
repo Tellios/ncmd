@@ -1,4 +1,4 @@
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 import { selectItems } from '../../../src/utils';
 
 export async function selectPackages(packageJson: NcliNode.PackageJson) {

@@ -40,7 +40,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "chalk": "^2.4.1",
+    "chalk": "^3.0.0",
     "cli-table2": "^0.2.0",
     "concurrently": "^5.0.0",
     "execa": "^3.4.0",

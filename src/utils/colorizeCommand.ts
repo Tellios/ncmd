@@ -1,7 +1,7 @@
 import { positionalArgsRegexProvider } from './positionalArgsRegexProvider';
 import { namedArgsRegexProvider } from './namedArgsRegexProvider';
 import { dashArgsRegexProvider } from './dashArgsRegexProvider';
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 
 export const colorizeCommand = (commandText: string) => {
     const cmdSplit = commandText.split(' ');

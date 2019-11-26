@@ -9,7 +9,7 @@ import {
     parseUserArguments
 } from '../../src/alias';
 import { selectItem } from '../../src/utils';
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 
 const args = process.argv.slice(2);
 const printArg = '--print';

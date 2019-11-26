@@ -1,6 +1,6 @@
 import { commandBase } from '../base';
 import { yargsWrapper, ConsoleInterface } from '../../src/utils';
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 import { getStatus, IGitStatus } from '../../src/git';
 
 const args = yargsWrapper()

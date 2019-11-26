@@ -1,4 +1,4 @@
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 import { IBranch } from './IBranch';
 
 export const branchNameColoring = (branches: IBranch[]): string[] => {
