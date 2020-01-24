@@ -10,6 +10,7 @@ import {
 } from '../../src/alias';
 import { selectItem } from '../../src/utils';
 import * as chalk from 'chalk';
+import inquirer = require('inquirer');
 
 const args = process.argv.slice(2);
 const printArg = '--print';
@@ -68,6 +69,28 @@ if (args.length === 0) {
             ConsoleInterface.printLine(chalk.bold(alias.name), Type.log);
             ConsoleInterface.printVerticalTable(helpContent);
         });
+    });
+} else if (args[0] == 'i') {
+    commandBase(async () => {
+        const result = await inquirer.prompt([
+            {
+                type: 'input',
+                name: 'your-arg',
+                validate: (input: string) => {
+                    if (/\s/g.test(input)) {
+                        return "Parameter can't contain whitespace";
+                    }
+
+                    if (input.length === 0) {
+                        return "Parameter can't be empty";
+                    }
+
+                    return true;
+                }
+            }
+        ]);
+
+        console.log(result);
     });
 } else {
     commandBase(async () => {
