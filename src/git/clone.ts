@@ -1,7 +1,16 @@
 import { runCmdInConsole } from '../utils/console/runCmdInConsole';
 
+const GIT_URL_SUFFIX = '.git';
+
 function getDirectoryNameFromUrl(url: string) {
-    return url.substr(url.lastIndexOf('/') + 1);
+    const directoryName = url.substr(url.lastIndexOf('/') + 1);
+
+    return directoryName.endsWith(GIT_URL_SUFFIX)
+        ? directoryName.substring(
+              0,
+              directoryName.length - GIT_URL_SUFFIX.length
+          )
+        : directoryName;
 }
 
 export const clone = (
