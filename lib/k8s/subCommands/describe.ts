@@ -14,7 +14,11 @@ const selectableTypes: (keyof IDescribeScriptParams)[] = [
 ];
 
 interface IDeployment {
-    foo: string;
+    name: string;
+    ready: string;
+    upToDate: string;
+    available: string;
+    age: string;
 }
 
 interface IPod {
@@ -26,7 +30,12 @@ interface IPod {
 }
 
 interface IService {
-    foo: string;
+    name: string;
+    type: string;
+    clusterIp: string;
+    externalIp: string;
+    ports: string; // column actually named "PORT(S)", parser needs to handle this
+    age: string;
 }
 
 export async function describeScript({
