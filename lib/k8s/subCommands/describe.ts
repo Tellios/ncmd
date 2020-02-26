@@ -1,5 +1,10 @@
-import { selectItem, parseCliTable } from '../../../src/utils';
-import { getResources } from '../../../src/k8s';
+import { selectItem } from '../../../src/utils';
+import {
+    ResourceType,
+    selectResource,
+    getResources,
+    describeResource
+} from '../../../src/k8s';
 
 export interface IDescribeScriptParams {
     deployment?: boolean;
@@ -7,62 +12,31 @@ export interface IDescribeScriptParams {
     service?: boolean;
 }
 
-const selectableTypes: (keyof IDescribeScriptParams)[] = [
-    'deployment',
-    'pod',
-    'service'
-];
+const mapParamToType: Record<keyof IDescribeScriptParams, ResourceType> = {
+    deployment: 'deployment',
+    pod: 'pod',
+    service: 'service'
+};
 
-interface IDeployment {
-    name: string;
-    ready: string;
-    upToDate: string;
-    available: string;
-    age: string;
-}
+const selectableTypes = Object.keys(mapParamToType);
 
-interface IPod {
-    name: string;
-    ready: string;
-    status: string;
-    restarts: string;
-    age: string;
-}
+export async function describeScript(
+    params: IDescribeScriptParams
+): Promise<void> {
+    const type = Object.entries(params)
+        .filter(([_, value]) => value === true)
+        .map(([key]) => key)[0] as ResourceType | undefined;
 
-interface IService {
-    name: string;
-    type: string;
-    clusterIp: string;
-    externalIp: string;
-    ports: string; // column actually named "PORT(S)", parser needs to handle this
-    age: string;
-}
-
-export async function describeScript({
-    deployment,
-    pod,
-    service
-}: IDescribeScriptParams): Promise<void> {
-    if (deployment) {
-        const resources = await getResources('deployment');
-        const deployments = parseCliTable<IDeployment>(resources);
-        console.log(deployments);
-    } else if (pod) {
-        const resources = await getResources('pod');
-        const pods = parseCliTable<IPod>(resources);
-        console.log(pods);
-    } else if (service) {
-        const resources = await getResources('service');
-        const services = parseCliTable<IService>(resources);
-        console.log(services);
-    } else {
+    if (type === undefined) {
         const index = await selectItem(
             selectableTypes,
             'Select resource type to describe'
         );
 
-        if (index >= 0) {
-            await describeScript({ [selectableTypes[index]]: true });
-        }
+        return await describeScript({ [selectableTypes[index]]: true });
     }
+
+    const resources = await getResources(type);
+    const resource = await selectResource(resources);
+    await describeResource(type, resource.name);
 }

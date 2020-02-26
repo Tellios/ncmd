@@ -1,6 +1,7 @@
 import { EOL } from 'os';
 import { ResourceType } from './ResourceType';
-import { getCmdResult } from '../utils';
+import { getCmdResult, parseCliTable } from '../utils';
+import { IResource } from './IResource';
 
 const resourceTypeCommands: Record<ResourceType, string[]> = {
     deployment: ['get', 'deployments'],
@@ -8,7 +9,11 @@ const resourceTypeCommands: Record<ResourceType, string[]> = {
     service: ['get', 'services']
 };
 
-export const getResources = async (type: ResourceType): Promise<string[]> => {
+export const getResources = async <T = IResource>(
+    type: ResourceType
+): Promise<T[]> => {
     const res = await getCmdResult('kubectl', resourceTypeCommands[type]);
-    return res.split(EOL);
+    const rows = res.split(EOL);
+
+    return parseCliTable<T>(rows);
 };
