@@ -4,6 +4,7 @@ export * from './consoleInterface';
 export * from './editString';
 export * from './getCmdResult';
 export * from './inputString';
+export * from './parseCliTable';
 export * from './runCmdInConsole';
 export * from './selectItem';
 export * from './selectItems';

@@ -27,7 +27,8 @@
     "ndps": "./bin/docker/processes",
     "ndrm": "./bin/docker/remove",
     "ndstart": "./bin/docker/start",
-    "ndstop": "./bin/docker/stop"
+    "ndstop": "./bin/docker/stop",
+    "nk": "./bin/nk"
   },
   "scripts": {
     "pretty": "prettier --config .prettierrc.json --write \"{lib,src}/**/*.ts\"",
@@ -70,17 +71,6 @@
     "typescript": "^3.7.5"
   },
   "jest": {
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ]
+    "preset": "ts-jest"
   }
 }
