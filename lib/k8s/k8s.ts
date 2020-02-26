@@ -1,30 +1,51 @@
+import { Options } from 'yargs';
 import { commandBase } from '../base';
 import { yargsWrapper } from '../../src/utils';
-import { describeScript } from './subCommands';
+import { IResolveResourceTypeParams, ResourceType } from '../../src/k8s';
+import { describeScript, listScript } from './subCommands';
 
-const args = yargsWrapper().command('desc', 'Describe a k8s resource', {
+const selectResourceArgs: Record<ResourceType, Options> = {
     deployment: {
         alias: 'd',
-        desc: 'Describe a specific deployment'
+        desc: 'Quick select deployment(s) as target for the command'
     },
     pod: {
         alias: 'p',
-        desc: 'Describe a specific pod'
+        desc: 'Quick select pod(s) as target for the command'
     },
     service: {
         alias: 's',
-        desc: 'Describe a specific service'
+        desc: 'Quick select service(s) as target for the command'
+    },
+    ingress: {
+        alias: 'i',
+        desc: 'Quick select ingress(es) as target for the command'
     }
-}).argv;
+};
+
+const yargs = yargsWrapper()
+    .command('desc', 'Describe a k8s resource', selectResourceArgs)
+    .command('ls', 'List k8s resources', selectResourceArgs);
+
+const args = yargs.argv;
+
+const type: IResolveResourceTypeParams = {
+    deployment: args.deployment === true,
+    pod: args.pod === true,
+    service: args.service === true,
+    ingress: args.ingress === true
+};
+
+const cmd = args._[0];
 
 commandBase(
     async (): Promise<any> => {
-        if (args._[0] === 'desc') {
-            await describeScript({
-                deployment: args.deployment === true,
-                pod: args.pod === true,
-                service: args.service === true
-            });
+        if (cmd === 'desc') {
+            await describeScript({ type });
+        } else if (cmd === 'ls') {
+            await listScript({ type });
+        } else {
+            yargs.showHelp();
         }
     }
 );

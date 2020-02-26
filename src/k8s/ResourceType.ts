@@ -1,1 +1,1 @@
-export type ResourceType = 'deployment' | 'pod' | 'service';
+export type ResourceType = 'deployment' | 'pod' | 'service' | 'ingress';

@@ -6,7 +6,8 @@ import { IResource } from './IResource';
 const resourceTypeCommands: Record<ResourceType, string[]> = {
     deployment: ['get', 'deployments'],
     pod: ['get', 'pods'],
-    service: ['get', 'services']
+    service: ['get', 'services'],
+    ingress: ['get', 'ingresses']
 };
 
 export const getResources = async <T = IResource>(

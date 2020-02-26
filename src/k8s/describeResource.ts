@@ -4,7 +4,8 @@ import { runCmdInConsole } from '../utils';
 const resourceTypeCommands: Record<ResourceType, string[]> = {
     deployment: ['describe', 'deployment'],
     pod: ['describe', 'pod'],
-    service: ['describe', 'service']
+    service: ['describe', 'service'],
+    ingress: ['describe', 'ingress']
 };
 
 export const describeResource = async (
