@@ -1,6 +1,6 @@
 import { Options } from 'yargs';
 import { commandBase } from '../base';
-import { yargsWrapper } from '../../src/utils';
+import { yargsWrapper, selectItem } from '../../src/utils';
 import { IResolveResourceTypeParams, ResourceType } from '../../src/k8s';
 import { describeScript, listScript } from './subCommands';
 
@@ -23,9 +23,16 @@ const selectResourceArgs: Record<ResourceType, Options> = {
     }
 };
 
-const yargs = yargsWrapper()
-    .command('desc', 'Describe a k8s resource', selectResourceArgs)
-    .command('ls', 'List k8s resources', selectResourceArgs);
+const commands: Record<string, string> = {
+    desc: 'Describe a k8s resource',
+    ls: 'List k8s resources'
+};
+
+const yargs = yargsWrapper();
+
+Object.entries(commands).forEach(([cmd, desc]) => {
+    yargs.command(cmd, desc, selectResourceArgs);
+});
 
 const args = yargs.argv;
 
@@ -36,16 +43,31 @@ const type: IResolveResourceTypeParams = {
     ingress: args.ingress === true
 };
 
-const cmd = args._[0];
+const runCommandIfMatch = async (cmd: string) => {
+    if (cmd === 'desc') {
+        await describeScript({ type });
+    } else if (cmd === 'ls') {
+        await listScript({ type });
+    } else {
+        return false;
+    }
+
+    return true;
+};
 
 commandBase(
     async (): Promise<any> => {
-        if (cmd === 'desc') {
-            await describeScript({ type });
-        } else if (cmd === 'ls') {
-            await listScript({ type });
-        } else {
-            yargs.showHelp();
+        if (!(await runCommandIfMatch(args._[0]))) {
+            const commandEntries = Object.entries(commands);
+            const commandTexts = commandEntries.map(
+                ([key, desc]) => `${key} - ${desc}`
+            );
+            const index = await selectItem(
+                commandTexts,
+                'Select command to execute'
+            );
+            const selectedCommand = commandEntries[index][0];
+            await runCommandIfMatch(selectedCommand);
         }
     }
 );
