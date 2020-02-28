@@ -2,7 +2,7 @@ import { Options } from 'yargs';
 import { commandBase } from '../base';
 import { yargsWrapper, selectItem } from '../../src/utils';
 import { IResolveResourceTypeParams, ResourceType } from '../../src/k8s';
-import { describeScript, listScript } from './subCommands';
+import { describeScript, listScript, contextScript } from './subCommands';
 
 const selectResourceArgs: Record<ResourceType, Options> = {
     deployment: {
@@ -23,15 +23,20 @@ const selectResourceArgs: Record<ResourceType, Options> = {
     }
 };
 
-const commands: Record<string, string> = {
-    desc: 'Describe a k8s resource',
-    ls: 'List k8s resources'
+const commands: Record<string, { desc: string; useResourceArgs: boolean }> = {
+    desc: { desc: 'Describe a k8s resource', useResourceArgs: true },
+    ls: { desc: 'List k8s resources', useResourceArgs: true },
+    ctx: { desc: 'Switch k8s context', useResourceArgs: false }
 };
 
 const yargs = yargsWrapper();
 
-Object.entries(commands).forEach(([cmd, desc]) => {
-    yargs.command(cmd, desc, selectResourceArgs);
+Object.entries(commands).forEach(([cmd, config]) => {
+    yargs.command(
+        cmd,
+        config.desc,
+        config.useResourceArgs ? selectResourceArgs : undefined
+    );
 });
 
 const args = yargs.argv;
@@ -48,6 +53,8 @@ const runCommandIfMatch = async (cmd: string) => {
         await describeScript({ type });
     } else if (cmd === 'ls') {
         await listScript({ type });
+    } else if (cmd === 'ctx') {
+        await contextScript();
     } else {
         return false;
     }
@@ -60,7 +67,7 @@ commandBase(
         if (!(await runCommandIfMatch(args._[0]))) {
             const commandEntries = Object.entries(commands);
             const commandTexts = commandEntries.map(
-                ([key, desc]) => `${key} - ${desc}`
+                ([key, config]) => `${key} - ${config.desc}`
             );
             const index = await selectItem(
                 commandTexts,

@@ -1,5 +1,7 @@
 export * from './describeResource';
+export * from './getAvailableContexts';
 export * from './getResources';
+export * from './IContext';
 export * from './IDeployment';
 export * from './IIngress';
 export * from './IPod';
@@ -8,3 +10,4 @@ export * from './IService';
 export * from './resolveResourceType';
 export * from './ResourceType';
 export * from './selectResource';
+export * from './useContext';
