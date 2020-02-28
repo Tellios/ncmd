@@ -1,4 +1,3 @@
-import * as readline from 'readline-sync';
 import * as Table from 'cli-table2';
 import * as chalk from 'chalk';
 
@@ -23,7 +22,7 @@ export class ConsoleInterface {
                 console.error(line);
                 break;
             default:
-                throw `Invalid log type: ${type}`;
+                throw Error(`Invalid log type: ${type}`);
         }
     }
 

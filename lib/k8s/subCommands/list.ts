@@ -14,7 +14,10 @@ export async function listScript(params: IListScriptParams): Promise<void> {
     const resources = await getResources(type);
 
     if (resources.length === 0) {
-        ConsoleInterface.printLine(`No ${type} resources available in context`);
+        ConsoleInterface.printLine(
+            `No ${type} resources available in current context`
+        );
+        return;
     }
 
     const columns = Object.keys(resources[0]);
