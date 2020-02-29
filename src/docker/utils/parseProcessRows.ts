@@ -4,68 +4,68 @@ const delimiterRegex = /\s{2,100}/g;
 const splitDelimiter = '[________]';
 
 function getRowColumns(row: string): string[] {
-    return row.replace(delimiterRegex, splitDelimiter).split(splitDelimiter);
+  return row.replace(delimiterRegex, splitDelimiter).split(splitDelimiter);
 }
 
 function hasPortColumn(dataColumns: string[]): boolean {
-    return dataColumns.length === 7;
+  return dataColumns.length === 7;
 }
 
 export interface IProcessRow {
-    containerId: string;
-    names: string;
-    image: string;
-    command: string;
-    created: string;
-    status: string;
-    ports: string | null;
+  containerId: string;
+  names: string;
+  image: string;
+  command: string;
+  created: string;
+  status: string;
+  ports: string | null;
 }
 
 export const parseProcessRows = (processRows: string[]): IProcessRow[] => {
-    if (
-        !Array.isArray(processRows) ||
-        processRows.length <= 1 ||
-        processRows[1].length === 0
-    ) {
-        return [];
+  if (
+    !Array.isArray(processRows) ||
+    processRows.length <= 1 ||
+    processRows[1].length === 0
+  ) {
+    return [];
+  }
+
+  const columnRow = processRows[0];
+  const dataRows = processRows.slice(1);
+
+  const columnNames = getRowColumns(columnRow).map(column =>
+    _.camelCase(column)
+  );
+
+  const processes: IProcessRow[] = [];
+
+  dataRows.forEach(row => {
+    if (row.length === 0) {
+      return;
     }
 
-    const columnRow = processRows[0];
-    const dataRows = processRows.slice(1);
+    const dataColumns = getRowColumns(row);
+    let currentDataColumn = 0;
 
-    const columnNames = getRowColumns(columnRow).map(column =>
-        _.camelCase(column)
-    );
-
-    const processes: IProcessRow[] = [];
-
-    dataRows.forEach(row => {
-        if (row.length === 0) {
-            return;
+    const process = columnNames.reduce(
+      (process: Record<string, string | null>, columnName: string) => {
+        if (columnName === 'ports' && !hasPortColumn(dataColumns)) {
+          process[columnName] = null;
+          return process;
         }
 
-        const dataColumns = getRowColumns(row);
-        let currentDataColumn = 0;
+        const columnData = dataColumns[currentDataColumn];
 
-        const process = columnNames.reduce(
-            (process: Record<string, string | null>, columnName: string) => {
-                if (columnName === 'ports' && !hasPortColumn(dataColumns)) {
-                    process[columnName] = null;
-                    return process;
-                }
+        process[columnName] = columnData;
+        currentDataColumn++;
 
-                const columnData = dataColumns[currentDataColumn];
+        return process;
+      },
+      {}
+    );
 
-                process[columnName] = columnData;
-                currentDataColumn++;
+    processes.push((process as unknown) as IProcessRow);
+  });
 
-                return process;
-            },
-            {}
-        );
-
-        processes.push((process as unknown) as IProcessRow);
-    });
-
-    return processes;
+  return processes;
 };

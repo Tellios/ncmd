@@ -7,19 +7,19 @@ import { push } from './push';
  * steps needed to select proper configurations and such.
  */
 export const commit = (
-    workingDirectory: string,
-    message: string,
-    pushCommit: boolean
+  workingDirectory: string,
+  message: string,
+  pushCommit: boolean
 ): Promise<void> => {
-    return runCmdInConsole('git', ['commit', '-m', message])
-        .then(() => {
-            if (pushCommit) {
-                return push(workingDirectory);
-            }
+  return runCmdInConsole('git', ['commit', '-m', message])
+    .then(() => {
+      if (pushCommit) {
+        return push(workingDirectory);
+      }
 
-            return Promise.resolve();
-        })
-        .catch(() => {
-            throw new Error('Commit action failed');
-        });
+      return Promise.resolve();
+    })
+    .catch(() => {
+      throw new Error('Commit action failed');
+    });
 };

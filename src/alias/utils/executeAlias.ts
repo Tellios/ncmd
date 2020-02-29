@@ -6,24 +6,24 @@ import { injectArguments } from './injectArguments';
 import { executeCmd } from './executeCommand';
 
 export const executeAlias = async (
-    alias: Alias.IAlias,
-    print: boolean,
-    args: string[]
+  alias: Alias.IAlias,
+  print: boolean,
+  args: string[]
 ) => {
-    const command = parseCommand(alias.cmd);
-    const userArguments = await resolveMissingArguments(
-        alias,
-        parseUserArguments(args)
-    );
-    const commandTexts = injectArguments(command, userArguments, process.cwd());
+  const command = parseCommand(alias.cmd);
+  const userArguments = await resolveMissingArguments(
+    alias,
+    parseUserArguments(args)
+  );
+  const commandTexts = injectArguments(command, userArguments, process.cwd());
 
-    if (print) {
-        for (const commandText of commandTexts) {
-            ConsoleInterface.printLine(commandText);
-        }
-    } else {
-        for (const commandText of commandTexts) {
-            await executeCmd(commandText, alias.workingDirectory);
-        }
+  if (print) {
+    for (const commandText of commandTexts) {
+      ConsoleInterface.printLine(commandText);
     }
+  } else {
+    for (const commandText of commandTexts) {
+      await executeCmd(commandText, alias.workingDirectory);
+    }
+  }
 };

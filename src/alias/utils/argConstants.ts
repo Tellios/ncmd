@@ -1,5 +1,5 @@
 export const argConstants = {
-    printArg: '--print',
-    listArg: '--list',
-    listArgShort: '-l'
+  printArg: '--print',
+  listArg: '--list',
+  listArgShort: '-l'
 };

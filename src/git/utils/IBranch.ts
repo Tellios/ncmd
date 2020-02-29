@@ -1,5 +1,5 @@
 export interface IBranch {
-    name: string;
-    isRemote: boolean;
-    isCurrent: boolean;
+  name: string;
+  isRemote: boolean;
+  isCurrent: boolean;
 }

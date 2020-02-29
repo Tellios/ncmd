@@ -1,8 +1,8 @@
 export type ContainerStatus =
-    | 'created'
-    | 'restarting'
-    | 'running'
-    | 'removing'
-    | 'paused'
-    | 'exited'
-    | 'dead';
+  | 'created'
+  | 'restarting'
+  | 'running'
+  | 'removing'
+  | 'paused'
+  | 'exited'
+  | 'dead';

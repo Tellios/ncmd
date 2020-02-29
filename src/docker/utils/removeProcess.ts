@@ -1,16 +1,16 @@
 import { runCmdInConsole } from '../../common';
 
 export const removeProcess = (
-    force: boolean,
-    processId: string
+  force: boolean,
+  processId: string
 ): Promise<void> => {
-    const args = ['rm'];
+  const args = ['rm'];
 
-    if (force === true) {
-        args.push('-f');
-    }
+  if (force === true) {
+    args.push('-f');
+  }
 
-    args.push(processId);
+  args.push(processId);
 
-    return runCmdInConsole('docker', args);
+  return runCmdInConsole('docker', args);
 };

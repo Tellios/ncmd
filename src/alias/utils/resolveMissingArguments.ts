@@ -4,161 +4,159 @@ import { IUserArguments } from './parseUserArguments';
 import { builtInArguments } from './builtInArguments';
 
 export const resolveMissingArguments = async (
-    alias: Alias.IAlias,
-    userArguments: IUserArguments
+  alias: Alias.IAlias,
+  userArguments: IUserArguments
 ): Promise<IUserArguments> => {
-    const commands = getAliasCommands(alias);
+  const commands = getAliasCommands(alias);
 
-    const requestedPositionalArguments = await getMissingPositonalArguments(
-        commands,
-        userArguments
-    );
+  const requestedPositionalArguments = await getMissingPositonalArguments(
+    commands,
+    userArguments
+  );
 
-    const requestedNamedArguments = await getMissingNamedArguments(
-        commands,
-        userArguments
-    );
+  const requestedNamedArguments = await getMissingNamedArguments(
+    commands,
+    userArguments
+  );
 
-    const newUserArguments = cloneDeep(userArguments);
-    newUserArguments.named = {
-        ...newUserArguments.named,
-        ...requestedNamedArguments
-    };
-    newUserArguments.positional = [
-        ...newUserArguments.positional,
-        ...requestedPositionalArguments
-    ];
+  const newUserArguments = cloneDeep(userArguments);
+  newUserArguments.named = {
+    ...newUserArguments.named,
+    ...requestedNamedArguments
+  };
+  newUserArguments.positional = [
+    ...newUserArguments.positional,
+    ...requestedPositionalArguments
+  ];
 
-    return newUserArguments;
+  return newUserArguments;
 };
 
 const getAliasCommands = (alias: Alias.IAlias): string[] => {
-    return Array.isArray(alias.cmd) ? alias.cmd : [alias.cmd];
+  return Array.isArray(alias.cmd) ? alias.cmd : [alias.cmd];
 };
 
 const getMissingNamedArguments = async (
-    commands: string[],
-    userArguments: IUserArguments
+  commands: string[],
+  userArguments: IUserArguments
 ) => {
-    const namedArguments = getNamedArgumentsFromCommands(commands);
-    const missingNamedArguments = getNamedArgumentsMissingInUserArguments(
-        userArguments,
-        namedArguments
-    );
-    return await requestMissingNamedArguments(missingNamedArguments);
+  const namedArguments = getNamedArgumentsFromCommands(commands);
+  const missingNamedArguments = getNamedArgumentsMissingInUserArguments(
+    userArguments,
+    namedArguments
+  );
+  return await requestMissingNamedArguments(missingNamedArguments);
 };
 
 const getMissingPositonalArguments = async (
-    commands: string[],
-    userArguments: IUserArguments
+  commands: string[],
+  userArguments: IUserArguments
 ) => {
-    const positionalArguments = getPositionalArgumentsFromCommands(commands);
-    const missingPositionalArguments = getPositionalArgumentsMissingInUserArguments(
-        userArguments,
-        positionalArguments
-    );
+  const positionalArguments = getPositionalArgumentsFromCommands(commands);
+  const missingPositionalArguments = getPositionalArgumentsMissingInUserArguments(
+    userArguments,
+    positionalArguments
+  );
 
-    return await requestMissingPositionalArguments(missingPositionalArguments);
+  return await requestMissingPositionalArguments(missingPositionalArguments);
 };
 
 const getNamedArgumentsFromCommands = (commands: string[]): string[] => {
-    return commands
-        .map(c => c.match(/\${([a-z])*}/gi))
-        .reduce(appendArgumentIfUnique, [])
-        .map(extractArgumentName);
+  return commands
+    .map(c => c.match(/\${([a-z])*}/gi))
+    .reduce(appendArgumentIfUnique, [])
+    .map(extractArgumentName);
 };
 
 const getPositionalArgumentsFromCommands = (commands: string[]): string[] => {
-    return commands
-        .map(c => c.match(/\$\d+/gi))
-        .reduce(appendArgumentIfUnique, [])
-        .map(a => a.substring(1))
-        .sort();
+  return commands
+    .map(c => c.match(/\$\d+/gi))
+    .reduce(appendArgumentIfUnique, [])
+    .map(a => a.substring(1))
+    .sort();
 };
 
 const appendArgumentIfUnique = (
-    acc: string[],
-    current: RegExpMatchArray | null
+  acc: string[],
+  current: RegExpMatchArray | null
 ) => {
-    current?.forEach(match => {
-        if (!acc.includes(match)) {
-            acc.push(match);
-        }
-    });
+  current?.forEach(match => {
+    if (!acc.includes(match)) {
+      acc.push(match);
+    }
+  });
 
-    return acc;
+  return acc;
 };
 
 const extractArgumentName = (argument: string): string =>
-    argument.substring(2, argument.length - 1);
+  argument.substring(2, argument.length - 1);
 
 const getNamedArgumentsMissingInUserArguments = (
-    userArguments: IUserArguments,
-    expectedArguments: string[]
+  userArguments: IUserArguments,
+  expectedArguments: string[]
 ): string[] => {
-    return expectedArguments.filter(commandArgument => {
-        return (
-            !(commandArgument in userArguments.named) &&
-            !builtInArguments.includes(commandArgument)
-        );
-    });
+  return expectedArguments.filter(commandArgument => {
+    return (
+      !(commandArgument in userArguments.named) &&
+      !builtInArguments.includes(commandArgument)
+    );
+  });
 };
 
 const getPositionalArgumentsMissingInUserArguments = (
-    userArguments: IUserArguments,
-    expectedArguments: string[]
+  userArguments: IUserArguments,
+  expectedArguments: string[]
 ): string[] => {
-    const missingArgumentCount = Math.abs(
-        userArguments.positional.length - expectedArguments.length
-    );
+  const missingArgumentCount = Math.abs(
+    userArguments.positional.length - expectedArguments.length
+  );
 
-    return expectedArguments.slice(
-        expectedArguments.length - missingArgumentCount
-    );
+  return expectedArguments.slice(
+    expectedArguments.length - missingArgumentCount
+  );
 };
 
 const requestMissingNamedArguments = async (
-    missingArguments: string[]
+  missingArguments: string[]
 ): Promise<Record<string, string>> => {
-    const requestedArguments: Record<string, string> = {};
+  const requestedArguments: Record<string, string> = {};
 
-    for (const missingArgument of missingArguments) {
-        requestedArguments[missingArgument] = await requestArgumentUsingConsole(
-            missingArgument
-        );
-    }
+  for (const missingArgument of missingArguments) {
+    requestedArguments[missingArgument] = await requestArgumentUsingConsole(
+      missingArgument
+    );
+  }
 
-    return requestedArguments;
+  return requestedArguments;
 };
 
 const requestMissingPositionalArguments = async (
-    missingPositionalArguments: string[]
+  missingPositionalArguments: string[]
 ): Promise<string[]> => {
-    const requestedArguments: string[] = [];
+  const requestedArguments: string[] = [];
 
-    for (const positionalArgument of missingPositionalArguments) {
-        requestedArguments.push(
-            await requestArgumentUsingConsole(
-                `Positional ${positionalArgument}`
-            )
-        );
-    }
+  for (const positionalArgument of missingPositionalArguments) {
+    requestedArguments.push(
+      await requestArgumentUsingConsole(`Positional ${positionalArgument}`)
+    );
+  }
 
-    return requestedArguments;
+  return requestedArguments;
 };
 
 const requestArgumentUsingConsole = async (
-    argument: string
+  argument: string
 ): Promise<string> => {
-    return await inputString(argument, input => {
-        if (/\s/g.test(input)) {
-            return "Parameter can't contain whitespace";
-        }
+  return await inputString(argument, input => {
+    if (/\s/g.test(input)) {
+      return "Parameter can't contain whitespace";
+    }
 
-        if (input.length === 0) {
-            return "Parameter can't be empty";
-        }
+    if (input.length === 0) {
+      return "Parameter can't be empty";
+    }
 
-        return true;
-    });
+    return true;
+  });
 };
