@@ -1,20 +1,15 @@
-import { getBranches } from './getBranches';
-import { IBranch } from './utils';
+import { ConsoleInterface, Type, commandBase } from '../common';
+import { getCurrentBranch, IBranch } from './utils';
 
-export const getCurrentBranch = (
-    workingDirectory: string
-): Promise<IBranch> => {
-    return getBranches(workingDirectory, true).then(branches => {
-        const currentBranch = branches.find(branch => {
-            return branch.isCurrent;
-        });
+commandBase(async workingDirectory => {
+  const branch = await getCurrentBranch(workingDirectory);
 
-        if (!currentBranch) {
-            throw new Error(
-                'Unable to determine current branch from working directory'
-            );
-        }
-
-        return currentBranch;
-    });
-};
+  if (branch) {
+    ConsoleInterface.printLine(branch.name);
+  } else {
+    ConsoleInterface.printLine(
+      'Unable to determine current branch from working directory',
+      Type.error
+    );
+  }
+});

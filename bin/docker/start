@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('../../dist/lib/docker/start.js');
+require('../../dist/docker/start.js');

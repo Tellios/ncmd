@@ -1,15 +1,18 @@
-import { runCmdInConsole } from '../utils/console/runCmdInConsole';
-import { setUpstream } from './setUpstream';
+import { yargsWrapper, commandBase } from '../common';
+import { createBranch } from './utils';
 
-export const createBranch = (
-    branchName: string,
-    pushToRemote: boolean
-): Promise<void> => {
-    return runCmdInConsole('git', ['checkout', '-b', branchName]).then(() => {
-        if (pushToRemote) {
-            return setUpstream(branchName);
-        }
+const args = yargsWrapper()
+  .option('branch', {
+    alias: 'b',
+    describe: 'Branch name',
+    type: 'string',
+    demandOption: true
+  })
+  .option('push', {
+    alias: 'p',
+    describe: 'If the branch should be pushed to the remote',
+    type: 'boolean',
+    default: false
+  }).argv;
 
-        return Promise.resolve();
-    });
-};
+commandBase(workingDirectory => createBranch(args.branch, args.push));

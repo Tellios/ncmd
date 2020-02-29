@@ -1,25 +1,35 @@
-import { runCmdInConsole } from '../utils/console/runCmdInConsole';
-import { push } from './push';
+import { yargsWrapper, commandBase } from '../common';
+import { getStatus, addAll, commit } from './utils';
 
-/*
- * Since it is a bunch of code that is required to create a commit using
- * nodegit I just use git cli instead. Git cli will take the necessary
- * steps needed to select proper configurations and such.
- */
-export const commit = (
-    workingDirectory: string,
-    message: string,
-    pushCommit: boolean
-): Promise<void> => {
-    return runCmdInConsole('git', ['commit', '-m', message])
-        .then(() => {
-            if (pushCommit) {
-                return push(workingDirectory);
-            }
+const args = yargsWrapper()
+  .option('addAll', {
+    alias: 'a',
+    describe: 'Stage all git changes (git add .) before commit',
+    type: 'boolean'
+  })
+  .option('message', {
+    alias: 'm',
+    describe: 'Commit message',
+    type: 'string',
+    demandOption: true
+  })
+  .option('push', {
+    alias: 'p',
+    describe: 'Push to remote after commiting',
+    type: 'boolean',
+    default: false
+  }).argv;
 
-            return Promise.resolve();
-        })
-        .catch(() => {
-            throw new Error('Commit action failed');
-        });
-};
+commandBase(async workingDirectory => {
+  const status = await getStatus(workingDirectory);
+
+  if (status.hasChanges) {
+    if (args.addAll) {
+      await addAll(workingDirectory);
+    }
+
+    await commit(workingDirectory, args.message, args.push);
+  } else {
+    throw new Error('Nothing to commit');
+  }
+});

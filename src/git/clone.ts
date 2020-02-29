@@ -1,31 +1,47 @@
-import { runCmdInConsole } from '../utils/console/runCmdInConsole';
+import { spawn } from 'child_process';
+import { yargsWrapper, ConsoleInterface, commandBase } from '../common';
+import { clone } from './utils';
 
-const GIT_URL_SUFFIX = '.git';
+const args = yargsWrapper()
+  .option('url', {
+    alias: 'u',
+    describe: 'The url to the repository you want to clone',
+    type: 'string',
+    demand: true
+  })
+  .option('directory', {
+    alias: 'd',
+    describe: 'Optional name for the checkout directory',
+    type: 'string'
+  })
+  .option('code', {
+    alias: 'c',
+    describe:
+      'If you want to start Visual Studio Code for the cloned repository',
+    type: 'boolean',
+    default: false
+  }).argv;
 
-function getDirectoryNameFromUrl(url: string) {
-    const directoryName = url.substr(url.lastIndexOf('/') + 1);
+commandBase(
+  (workingDirectory: string): Promise<any> =>
+    clone(args.url, args.directory).then((result: string) => {
+      ConsoleInterface.printLine('Repository cloned');
 
-    return directoryName.endsWith(GIT_URL_SUFFIX)
-        ? directoryName.substring(
-              0,
-              directoryName.length - GIT_URL_SUFFIX.length
-          )
-        : directoryName;
-}
+      return new Promise((resolve, reject) => {
+        try {
+          if (args.code) {
+            spawn('code', [result], {
+              cwd: workingDirectory,
+              detached: true,
+              stdio: 'ignore',
+              shell: true
+            });
+          }
 
-export const clone = (
-    cloneUrl: string,
-    directoryName?: string
-): Promise<string> => {
-    let checkoutDir: string;
-
-    if (!directoryName || directoryName.length === 0) {
-        checkoutDir = getDirectoryNameFromUrl(cloneUrl);
-    } else {
-        checkoutDir = directoryName;
-    }
-
-    return runCmdInConsole('git', ['clone', cloneUrl, checkoutDir]).then(() => {
-        return checkoutDir;
-    });
-};
+          resolve();
+        } catch (e) {
+          reject(e);
+        }
+      });
+    })
+);

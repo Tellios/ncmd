@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('../dist/lib/k8s/k8s.js');
+require('../dist/k8s/k8s.js');
