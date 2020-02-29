@@ -35,6 +35,26 @@ Select multiple package.json scripts from a list to run concurrently:
 nr --async
 ```
 
+## nb
+Executes build scripts located in an NPM package.json file. If multiple test tasks matches `nb`s internal filters you will be able
+to select the script to use.
+
+| Argument  | Alias | Description |
+| --------- | ----- | ----------- |
+| watch     | w     | Run build scripts that rely on watchers instead |
+
+Run builds in a package.json file:
+
+```bash
+nb
+```
+
+Run build scripts that rely on watchers:
+
+```bash
+nb -w
+```
+
 ## nt
 Executes test scripts located in an NPM package.json file. If multiple test tasks matches `nt`s internal filters you will be able
 to select the script to use.

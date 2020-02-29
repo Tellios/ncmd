@@ -10,6 +10,7 @@
     "na": "./bin/alias",
     "ni": "./bin/node/ni",
     "nr": "./bin/node/nr",
+    "nb": "./bin/node/nb",
     "nt": "./bin/node/nt",
     "nclone": "./bin/git/clone",
     "ncommit": "./bin/git/commit",
