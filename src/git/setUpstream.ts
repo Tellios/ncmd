@@ -1,10 +1,7 @@
-import { runCmdInConsole } from '../utils/console/runCmdInConsole';
+import { commandBase } from '../common';
+import { getCurrentBranch, localizeBranchName, setUpstream } from './utils';
 
-export async function setUpstream(branchName: string): Promise<void> {
-    await runCmdInConsole('git', [
-        'push',
-        '--set-upstream',
-        'origin',
-        branchName
-    ]);
-}
+commandBase(async workingDirectory => {
+    const branch = await getCurrentBranch(workingDirectory);
+    await setUpstream(localizeBranchName(branch.name));
+});

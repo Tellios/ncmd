@@ -1,5 +1,4 @@
-import { runCmdInConsole } from '../utils/console/runCmdInConsole';
+import { commandBase } from '../common';
+import { pull } from './utils';
 
-export const pull = (): Promise<void> => {
-    return runCmdInConsole('git', ['pull']);
-};
+commandBase(() => pull());

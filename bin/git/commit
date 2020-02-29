@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('../../dist/lib/git/commit.js');
+require('../../dist/git/commit.js');
