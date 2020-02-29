@@ -1,6 +1,4 @@
-
-
-import { localizeBranchName } from '../../../src/git/utils/localizeBranchName';
+import { localizeBranchName } from './localizeBranchName';
 
 describe('parseBranch', () => {
     it('does not change local branch name', () => {

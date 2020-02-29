@@ -1,6 +1,4 @@
-
-
-import { parseProcessRows } from '../../../src/docker/utils/parseProcessRows';
+import { parseProcessRows } from './parseProcessRows';
 
 describe('parse docker processes', () => {
     const processes = [

@@ -1,4 +1,4 @@
-import { searchScripts } from '../../src/node/searchScripts';
+import { searchScripts } from './searchScripts';
 
 describe('searchScripts', () => {
     it('should return all matching scripts', () => {

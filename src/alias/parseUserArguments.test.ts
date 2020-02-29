@@ -1,7 +1,7 @@
 import {
     parseUserArguments,
     UserArgumentParseError
-} from '../../src/alias/parseUserArguments';
+} from './parseUserArguments';
 
 describe('parseUserArguments', () => {
     it('should return no-name args as positional args', () => {

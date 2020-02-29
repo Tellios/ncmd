@@ -1,4 +1,4 @@
-import { parseCommand } from '../../src/alias/parseCommand';
+import { parseCommand } from './parseCommand';
 
 describe('parseCommand', () => {
     it('should return the positonal arguments and command text', () => {

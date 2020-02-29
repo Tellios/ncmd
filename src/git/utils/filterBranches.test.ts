@@ -1,4 +1,5 @@
-import { filterBranches, IBranch } from '../../../src/git/utils';
+import { filterBranches } from './filterBranches';
+import { IBranch } from './IBranch';
 
 describe('filterBranches', () => {
     let mockBranches: IBranch[];

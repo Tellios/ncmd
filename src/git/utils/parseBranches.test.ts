@@ -1,4 +1,4 @@
-import { parseBranches } from '../../../src/git/utils';
+import { parseBranches } from './parseBranches';
 
 describe('parseBranch', () => {
     it('can determine if branch is local', () => {

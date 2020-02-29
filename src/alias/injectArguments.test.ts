@@ -1,4 +1,4 @@
-import { injectArguments } from '../../src/alias/injectArguments';
+import { injectArguments } from './injectArguments';
 
 describe('injectArguments', () => {
     it('should throw if positional arguments are missing', () => {
