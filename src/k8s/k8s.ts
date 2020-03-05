@@ -1,7 +1,13 @@
 import { Options } from 'yargs';
 import { yargsWrapper, selectItem, commandBase } from '../common';
 import { IResolveResourceTypeParams, ResourceType } from './utils';
-import { describeScript, listScript, contextScript } from './subCommands';
+import {
+  describeCommand,
+  listCommand,
+  deleteCommand,
+  logCommand,
+  contextCommand
+} from './subCommands';
 
 const selectResourceArgs: Record<ResourceType, Options> = {
   deployment: {
@@ -22,20 +28,30 @@ const selectResourceArgs: Record<ResourceType, Options> = {
   }
 };
 
-const commands: Record<string, { desc: string; useResourceArgs: boolean }> = {
-  desc: { desc: 'Describe a k8s resource', useResourceArgs: true },
-  ls: { desc: 'List k8s resources', useResourceArgs: true },
-  ctx: { desc: 'Switch k8s context', useResourceArgs: false }
+const commands: Record<
+  string,
+  { desc: string; options?: Record<string, Options> }
+> = {
+  desc: { desc: 'Describe a k8s resource', options: selectResourceArgs },
+  ls: { desc: 'List k8s resources', options: selectResourceArgs },
+  del: { desc: 'Delete a k8s resource', options: selectResourceArgs },
+  logs: {
+    desc: 'Print logs for a pod',
+    options: {
+      follow: {
+        alias: 'f',
+        boolean: true,
+        desc: 'If logs should be streamed'
+      }
+    }
+  },
+  ctx: { desc: 'Switch k8s context' }
 };
 
 const yargs = yargsWrapper();
 
 Object.entries(commands).forEach(([cmd, config]) => {
-  yargs.command(
-    cmd,
-    config.desc,
-    config.useResourceArgs ? selectResourceArgs : undefined
-  );
+  yargs.command(cmd, config.desc, config.options);
 });
 
 const args = yargs.argv;
@@ -49,11 +65,15 @@ const type: IResolveResourceTypeParams = {
 
 const runCommandIfMatch = async (cmd: string) => {
   if (cmd === 'desc') {
-    await describeScript({ type });
+    await describeCommand({ type });
   } else if (cmd === 'ls') {
-    await listScript({ type });
+    await listCommand({ type });
+  } else if (cmd === 'del') {
+    await deleteCommand({ type });
+  } else if (cmd === 'logs') {
+    await logCommand({ follow: args.follow === true });
   } else if (cmd === 'ctx') {
-    await contextScript();
+    await contextCommand();
   } else {
     return false;
   }

@@ -9,7 +9,7 @@ export interface IListScriptParams {
   type: IResolveResourceTypeParams;
 }
 
-export async function listScript(params: IListScriptParams): Promise<void> {
+export async function listCommand(params: IListScriptParams): Promise<void> {
   const type = await resolveResourceType(params.type);
   const resources = await getResources(type);
 

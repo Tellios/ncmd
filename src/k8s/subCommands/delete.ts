@@ -2,18 +2,16 @@ import { ConsoleInterface, Type } from '../../common';
 import {
   selectResource,
   getResources,
-  describeResource,
+  deleteResource,
   resolveResourceType,
   IResolveResourceTypeParams
 } from '../utils';
 
-export interface IDescribeScriptParams {
+export interface IDeleteScriptParams {
   type: IResolveResourceTypeParams;
 }
 
-export async function describeCommand(
-  params: IDescribeScriptParams
-): Promise<void> {
+export async function deleteCommand(params: IDeleteScriptParams): Promise<void> {
   const type = await resolveResourceType(params.type);
   const resources = await getResources(type);
 
@@ -26,5 +24,5 @@ export async function describeCommand(
   }
 
   const resource = await selectResource(resources);
-  await describeResource(type, resource.name);
+  await deleteResource(type, resource.name);
 }

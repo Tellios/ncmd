@@ -1,7 +1,7 @@
 import { ConsoleInterface, selectItem, Type } from '../../common';
 import { getAvailableContexts, useContext } from '../utils';
 
-export async function contextScript(): Promise<void> {
+export async function contextCommand(): Promise<void> {
   const contexts = await getAvailableContexts();
   const contextNames = contexts.map(c => c.name);
 

@@ -1,3 +1,4 @@
+export * from './deleteResource';
 export * from './describeResource';
 export * from './getAvailableContexts';
 export * from './getResources';
@@ -10,4 +11,5 @@ export * from './IService';
 export * from './resolveResourceType';
 export * from './ResourceType';
 export * from './selectResource';
+export * from './showResourceLogs';
 export * from './useContext';
