@@ -11,7 +11,9 @@ export interface IDeleteScriptParams {
   type: IResolveResourceTypeParams;
 }
 
-export async function deleteCommand(params: IDeleteScriptParams): Promise<void> {
+export async function deleteCommand(
+  params: IDeleteScriptParams
+): Promise<void> {
   const type = await resolveResourceType(params.type);
   const resources = await getResources(type);
 
