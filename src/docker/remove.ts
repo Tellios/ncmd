@@ -42,10 +42,10 @@ commandBase(async () => {
     return color(row);
   });
 
-  const selectedIndexes = await selectItems(
-    rows,
-    'Select containers to remove'
-  );
+  const selectedIndexes = await selectItems({
+    items: rows,
+    message: 'Select containers to remove'
+  });
 
   const processesToRemove = selectedIndexes.map(index => processes[index]);
 

@@ -1,7 +1,10 @@
 import * as chalk from 'chalk';
 import { selectItems } from '../../common';
 
-export async function selectPackages(packageJson: NcliNode.PackageJson) {
+export async function selectPackages(
+  packageJson: NcliNode.PackageJson,
+  searchString?: string
+) {
   const packages: NcliNode.IPackage[] = [
     ...Object.keys(packageJson.dependencies || {}).map(
       (name): NcliNode.IPackage => {
@@ -31,10 +34,11 @@ export async function selectPackages(packageJson: NcliNode.PackageJson) {
     )
   ];
 
-  const selectedPackages = await selectItems(
-    packages.map(dep => dep.label),
-    'Select the packages'
-  );
+  const selectedPackages = await selectItems({
+    items: packages.map(dep => dep.label),
+    message: 'Select the packages',
+    searchString
+  });
 
   return selectedPackages.map(index => packages[index]);
 }

@@ -3,9 +3,10 @@ import { installPackages } from './installPackages';
 
 export async function updatePackages(
   workingDirectory: string,
-  packageJson: NcliNode.PackageJson
+  packageJson: NcliNode.PackageJson,
+  searchString?: string
 ): Promise<void> {
-  const packages = await selectPackages(packageJson);
+  const packages = await selectPackages(packageJson, searchString);
   const addLatestSuffix = (name: string) => `${name}@latest`;
 
   const packagesToUpdate = packages
@@ -23,24 +24,4 @@ export async function updatePackages(
     devPackagesToUpdate,
     'ignore'
   );
-
-  // if (await containsYarnLockFile(workingDirectory)) {
-  //     if (packagesToUpdate.length > 0) {
-  //         await runCmdInConsole('yarn', ['add', ...packagesToUpdate]);
-  //     }
-
-  //     if (devPackagesToUpdate.length > 0) {
-  //         await runCmdInConsole('yarn', ['add', ...devPackagesToUpdate]);
-  //     }
-  // } else if (await containsPackageLockFile(workingDirectory)) {
-  //     if (packagesToUpdate.length > 0) {
-  //         await runCmdInConsole('npm', ['i', ...packagesToUpdate]);
-  //     }
-
-  //     if (devPackagesToUpdate.length > 0) {
-  //         await runCmdInConsole('yarn', ['add', ...devPackagesToUpdate]);
-  //     }
-  // } else {
-  //     ConsoleInterface.printLine('No yarn or npm lock file found');
-  // }
 }

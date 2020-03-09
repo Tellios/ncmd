@@ -38,7 +38,10 @@ commandBase(async () => {
     return color(row);
   });
 
-  const selectedIndexes = await selectItems(rows, 'Select container to start');
+  const selectedIndexes = await selectItems({
+    items: rows,
+    message: 'Select container to start'
+  });
 
   const processesToStart = selectedIndexes.map(index => processes[index]);
 

@@ -1,15 +1,31 @@
 import * as inquirer from 'inquirer';
 
-export async function selectItems(
-  items: string[],
-  message?: string
-): Promise<number[]> {
+export interface ISelectItemsParams {
+  items: string[];
+  message?: string;
+  searchString?: string;
+}
+
+export async function selectItems({
+  items,
+  message = 'Select an item',
+  searchString
+}: ISelectItemsParams): Promise<number[]> {
   if (items.length === 0) {
     throw 'Items must be an instantiated array with items';
   }
 
-  if (message === undefined) {
-    message = 'Select an item';
+  let choices = items;
+
+  if (searchString) {
+    const loweredSearchString = searchString.toLowerCase();
+    choices = choices.filter(choice =>
+      choice.toLowerCase().includes(loweredSearchString)
+    );
+
+    if (choices.length === 0) {
+      throw `No items matches the search filter: ${searchString}`;
+    }
   }
 
   const choice: any = await inquirer.prompt([
@@ -18,7 +34,7 @@ export async function selectItems(
       name: 'item',
       pageSize: 10,
       message,
-      choices: items
+      choices
     }
   ]);
 

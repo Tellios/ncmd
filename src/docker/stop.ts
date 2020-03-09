@@ -39,7 +39,10 @@ commandBase(async () => {
     return color(row);
   });
 
-  const selectedIndexes = await selectItems(rows, 'Select container to stop');
+  const selectedIndexes = await selectItems({
+    items: rows,
+    message: 'Select container to stop'
+  });
   const processesToStop = selectedIndexes.map(index => processes[index]);
 
   for (const process of processesToStop) {

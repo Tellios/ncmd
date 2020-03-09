@@ -4,9 +4,10 @@ import { containsPackageLockFile, containsYarnLockFile } from '../utils';
 
 export async function uninstallPackages(
   workingDirectory: string,
-  packageJson: NcliNode.PackageJson
+  packageJson: NcliNode.PackageJson,
+  searchString?: string
 ): Promise<void> {
-  const packages = await selectPackages(packageJson);
+  const packages = await selectPackages(packageJson, searchString);
   const packageNames = packages.map(p => p.name);
 
   if (await containsYarnLockFile(workingDirectory)) {
