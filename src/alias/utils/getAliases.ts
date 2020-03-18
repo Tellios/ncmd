@@ -2,9 +2,10 @@ import * as jsYaml from 'js-yaml';
 import * as fse from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
+import { getNcliDir } from '../../common';
 
 export const getAliases = (): Promise<Alias.IAlias[]> => {
-  const configPath = path.join(os.homedir(), '.ncli', 'alias.yml');
+  const configPath = path.join(getNcliDir(), 'alias.yml');
 
   return new Promise<Alias.IAlias[]>((resolve, reject) => {
     if (fse.existsSync(configPath)) {

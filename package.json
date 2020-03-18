@@ -29,7 +29,8 @@
     "ndrm": "./bin/docker/remove",
     "ndstart": "./bin/docker/start",
     "ndstop": "./bin/docker/stop",
-    "nk": "./bin/nk"
+    "nk": "./bin/nk",
+    "nsettings": "./bin/nsettings"
   },
   "scripts": {
     "prettier": "prettier --config .prettierrc.json --write \"{lib,src}/**/*.ts\"",

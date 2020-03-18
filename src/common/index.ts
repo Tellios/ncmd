@@ -1,4 +1,7 @@
 export * from './console';
+export * from './errors';
+export * from './paths';
+export * from './settings';
 export * from './colorizeCommand';
 export * from './commandBase';
 export * from './positionalArgsRegexProvider';
