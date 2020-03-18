@@ -18,6 +18,12 @@ const args = yargsWrapper()
     describe: 'Push to remote after commiting',
     type: 'boolean',
     default: false
+  })
+  .option('noVerify', {
+    alias: 'n',
+    describe: 'Add --no-verify to git commit and push commands',
+    type: 'boolean',
+    default: false
   }).argv;
 
 commandBase(async workingDirectory => {
@@ -28,7 +34,7 @@ commandBase(async workingDirectory => {
       await addAll(workingDirectory);
     }
 
-    await commit(workingDirectory, args.message, args.push);
+    await commit(workingDirectory, args.message, args.push, args.noVerify);
   } else {
     throw new Error('Nothing to commit');
   }

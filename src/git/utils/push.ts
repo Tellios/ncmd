@@ -1,10 +1,17 @@
 import { runCmdInConsole, CmdError, confirm } from '../../common';
 import { getCurrentBranch } from './getCurrentBranch';
 import { setUpstream } from './setUpstream';
+import { appendNoVerifyIfEnabled } from './appendNoVerifyIfEnabled';
 
-export async function push(workingDirectory: string): Promise<void> {
+export async function push(
+  workingDirectory: string,
+  useNoVerify: boolean
+): Promise<void> {
   try {
-    await runCmdInConsole('git', ['push']);
+    let pushArgs = ['push'];
+    pushArgs = appendNoVerifyIfEnabled(useNoVerify, pushArgs);
+
+    await runCmdInConsole('git', pushArgs);
   } catch (error) {
     if (error instanceof CmdError) {
       if (error.exitCode === 128) {
@@ -15,7 +22,7 @@ export async function push(workingDirectory: string): Promise<void> {
         ) {
           const currentBranch = await getCurrentBranch(workingDirectory);
 
-          return await setUpstream(currentBranch.name);
+          return await setUpstream(currentBranch.name, useNoVerify);
         } else {
           return;
         }

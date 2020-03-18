@@ -1,5 +1,6 @@
 import { runCmdInConsole } from '../../common';
 import { push } from './push';
+import { appendNoVerifyIfEnabled } from './appendNoVerifyIfEnabled';
 
 /*
  * Since it is a bunch of code that is required to create a commit using
@@ -9,12 +10,16 @@ import { push } from './push';
 export const commit = (
   workingDirectory: string,
   message: string,
-  pushCommit: boolean
+  pushCommit: boolean,
+  useNoVerify: boolean
 ): Promise<void> => {
-  return runCmdInConsole('git', ['commit', '-m', message])
+  let commitArgs = ['commit', '-m', message];
+  commitArgs = appendNoVerifyIfEnabled(useNoVerify, commitArgs);
+
+  return runCmdInConsole('git', commitArgs)
     .then(() => {
       if (pushCommit) {
-        return push(workingDirectory);
+        return push(workingDirectory, useNoVerify);
       }
 
       return Promise.resolve();
