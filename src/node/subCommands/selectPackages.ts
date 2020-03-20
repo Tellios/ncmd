@@ -4,7 +4,7 @@ import { selectItems } from '../../common';
 export async function selectPackages(
   packageJson: NcliNode.IPackageJson,
   searchString?: string
-): Promise<void> {
+): Promise<NcliNode.IPackage[]> {
   const packages: NcliNode.IPackage[] = [
     ...Object.keys(packageJson.dependencies || {}).map(
       (name): NcliNode.IPackage => {
