@@ -29,7 +29,8 @@
     "ndrm": "./bin/docker/remove",
     "ndstart": "./bin/docker/start",
     "ndstop": "./bin/docker/stop",
-    "nk": "./bin/nk"
+    "nk": "./bin/nk",
+    "nsettings": "./bin/nsettings"
   },
   "scripts": {
     "prettier": "prettier --config .prettierrc.json --write \"{lib,src}/**/*.ts\"",
@@ -68,8 +69,5 @@
     "rimraf": "^3.0.0",
     "ts-jest": "^25.2.1",
     "typescript": "^3.8.3"
-  },
-  "jest": {
-    "preset": "ts-jest"
   }
 }

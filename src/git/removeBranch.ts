@@ -39,7 +39,7 @@ function getBranchToDelete(workingDirectory: string) {
   });
 }
 
-commandBase(async (workingDirectory: string) => {
+commandBase(async ({ workingDirectory }) => {
   const branch = await getBranchToDelete(workingDirectory);
   const currentBranch = await getCurrentBranch(workingDirectory);
 

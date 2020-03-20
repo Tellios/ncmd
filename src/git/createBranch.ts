@@ -21,4 +21,4 @@ const args = yargsWrapper()
     default: false
   }).argv;
 
-commandBase(workingDirectory => createBranch(args.branch, args.push, args.noVerify));
+commandBase(() => createBranch(args.branch, args.push, args.noVerify));

@@ -8,4 +8,4 @@ const args = yargsWrapper().option('noVerify', {
   default: false
 }).argv;
 
-commandBase(workingDirectory => push(workingDirectory, args.noVerify));
+commandBase(({ workingDirectory }) => push(workingDirectory, args.noVerify));

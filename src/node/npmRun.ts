@@ -38,25 +38,25 @@ const args = yargsWrapper()
     type: 'boolean'
   }).argv;
 
-commandBase(
-  async (workingDirectory: string): Promise<any> => {
-    const packageJson = await parsePackageJson(workingDirectory);
+console.log(args);
 
-    if (args.list) {
-      listPackageJsonScripts(packageJson.scripts);
-    } else if (args.add) {
-      await addPackageJsonScript(workingDirectory, packageJson);
-    } else if (args.edit) {
-      await editPackageJsonScript(workingDirectory, packageJson);
-    } else if (args.delete) {
-      await deletePackageJsonScript(workingDirectory, packageJson);
-    } else if (args.async) {
-      await selectScripts(packageJson);
-    } else if (args._ && args._.length > 0) {
-      await runScripts(args._, packageJson);
-    } else {
-      const selectedScript = await selectScript(packageJson.scripts);
-      await executePackageJsonScript(selectedScript, packageJson.scripts);
-    }
+commandBase(async ({ workingDirectory }) => {
+  const packageJson = await parsePackageJson(workingDirectory);
+
+  if (args.list) {
+    listPackageJsonScripts(packageJson.scripts);
+  } else if (args.add) {
+    await addPackageJsonScript(workingDirectory, packageJson);
+  } else if (args.edit) {
+    await editPackageJsonScript(workingDirectory, packageJson);
+  } else if (args.delete) {
+    await deletePackageJsonScript(workingDirectory, packageJson);
+  } else if (args.async) {
+    await selectScripts(packageJson);
+  } else if (args._ && args._.length > 0) {
+    await runScripts(args._, packageJson);
+  } else {
+    const selectedScript = await selectScript(packageJson.scripts);
+    await executePackageJsonScript(selectedScript, packageJson.scripts);
   }
-);
+});

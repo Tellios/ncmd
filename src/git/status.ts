@@ -47,7 +47,7 @@ function getStatusOutput(status: IGitStatus) {
   ];
 }
 
-commandBase(async workingDirectory => {
+commandBase(async ({ workingDirectory }) => {
   const status = await getStatus(workingDirectory);
 
   if (status.hasChanges) {

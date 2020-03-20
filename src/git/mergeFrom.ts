@@ -28,7 +28,7 @@ function getBranchToMergeFrom(workingDirectory: string) {
   });
 }
 
-commandBase(async workingDirectory => {
+commandBase(async ({ workingDirectory }) => {
   const branch = await getBranchToMergeFrom(workingDirectory);
   await merge(branch);
 });

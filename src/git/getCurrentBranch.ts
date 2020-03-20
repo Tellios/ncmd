@@ -1,7 +1,7 @@
 import { ConsoleInterface, Type, commandBase } from '../common';
-import { getCurrentBranch, IBranch } from './utils';
+import { getCurrentBranch } from './utils';
 
-commandBase(async workingDirectory => {
+commandBase(async ({ workingDirectory }) => {
   const branch = await getCurrentBranch(workingDirectory);
 
   if (branch) {

@@ -8,7 +8,7 @@ const args = yargsWrapper().option('noVerify', {
   default: false
 }).argv;
 
-commandBase(async workingDirectory => {
+commandBase(async ({ workingDirectory }) => {
   const branch = await getCurrentBranch(workingDirectory);
   await setUpstream(localizeBranchName(branch.name), args.noVerify);
 });
