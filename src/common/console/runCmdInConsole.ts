@@ -9,7 +9,7 @@ function isExecaError(error: any): error is ExecaError {
 export async function runCmdInConsole(
   cmd: string,
   args: string[],
-  inheritStdio: boolean = true,
+  inheritStdio = true,
   cwd: string | undefined = undefined
 ): Promise<void> {
   try {

@@ -1,11 +1,10 @@
-import { selectItem } from '../../common';
+import { selectItem, NcliCommand } from '../../common';
 import { supportedNcliCommands } from './supportedNcliCommands';
 
-export const selectCommandToConfigure = async () => {
-  const index = await selectItem(
-    supportedNcliCommands,
-    'Select command to configure'
-  );
+export const selectCommandToConfigure = async (
+  commandList: NcliCommand[] = supportedNcliCommands
+): Promise<NcliCommand> => {
+  const index = await selectItem(commandList, 'Select command to configure');
 
   return supportedNcliCommands[index];
 };

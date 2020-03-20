@@ -8,7 +8,7 @@ import {
 export const selectSettingValue = async (
   settingKey: string,
   setting: ISettingDescription
-): Promise<any> => {
+): Promise<boolean> => {
   const key = cyanBright(settingKey);
 
   switch (setting.type) {

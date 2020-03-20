@@ -13,7 +13,7 @@ export function parseBranches(branchData: string): IBranch[] {
         (branchString: string): IBranch => {
           // git branch returns branches with a small indentation to make room for
           // the current branch marker. We make sure to remove that indentation here.
-          let branchName = branchString.slice(2);
+          const branchName = branchString.slice(2);
 
           const isRemote = branchName.startsWith(remoteBranchPrefix);
 

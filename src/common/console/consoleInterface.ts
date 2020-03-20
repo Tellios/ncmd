@@ -44,7 +44,7 @@ export class ConsoleInterface {
     console.log(table.toString());
   }
 
-  public static printVerticalTable(rows: Array<Object>) {
+  public static printVerticalTable(rows: Array<Record<string, any>>) {
     const table = new Table();
 
     rows.forEach(row => {

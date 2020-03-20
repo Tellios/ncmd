@@ -35,11 +35,13 @@
   "scripts": {
     "prettier": "prettier --check --write \"{lib,src}/**/*.ts\"",
     "prettier:ci": "prettier -l \"{lib,src}/**/*.ts\"",
+    "pretest": "npm run lint",
     "test": "jest",
     "test:watch": "jest --watchAll --runInBand",
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "build:watch": "rimraf dist && tsc --watch -p tsconfig.build.json",
-    "setup": "npm ci && npm run prettier && npm run test && npm run build && npm link"
+    "setup": "npm ci && npm run prettier && npm run test && npm run build && npm link",
+    "lint": "eslint . --cache --fix --ext .ts,.tsx"
   },
   "author": "",
   "license": "ISC",
@@ -65,6 +67,10 @@
     "@types/node": "^12.12.12",
     "@types/readline-sync": "^1.4.3",
     "@types/yargs": "^15.0.4",
+    "@typescript-eslint/eslint-plugin": "^2.24.0",
+    "@typescript-eslint/parser": "^2.24.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
     "husky": "^4.2.3",
     "jest": "^25.1.0",
     "lint-staged": "^10.0.8",
@@ -75,10 +81,11 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && npm test && npm run build"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
-    "*.{ts,js,css,md}": "prettier --write"
+    "*.{ts,md}": "prettier --write",
+    "*.{ts}": "eslint --cache --fix"
   }
 }

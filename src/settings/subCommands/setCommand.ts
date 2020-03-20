@@ -7,7 +7,7 @@ import {
   selectSettingValue
 } from '../utils';
 
-export const setCommand = async () => {
+export const setCommand = async (): Promise<void> => {
   const command = await selectCommandToConfigure();
   const [settingKey, settingDescription] = await selectSetting(command);
   const scope = await selectScope();

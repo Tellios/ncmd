@@ -2,7 +2,7 @@ import { getCmdResult } from '../../common';
 import { IDockerContainer, parseProcessRows } from '../utils';
 
 export const getProcesses = (
-  onlyRunning: boolean = false
+  onlyRunning = false
 ): Promise<IDockerContainer[]> => {
   return getCmdResult('docker', ['ps', onlyRunning ? '' : '-a']).then(
     result => {

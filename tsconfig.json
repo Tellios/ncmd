@@ -1,13 +1,12 @@
 {
     "compilerOptions": {
-        "baseUrl": ".",
-        "paths": { "*": ["types/*"] },
         "strict": true,
         "alwaysStrict": true,
         "forceConsistentCasingInFileNames": true,
         "lib": [
             "es2017"
         ],
+        "target": "ES6",
         "sourceMap": true,
         "module": "commonjs"
     }

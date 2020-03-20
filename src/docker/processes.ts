@@ -13,7 +13,7 @@ commandBase(async () => {
   const rows: string[][] = processes.map(process => {
     const color = containerStatusColoring(process);
 
-    let row = [
+    const row = [
       process.names,
       process.image,
       process.status,
