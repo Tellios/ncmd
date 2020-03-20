@@ -2,9 +2,10 @@ import {
   deleteSetting,
   getSettings,
   ConsoleInterface,
-  Type
+  Type,
+  selectItem
 } from '../../common';
-import { selectCommandToConfigure, selectSetting, selectScope } from '../utils';
+import { selectCommandToConfigure, getPrintableSettings } from '../utils';
 
 export const deleteCommand = async () => {
   const settings = await getSettings();
@@ -19,7 +20,9 @@ export const deleteCommand = async () => {
   const command = await selectCommandToConfigure();
   const commandSettings = settings[command]!;
 
-  // create list of made settings to select from
-  
-  await deleteSetting(command);
+  const selectables = getPrintableSettings(commandSettings);
+  const index = await selectItem(selectables);
+  const setting = commandSettings[index];
+
+  await deleteSetting(command, setting);
 };

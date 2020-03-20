@@ -1,11 +1,11 @@
 import { getSettings } from './getSettings';
-import { ISetting } from './ISetting';
+import { IPersistedSetting } from './IPersistedSetting';
 import { NcliCommand } from './NcliCommand';
 import { persistSettings } from './persistSettings';
 
 export const updateSetting = async (
   command: NcliCommand,
-  setting: ISetting
+  setting: IPersistedSetting
 ) => {
   const settings = await getSettings();
   const commandSettings = settings[command] ?? [];

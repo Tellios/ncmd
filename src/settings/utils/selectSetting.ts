@@ -1,6 +1,9 @@
-import { selectItem, NcliCommand } from '../../common';
-import { IAvailableSetting } from './IAvailableSetting';
-import { availableSettings } from './availableSettings';
+import {
+  selectItem,
+  NcliCommand,
+  IAvailableSetting,
+  availableSettings
+} from '../../common';
 
 export const selectSetting = async (
   command: NcliCommand

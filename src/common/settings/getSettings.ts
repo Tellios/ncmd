@@ -1,9 +1,9 @@
 import { ensureFile, readFile } from 'fs-extra';
 import { getSettingsFilename } from './getSettingsFilename';
 import { ISettingsFile } from './ISettingsFile';
-import { ISettings } from './ISettings';
+import { IPersistedSettings } from './IPersistedSettings';
 
-export const getSettings = async (): Promise<ISettings> => {
+export const getSettings = async (): Promise<IPersistedSettings> => {
   const settingsFilename = getSettingsFilename();
   await ensureFile(settingsFilename);
 

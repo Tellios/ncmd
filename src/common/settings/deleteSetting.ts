@@ -1,11 +1,11 @@
 import { NcliCommand } from './NcliCommand';
-import { ISetting } from './ISetting';
+import { IPersistedSetting } from './IPersistedSetting';
 import { getSettings } from './getSettings';
 import { persistSettings } from './persistSettings';
 
 export const deleteSetting = async (
   command: NcliCommand,
-  setting: Omit<ISetting, 'value'>
+  setting: Omit<IPersistedSetting, 'value'>
 ) => {
   const settings = await getSettings();
 
@@ -19,7 +19,9 @@ export const deleteSetting = async (
       )
   );
 
-  settings[command] = commandSettings;
+  // Make sure to remove the command from settings entirely if no
+  // settings have been made for the command
+  settings[command] = commandSettings.length > 0 ? commandSettings : undefined;
 
   await persistSettings(settings);
 };

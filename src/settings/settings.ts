@@ -24,7 +24,7 @@ const runCommandIfMatch = async (cmd: string) => {
     await listCommand();
   } else if (cmd === 'set') {
     await setCommand();
-  } else if (cmd === 'del') {
+  } else if (cmd === 'delete') {
     await deleteCommand();
   } else {
     return false;

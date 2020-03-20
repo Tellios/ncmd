@@ -1,6 +1,6 @@
 import { SettingScope } from './SettingScope';
 
-export interface ISetting {
+export interface IPersistedSetting {
   key: string;
   scope: SettingScope;
   workingDirectory?: string;

@@ -1,7 +1,6 @@
-import { NcliCommand } from './NcliCommand';
-import { ISettings } from './ISettings';
+import { IPersistedSettings } from './IPersistedSettings';
 
 export interface ISettingsFile {
   version: number;
-  settings: ISettings;
+  settings: IPersistedSettings;
 }

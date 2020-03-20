@@ -1,6 +1,5 @@
 import { cyanBright } from 'chalk';
-import { confirm, UnreachableCaseError } from '../../common';
-import { IAvailableSetting } from './IAvailableSetting';
+import { confirm, UnreachableCaseError, IAvailableSetting } from '../../common';
 
 export const selectSettingValue = async (
   setting: IAvailableSetting
