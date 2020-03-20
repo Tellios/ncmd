@@ -3,7 +3,9 @@ import { getSettingsFilename } from './getSettingsFilename';
 import { IPersistedSettings } from './IPersistedSettings';
 import { ISettingsFile } from './ISettingsFile';
 
-export const persistSettings = async (settings: IPersistedSettings) => {
+export const persistSettings = async (
+  settings: IPersistedSettings
+): Promise<void> => {
   const settingsFilename = getSettingsFilename();
 
   const settingsFile: ISettingsFile = {

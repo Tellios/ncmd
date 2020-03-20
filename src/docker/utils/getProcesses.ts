@@ -10,7 +10,7 @@ export const getProcesses = (
 
       return Promise.all(
         processes.map(process => {
-          return getCmdResult('docker', ['inspect', process.containerId!]).then(
+          return getCmdResult('docker', ['inspect', process.containerId]).then(
             (containerInfoData: string) => {
               const containerInfo = JSON.parse(containerInfoData)[0];
 

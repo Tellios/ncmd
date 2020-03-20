@@ -7,7 +7,7 @@ import {
 
 export async function addPackageJsonScript(
   workingDirectory: string,
-  packageJson: NcliNode.PackageJson
+  packageJson: NcliNode.IPackageJson
 ): Promise<void> {
   const name = await inputString(
     'Script name:',

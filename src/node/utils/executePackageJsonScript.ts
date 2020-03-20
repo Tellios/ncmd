@@ -3,7 +3,7 @@ import { runCmdInConsole } from '../../common';
 export async function executePackageJsonScript(
   script: string,
   availableScripts: NcliNode.Scripts
-) {
+): Promise<void> {
   if (script in availableScripts) {
     await runCmdInConsole('npm', ['run', script]);
   } else {

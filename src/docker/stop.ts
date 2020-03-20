@@ -7,7 +7,9 @@ import {
 } from '../common';
 import { getProcesses, stopProcess, containerStatusColoring } from './utils';
 
-const args = yargsWrapper().argv;
+yargsWrapper().epilogue(
+  'Provides an easy way to stop one or more running containers'
+).argv;
 
 commandBase(async () => {
   let processes = await getProcesses();

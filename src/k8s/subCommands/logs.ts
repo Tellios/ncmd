@@ -1,10 +1,5 @@
 import { ConsoleInterface, Type } from '../../common';
-import {
-  getResources,
-  selectResource,
-  showResourceLogs,
-  IResource
-} from '../utils';
+import { getResources, selectResource, showResourceLogs } from '../utils';
 
 export interface ILogScriptParams {
   follow: boolean;

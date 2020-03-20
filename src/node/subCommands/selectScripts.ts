@@ -2,8 +2,7 @@ import { selectItems } from '../../common';
 import { executeParallellPackageJsonScripts } from '../utils';
 
 export async function selectScripts(
-  packageJson: NcliNode.PackageJson,
-  searchString?: string
+  packageJson: NcliNode.IPackageJson
 ): Promise<void> {
   const scripts = Object.keys(packageJson.scripts);
   const selectedIndexes = await selectItems({

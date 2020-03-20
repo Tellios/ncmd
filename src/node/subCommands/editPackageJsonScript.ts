@@ -3,7 +3,7 @@ import { selectScript, updatePackageJson, validateScript } from '../utils';
 
 export async function editPackageJsonScript(
   workingDirectory: string,
-  packageJson: NcliNode.PackageJson
+  packageJson: NcliNode.IPackageJson
 ): Promise<void> {
   const selectedScript = await selectScript(packageJson.scripts);
   const script = packageJson.scripts[selectedScript];

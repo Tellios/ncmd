@@ -30,7 +30,7 @@ export async function installPackages(
     return;
   }
 
-  const addTypesPrefix = (p: string) => `@types/${p}`;
+  const addTypesPrefix = (p: string): string => `@types/${p}`;
 
   if (autoInstallTypings === 'install') {
     await installPackages(

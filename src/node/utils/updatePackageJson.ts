@@ -3,7 +3,7 @@ import { resolvePackageJsonFile } from './resolvePackageJsonFile';
 
 export async function updatePackageJson(
   directory: string,
-  newPackageJson: NcliNode.PackageJson
+  newPackageJson: NcliNode.IPackageJson
 ): Promise<void> {
   const packageJsonFile = resolvePackageJsonFile(directory);
 

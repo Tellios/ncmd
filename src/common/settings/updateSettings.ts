@@ -6,7 +6,7 @@ import { persistSettings } from './persistSettings';
 export const updateSetting = async (
   command: NcliCommand,
   setting: IPersistedSetting
-) => {
+): Promise<void> => {
   const settings = await getSettings();
   const commandSettings = settings[command] ?? [];
 

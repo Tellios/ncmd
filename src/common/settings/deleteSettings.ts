@@ -7,7 +7,7 @@ import { persistSettings } from './persistSettings';
 export const deleteSettings = async (
   command: NcliCommand,
   settingsToDelete: IPersistedSetting[]
-) => {
+): Promise<void> => {
   const settings = await getSettings();
   const commandSettings = settings[command] ?? [];
   const settingsToKeep = differenceWith(

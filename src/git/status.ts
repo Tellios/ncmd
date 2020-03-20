@@ -22,15 +22,15 @@ const args = yargsWrapper()
     default: false
   }).argv;
 
-function getOrIgnore(ignore: boolean, files: string[]) {
+const getOrIgnore = (ignore: boolean, files: string[]): string[] => {
   if (ignore) {
     return [];
   }
 
   return files;
-}
+};
 
-function getStatusOutput(status: IGitStatus) {
+const getStatusOutput = (status: IGitStatus): string[] => {
   return [
     ...getOrIgnore(
       args.modified || args.deleted,
@@ -45,7 +45,7 @@ function getStatusOutput(status: IGitStatus) {
       status.deletedFiles.map((file: string) => chalk.red(`- ${file}`))
     )
   ];
-}
+};
 
 commandBase(async ({ workingDirectory }) => {
   const status = await getStatus(workingDirectory);

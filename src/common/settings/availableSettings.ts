@@ -1,4 +1,3 @@
-import { NcliCommand } from '../../common';
 import { ISettingDescription } from './ISettingDescription';
 
 /**

@@ -24,7 +24,7 @@ const args = yargsWrapper()
     type: 'string'
   }).argv;
 
-function getBranchToDelete(workingDirectory: string) {
+function getBranchToDelete(workingDirectory: string): Promise<string> {
   if (args.branch && args.branch.length > 0) {
     return Promise.resolve(args.branch);
   }

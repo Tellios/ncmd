@@ -13,7 +13,7 @@ const args = yargsWrapper()
     type: 'string'
   }).argv;
 
-function getBranchToMergeFrom(workingDirectory: string) {
+function getBranchToMergeFrom(workingDirectory: string): Promise<string> {
   if (args.branch && args.branch.length > 0) {
     return Promise.resolve(args.branch);
   }

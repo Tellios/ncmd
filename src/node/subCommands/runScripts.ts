@@ -5,8 +5,8 @@ import {
 
 export async function runScripts(
   scriptsToRun: string[],
-  packageJson: NcliNode.PackageJson
-) {
+  packageJson: NcliNode.IPackageJson
+): Promise<void> {
   if (scriptsToRun.length === 1) {
     const script = scriptsToRun[0];
     await executePackageJsonScript(script, packageJson.scripts);

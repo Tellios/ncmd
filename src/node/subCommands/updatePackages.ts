@@ -3,11 +3,11 @@ import { installPackages } from './installPackages';
 
 export async function updatePackages(
   workingDirectory: string,
-  packageJson: NcliNode.PackageJson,
+  packageJson: NcliNode.IPackageJson,
   searchString?: string
 ): Promise<void> {
   const packages = await selectPackages(packageJson, searchString);
-  const addLatestSuffix = (name: string) => `${name}@latest`;
+  const addLatestSuffix = (name: string): string => `${name}@latest`;
 
   const packagesToUpdate = packages
     .filter(p => !p.dev)

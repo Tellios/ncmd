@@ -3,6 +3,6 @@ import { resolvePackageJsonFile } from './resolvePackageJsonFile';
 
 export async function parsePackageJson(
   directory: string
-): Promise<NcliNode.PackageJson> {
+): Promise<NcliNode.IPackageJson> {
   return await fs.readJson(resolvePackageJsonFile(directory));
 }

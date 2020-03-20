@@ -2,9 +2,9 @@ import * as chalk from 'chalk';
 import { selectItems } from '../../common';
 
 export async function selectPackages(
-  packageJson: NcliNode.PackageJson,
+  packageJson: NcliNode.IPackageJson,
   searchString?: string
-) {
+): Promise<void> {
   const packages: NcliNode.IPackage[] = [
     ...Object.keys(packageJson.dependencies || {}).map(
       (name): NcliNode.IPackage => {

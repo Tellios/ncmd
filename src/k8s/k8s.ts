@@ -63,7 +63,7 @@ const type: IResolveResourceTypeParams = {
   ingress: args.ingress === true
 };
 
-const runCommandIfMatch = async (cmd: string) => {
+const runCommandIfMatch = async (cmd: string): Promise<boolean> => {
   if (cmd === 'desc') {
     await describeCommand({ type });
   } else if (cmd === 'ls') {
@@ -82,7 +82,7 @@ const runCommandIfMatch = async (cmd: string) => {
 };
 
 commandBase(
-  async (): Promise<any> => {
+  async (): Promise<void> => {
     if (!(await runCommandIfMatch(args._[0]))) {
       const commandEntries = Object.entries(commands);
       const commandTexts = commandEntries.map(

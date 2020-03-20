@@ -2,7 +2,7 @@ import { runCmdInConsole } from '../../common';
 
 const GIT_URL_SUFFIX = '.git';
 
-function getDirectoryNameFromUrl(url: string) {
+function getDirectoryNameFromUrl(url: string): string {
   const directoryName = url.substr(url.lastIndexOf('/') + 1);
 
   return directoryName.endsWith(GIT_URL_SUFFIX)

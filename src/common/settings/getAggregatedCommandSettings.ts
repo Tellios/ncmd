@@ -18,7 +18,9 @@ export const getAggregatedCommandSettings = async (
   return getAggregatedSettings(uniqueSettingKeys, settingsInScope);
 };
 
-const getSettingsInCurrentScope = (settings: IPersistedSetting[]) => {
+const getSettingsInCurrentScope = (
+  settings: IPersistedSetting[]
+): IPersistedSetting[] => {
   const cwd = process.cwd();
 
   return settings.filter(
@@ -26,14 +28,14 @@ const getSettingsInCurrentScope = (settings: IPersistedSetting[]) => {
   );
 };
 
-const getUniqueSettingKeys = (settings: IPersistedSetting[]) => {
+const getUniqueSettingKeys = (settings: IPersistedSetting[]): string[] => {
   return uniqBy(settings, s => s.key).map(s => s.key);
 };
 
 const getAggregatedSettings = (
   keys: string[],
   settings: IPersistedSetting[]
-) => {
+): ISettings => {
   return keys.reduce((aggregatedSettings: ISettings, key) => {
     const global = getGlobalSetting(settings, key);
     const workingDirectory = getWorkingDirectorySetting(settings, key);
@@ -52,20 +54,23 @@ const getAggregatedSettings = (
   }, {});
 };
 
-const getGlobalSetting = (settings: IPersistedSetting[], key: string) => {
+const getGlobalSetting = (
+  settings: IPersistedSetting[],
+  key: string
+): IPersistedSetting | undefined => {
   return settings.find(s => s.key === key && s.scope === 'global');
 };
 
 const getWorkingDirectorySetting = (
   settings: IPersistedSetting[],
   key: string
-) => {
+): IPersistedSetting | undefined => {
   return settings.find(s => s.key === key && s.scope === 'workingDirectory');
 };
 
 const getAggregatedValue = (
   global?: IPersistedSetting,
   workingDirectory?: IPersistedSetting
-) => {
+): boolean | undefined => {
   return workingDirectory?.value ?? global?.value;
 };

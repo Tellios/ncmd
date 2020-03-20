@@ -1,5 +1,5 @@
 declare namespace NcliNode {
-  interface PackageJson {
+  interface IPackageJson {
     scripts: Scripts;
     dependencies: Dependencies;
     devDependencies: Dependencies;
