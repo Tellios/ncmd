@@ -9,12 +9,12 @@ import {
 
 export const setCommand = async () => {
   const command = await selectCommandToConfigure();
-  const setting = await selectSetting(command);
+  const [settingKey, settingDescription] = await selectSetting(command);
   const scope = await selectScope();
-  const value = await selectSettingValue(setting);
+  const value = await selectSettingValue(settingKey, settingDescription);
 
   await updateSetting(command, {
-    key: setting.key,
+    key: settingKey,
     scope,
     workingDirectory: scope === 'workingDirectory' ? cwd() : undefined,
     value

@@ -69,8 +69,5 @@
     "rimraf": "^3.0.0",
     "ts-jest": "^25.2.1",
     "typescript": "^3.8.3"
-  },
-  "jest": {
-    "preset": "ts-jest"
   }
 }

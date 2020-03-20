@@ -1,7 +1,6 @@
 import { SettingType } from './SettingType';
 
-export interface IAvailableSetting {
-  key: string;
+export interface ISettingDescription {
   description: string;
   type: SettingType;
 }

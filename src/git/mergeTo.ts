@@ -34,7 +34,7 @@ function getBranchToMergeTo(workingDirectory: string) {
   });
 }
 
-commandBase(async (workingDirectory: string) => {
+commandBase(async ({ workingDirectory }) => {
   const [sourceBranch, targetBranch] = await Promise.all([
     getCurrentBranch(workingDirectory),
     getBranchToMergeTo(workingDirectory)

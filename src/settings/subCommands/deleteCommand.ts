@@ -1,9 +1,9 @@
 import {
-  deleteSetting,
+  deleteSettings,
   getSettings,
   ConsoleInterface,
   Type,
-  selectItem
+  selectItems
 } from '../../common';
 import { selectCommandToConfigure, getPrintableSettings } from '../utils';
 
@@ -21,8 +21,11 @@ export const deleteCommand = async () => {
   const commandSettings = settings[command]!;
 
   const selectables = getPrintableSettings(commandSettings);
-  const index = await selectItem(selectables);
-  const setting = commandSettings[index];
+  const indexes = await selectItems({
+    items: selectables,
+    message: 'Select items to delete'
+  });
+  const selectedSettings = indexes.map(index => commandSettings[index]);
 
-  await deleteSetting(command, setting);
+  await deleteSettings(command, selectedSettings);
 };

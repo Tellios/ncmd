@@ -34,7 +34,7 @@ function getBranchToSwitchTo(workingDirectory: string) {
   });
 }
 
-commandBase(async workingDirectory => {
+commandBase(async ({ workingDirectory }) => {
   const branch = await getBranchToSwitchTo(workingDirectory);
   return await checkout(branch);
 });

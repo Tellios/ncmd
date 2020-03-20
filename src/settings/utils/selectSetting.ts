@@ -1,17 +1,21 @@
 import {
   selectItem,
   NcliCommand,
-  IAvailableSetting,
+  ISettingDescription,
   availableSettings
 } from '../../common';
 
 export const selectSetting = async (
   command: NcliCommand
-): Promise<IAvailableSetting> => {
+): Promise<[string, ISettingDescription]> => {
   const commandSettings = availableSettings[command];
+  const settingEntries = Object.entries<ISettingDescription>(commandSettings);
+
   const index = await selectItem(
-    commandSettings.map(s => `${s.key} (${s.type}): ${s.description}`)
+    settingEntries.map(
+      ([key, { type, description }]) => `${key} (${type}): ${description}`
+    )
   );
 
-  return commandSettings[index];
+  return settingEntries[index];
 };

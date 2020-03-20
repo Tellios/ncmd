@@ -14,7 +14,7 @@ const args = yargsWrapper()
     type: 'string'
   }).argv;
 
-commandBase(async workingDirectory => {
+commandBase(async ({ workingDirectory }) => {
   const branches = await getBranches(workingDirectory, args.remote);
   ConsoleInterface.printLines(branchNameColoring(branches));
 });

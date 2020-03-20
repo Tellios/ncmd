@@ -1,10 +1,15 @@
 import { cyanBright } from 'chalk';
-import { confirm, UnreachableCaseError, IAvailableSetting } from '../../common';
+import {
+  confirm,
+  UnreachableCaseError,
+  ISettingDescription
+} from '../../common';
 
 export const selectSettingValue = async (
-  setting: IAvailableSetting
+  settingKey: string,
+  setting: ISettingDescription
 ): Promise<any> => {
-  const key = cyanBright(setting.key);
+  const key = cyanBright(settingKey);
 
   switch (setting.type) {
     case 'boolean':

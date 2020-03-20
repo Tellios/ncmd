@@ -1,27 +1,24 @@
+import { differenceWith, isEqual } from 'lodash';
 import { NcliCommand } from './NcliCommand';
 import { IPersistedSetting } from './IPersistedSetting';
 import { getSettings } from './getSettings';
 import { persistSettings } from './persistSettings';
 
-export const deleteSetting = async (
+export const deleteSettings = async (
   command: NcliCommand,
-  setting: Omit<IPersistedSetting, 'value'>
+  settingsToDelete: IPersistedSetting[]
 ) => {
   const settings = await getSettings();
-
-  let commandSettings = settings[command] ?? [];
-  commandSettings = commandSettings.filter(
-    cs =>
-      !(
-        cs.key === setting.key &&
-        cs.scope === setting.scope &&
-        cs.workingDirectory === setting.workingDirectory
-      )
+  const commandSettings = settings[command] ?? [];
+  const settingsToKeep = differenceWith(
+    commandSettings,
+    settingsToDelete,
+    isEqual
   );
 
   // Make sure to remove the command from settings entirely if no
   // settings have been made for the command
-  settings[command] = commandSettings.length > 0 ? commandSettings : undefined;
+  settings[command] = settingsToKeep.length > 0 ? settingsToKeep : undefined;
 
   await persistSettings(settings);
 };

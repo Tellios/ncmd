@@ -3,13 +3,13 @@ import { uniqBy } from 'lodash';
 import { ConsoleInterface, Type } from '../console';
 import { NcliCommand } from './NcliCommand';
 import { ISettings } from './ISettings';
-import { getSettings } from './getSettings';
 import { IPersistedSetting } from './IPersistedSetting';
+import { IPersistedSettings } from './IPersistedSettings';
 
 export const getAggregatedCommandSettings = async (
-  command: NcliCommand
+  command: NcliCommand,
+  settings: IPersistedSettings
 ): Promise<ISettings> => {
-  const settings = await getSettings();
   const commandSettings = settings[command] ?? [];
 
   const settingsInScope = getSettingsInCurrentScope(commandSettings);
