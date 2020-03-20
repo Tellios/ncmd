@@ -16,6 +16,5 @@ export const listCommand = async () => {
 
   const settingsList = getPrintableSettings(commandSettings);
 
-
   ConsoleInterface.printLines(settingsList);
 };

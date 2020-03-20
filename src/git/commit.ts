@@ -29,8 +29,6 @@ commandBase<'ncommit'>(async ({ workingDirectory, settings }) => {
       default: settings.noVerify ?? false
     }).argv;
 
-  console.log(args);
-
   const status = await getStatus(workingDirectory);
 
   if (status.hasChanges) {

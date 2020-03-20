@@ -38,8 +38,6 @@ const args = yargsWrapper()
     type: 'boolean'
   }).argv;
 
-console.log(args);
-
 commandBase(async ({ workingDirectory }) => {
   const packageJson = await parsePackageJson(workingDirectory);
 
