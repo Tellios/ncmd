@@ -1,7 +1,7 @@
 import { commandBase } from '../../common';
 import { argConstants, getAliases, executeAlias } from '../utils';
 
-export const executeMatchingAlias = async (args: string[]) => {
+export const executeMatchingAlias = async (args: string[]): Promise<void> => {
   commandBase(async () => {
     const aliases = await getAliases();
     let print = false;

@@ -19,7 +19,7 @@ export type Executor<T extends NcliCommand> = (
 
 export async function commandBase<T extends NcliCommand = any>(
   executor: Executor<T>
-) {
+): Promise<void> {
   const workingDirectory = process.cwd();
   const commandExecuted = path.parse(process.argv[1]).name;
 

@@ -11,7 +11,7 @@ export const getCmdResult = (
       {
         cwd
       },
-      (error: cp.ExecException | null, stdout: string, stderr: string) => {
+      (error: cp.ExecException | null, stdout: string) => {
         if (error) {
           reject(error);
           return;

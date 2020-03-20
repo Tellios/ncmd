@@ -1,7 +1,7 @@
 import { selectItem, commandBase } from '../../common';
 import { getAliases, executeAlias } from '../utils';
 
-export const selectAliasAndExecute = async () => {
+export const selectAliasAndExecute = async (): Promise<void> => {
   await commandBase(async () => {
     const aliases = await getAliases();
 

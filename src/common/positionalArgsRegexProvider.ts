@@ -1,1 +1,1 @@
-export const positionalArgsRegexProvider = () => /(\$\d+)/g;
+export const positionalArgsRegexProvider = (): RegExp => /(\$\d+)/g;

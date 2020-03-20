@@ -9,7 +9,7 @@ export const executeAlias = async (
   alias: Alias.IAlias,
   print: boolean,
   args: string[]
-) => {
+): Promise<void> => {
   const command = parseCommand(alias.cmd);
   const userArguments = await resolveMissingArguments(
     alias,

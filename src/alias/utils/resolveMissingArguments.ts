@@ -39,7 +39,7 @@ const getAliasCommands = (alias: Alias.IAlias): string[] => {
 const getMissingNamedArguments = async (
   commands: string[],
   userArguments: IUserArguments
-) => {
+): Promise<Record<string, string>> => {
   const namedArguments = getNamedArgumentsFromCommands(commands);
   const missingNamedArguments = getNamedArgumentsMissingInUserArguments(
     userArguments,
@@ -51,7 +51,7 @@ const getMissingNamedArguments = async (
 const getMissingPositonalArguments = async (
   commands: string[],
   userArguments: IUserArguments
-) => {
+): Promise<string[]> => {
   const positionalArguments = getPositionalArgumentsFromCommands(commands);
   const missingPositionalArguments = getPositionalArgumentsMissingInUserArguments(
     userArguments,
@@ -79,7 +79,7 @@ const getPositionalArgumentsFromCommands = (commands: string[]): string[] => {
 const appendArgumentIfUnique = (
   acc: string[],
   current: RegExpMatchArray | null
-) => {
+): string[] => {
   current?.forEach(match => {
     if (!acc.includes(match)) {
       acc.push(match);

@@ -8,9 +8,7 @@ export const Type = {
 };
 
 export class ConsoleInterface {
-  constructor() {}
-
-  public static printLine(line: string, type = Type.log) {
+  public static printLine(line: string, type = Type.log): void {
     switch (type) {
       case Type.log:
         console.log(line);
@@ -26,13 +24,13 @@ export class ConsoleInterface {
     }
   }
 
-  public static printLines(lines: string[], type = Type.log) {
+  public static printLines(lines: string[], type = Type.log): void {
     lines.forEach(line => {
       this.printLine(line, type);
     });
   }
 
-  public static printTable(columns: string[], rows: string[][]) {
+  public static printTable(columns: string[], rows: string[][]): void {
     columns = columns.map(column => chalk.cyan(column));
 
     const table = new Table({
@@ -44,7 +42,7 @@ export class ConsoleInterface {
     console.log(table.toString());
   }
 
-  public static printVerticalTable(rows: Array<Record<string, any>>) {
+  public static printVerticalTable(rows: Array<Record<string, any>>): void {
     const table = new Table();
 
     rows.forEach(row => {

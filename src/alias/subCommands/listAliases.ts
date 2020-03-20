@@ -2,7 +2,7 @@ import * as chalk from 'chalk';
 import { ConsoleInterface, Type, commandBase } from '../../common';
 import { getAliases, getAliasHelpTableContent } from '../utils';
 
-export const listAliases = async () => {
+export const listAliases = async (): Promise<void> => {
   await commandBase(async () => {
     const aliases = await getAliases();
 

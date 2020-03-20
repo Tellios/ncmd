@@ -3,7 +3,7 @@ import { namedArgsRegexProvider } from './namedArgsRegexProvider';
 import { dashArgsRegexProvider } from './dashArgsRegexProvider';
 import * as chalk from 'chalk';
 
-export const colorizeCommand = (commandText: string) => {
+export const colorizeCommand = (commandText: string): string => {
   const cmdSplit = commandText.split(' ');
 
   return cmdSplit

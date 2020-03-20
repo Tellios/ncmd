@@ -1,6 +1,9 @@
 import * as inquirer from 'inquirer';
 
-export async function selectItem(items: string[], message?: string) {
+export async function selectItem(
+  items: string[],
+  message?: string
+): Promise<number> {
   if (items.length === 0) {
     throw 'Items must be an instantiated array with items';
   }

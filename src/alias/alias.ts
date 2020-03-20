@@ -8,7 +8,7 @@ import { argConstants } from './utils';
 
 const args = process.argv.slice(2);
 
-function hasListArg() {
+function hasListArg(): boolean {
   return (
     args.length === 1 &&
     (args[0] === argConstants.printArg ||

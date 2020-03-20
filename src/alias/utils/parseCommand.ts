@@ -24,17 +24,19 @@ export const parseCommand = (
   return commands.map(
     (cmd): Alias.ICommand => {
       const positionalArgsRegex = positionalArgsRegexProvider();
-      let matches: string[] | null;
       const positionalArguments: string[] = [];
+      let matches: string[] | null;
 
       while ((matches = positionalArgsRegex.exec(cmd)) !== null) {
         const existingArg = positionalArguments.find(arg => {
-          return arg === matches![0];
+          return arg === matches?.[0];
         });
 
         if (!existingArg) {
           positionalArguments.push(matches[0]);
         }
+
+        matches = positionalArgsRegex.exec(cmd);
       }
 
       return {
