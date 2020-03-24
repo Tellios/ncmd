@@ -11,7 +11,8 @@ export const commit = (
   workingDirectory: string,
   message: string,
   pushCommit: boolean,
-  useNoVerify: boolean
+  useNoVerify: boolean,
+  alsoPushTags: boolean
 ): Promise<void> => {
   let commitArgs = ['commit', '-m', message];
   commitArgs = appendNoVerifyIfEnabled(useNoVerify, commitArgs);
@@ -19,7 +20,7 @@ export const commit = (
   return runCmdInConsole('git', commitArgs)
     .then(() => {
       if (pushCommit) {
-        return push(workingDirectory, useNoVerify);
+        return push(workingDirectory, useNoVerify, alsoPushTags);
       }
 
       return Promise.resolve();

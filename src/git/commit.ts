@@ -27,6 +27,12 @@ commandBase<'ncommit'>(async ({ workingDirectory, settings }) => {
       describe: 'Add --no-verify to git commit and push commands',
       type: 'boolean',
       default: settings.noVerify ?? false
+    })
+    .option('tags', {
+      alias: 't',
+      describe: 'Also push all tags',
+      type: 'boolean',
+      default: settings.tags ?? false
     }).argv;
 
   const status = await getStatus(workingDirectory);
@@ -36,7 +42,13 @@ commandBase<'ncommit'>(async ({ workingDirectory, settings }) => {
       await addAll(workingDirectory);
     }
 
-    await commit(workingDirectory, args.message, args.push, args.noVerify);
+    await commit(
+      workingDirectory,
+      args.message,
+      args.push,
+      args.noVerify,
+      args.tags
+    );
   } else {
     throw new Error('Nothing to commit');
   }

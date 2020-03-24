@@ -40,6 +40,20 @@ export const availableSettings = {
       description: 'Sets the default for push',
       type: 'boolean'
     })
+    .add('tags', {
+      description: 'Whether tags should be pushed by default',
+      type: 'boolean'
+    })
+    .getSettings(),
+  npush: new Builder()
+    .add('noVerify', {
+      description: 'Sets the default for noVerify',
+      type: 'boolean'
+    })
+    .add('tags', {
+      description: 'Whether tags should be pushed by default',
+      type: 'boolean'
+    })
     .getSettings()
 };
 

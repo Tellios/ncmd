@@ -5,13 +5,18 @@ import { appendNoVerifyIfEnabled } from './appendNoVerifyIfEnabled';
 
 export async function push(
   workingDirectory: string,
-  useNoVerify: boolean
+  useNoVerify: boolean,
+  alsoPushTags: boolean
 ): Promise<void> {
   try {
     let pushArgs = ['push'];
     pushArgs = appendNoVerifyIfEnabled(useNoVerify, pushArgs);
 
     await runCmdInConsole('git', pushArgs);
+
+    if (alsoPushTags) {
+      await pushTags(useNoVerify);
+    }
   } catch (error) {
     if (error instanceof CmdError) {
       if (error.exitCode === 128) {
@@ -22,7 +27,11 @@ export async function push(
         ) {
           const currentBranch = await getCurrentBranch(workingDirectory);
 
-          return await setUpstream(currentBranch.name, useNoVerify);
+          await setUpstream(currentBranch.name, useNoVerify);
+
+          if (alsoPushTags) {
+            await pushTags(useNoVerify);
+          }
         } else {
           return;
         }
@@ -34,3 +43,11 @@ export async function push(
     throw error;
   }
 }
+
+const pushTags = async (useNoVerify: boolean): Promise<void> => {
+  let pushArgs = ['push'];
+  pushArgs = appendNoVerifyIfEnabled(useNoVerify, pushArgs);
+  pushArgs.push('--tags');
+
+  await runCmdInConsole('git', pushArgs);
+};
