@@ -2,14 +2,17 @@ import {
   selectItem,
   NcliCommand,
   ISettingDescription,
-  availableSettings
+  availableSettings,
+  SettingType
 } from '../../common';
 
 export const selectSetting = async (
   command: NcliCommand
-): Promise<[string, ISettingDescription]> => {
+): Promise<[string, ISettingDescription<SettingType>]> => {
   const commandSettings = availableSettings[command];
-  const settingEntries = Object.entries<ISettingDescription>(commandSettings);
+  const settingEntries = Object.entries<ISettingDescription<SettingType>>(
+    commandSettings
+  );
 
   const index = await selectItem(
     settingEntries.map(

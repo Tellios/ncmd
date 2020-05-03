@@ -1,1 +1,1 @@
-export type SettingType = 'boolean';
+export type SettingType = 'boolean' | 'string';

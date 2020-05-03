@@ -71,6 +71,6 @@ const getWorkingDirectorySetting = (
 const getAggregatedValue = (
   global?: IPersistedSetting,
   workingDirectory?: IPersistedSetting
-): boolean | undefined => {
+): boolean | string | undefined => {
   return workingDirectory?.value ?? global?.value;
 };

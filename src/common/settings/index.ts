@@ -10,4 +10,5 @@ export * from './ISettingsFor';
 export * from './NcliCommand';
 export * from './SettingScope';
 export * from './SettingType';
+export * from './SettingValue';
 export * from './updateSettings';

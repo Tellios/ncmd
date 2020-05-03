@@ -1,4 +1,5 @@
 import { ISettingDescription } from './ISettingDescription';
+import { SettingType } from './SettingType';
 
 /**
  * To be able to create the inferred types for the
@@ -13,10 +14,10 @@ import { ISettingDescription } from './ISettingDescription';
 class Builder<T = {}> {
   private settings: any = {};
 
-  public add<K extends string>(
+  public add<K extends string, TSettingType extends SettingType>(
     key: K,
-    description: ISettingDescription
-  ): Builder<T & { [key in K]: ISettingDescription }> {
+    description: ISettingDescription<TSettingType>
+  ): Builder<T & { [key in K]: ISettingDescription<TSettingType> }> {
     this.settings[key] = description;
     return this as any;
   }
@@ -53,6 +54,13 @@ export const availableSettings = {
     .add('tags', {
       description: 'Whether tags should be pushed by default',
       type: 'boolean'
+    })
+    .getSettings(),
+  nr: new Builder()
+    .add('lastExecutedScript', {
+      description: 'Last script executed in working directory',
+      type: 'string',
+      hidden: true
     })
     .getSettings()
 };

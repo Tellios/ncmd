@@ -38,7 +38,7 @@ const args = yargsWrapper()
     type: 'boolean'
   }).argv;
 
-commandBase(async ({ workingDirectory }) => {
+commandBase<'nr'>(async ({ workingDirectory, settings, setSetting }) => {
   const packageJson = await parsePackageJson(workingDirectory);
 
   if (args.list) {
@@ -54,7 +54,12 @@ commandBase(async ({ workingDirectory }) => {
   } else if (args._ && args._.length > 0) {
     await runScripts(args._, packageJson);
   } else {
-    const selectedScript = await selectScript(packageJson.scripts);
+    const selectedScript = await selectScript(
+      packageJson.scripts,
+      settings.lastExecutedScript
+    );
+    await setSetting('lastExecutedScript', selectedScript);
+
     await executePackageJsonScript(selectedScript, packageJson.scripts);
   }
 });

@@ -1,6 +1,7 @@
 import { SettingType } from './SettingType';
 
-export interface ISettingDescription {
+export interface ISettingDescription<TSettingType extends SettingType> {
   description: string;
-  type: SettingType;
+  type: TSettingType;
+  hidden?: boolean;
 }

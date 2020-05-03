@@ -1,1 +1,3 @@
-export type ISettings = Record<string, boolean>;
+import { SettingValue } from './SettingValue';
+
+export type ISettings = Record<string, SettingValue>;
