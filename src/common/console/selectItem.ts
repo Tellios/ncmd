@@ -16,6 +16,8 @@ export async function selectItem(
     message = 'Select an item';
   }
 
+  const selectableItems = getSelectableItems(items, preSelectedItem);
+
   const choice: any = await inquirer.prompt([
     {
       type: 'autocomplete',
@@ -23,18 +25,39 @@ export async function selectItem(
       pageSize: 10,
       message,
       source: (_: any, input?: string): Promise<string[]> =>
-        Promise.resolve(items.filter(i => i.includes(input ?? ''))),
-      default: getPreSelectedIndex(items, preSelectedItem)
+        Promise.resolve(selectableItems.filter(i => i.includes(input ?? '')))
     }
   ]);
 
   return items.indexOf(choice.item);
 }
 
-export function getPreSelectedIndex(
+function getSelectableItems(
+  items: string[],
+  preSelectedItem?: string
+): string[] {
+  const preSelectedIndex = getPreSelectedIndex(items, preSelectedItem);
+
+  if (preSelectedIndex === undefined) {
+    return items;
+  }
+
+  const partOne = items.slice(0, preSelectedIndex);
+  const partTwo = items.slice(preSelectedIndex, items.length);
+
+  // const itemToMove = items[preSelectedIndex];
+  // const filteredItems = items.filter((_, index) => index !== preSelectedIndex);
+
+  // return [itemToMove, ...filteredItems];
+
+  return [...partTwo, ...partOne];
+}
+
+function getPreSelectedIndex(
   items: string[],
   preSelectedItem?: string
 ): number | undefined {
   const preSelectedIndex = items.findIndex(s => s === preSelectedItem);
+  console.log('index', preSelectedIndex);
   return preSelectedIndex < 0 ? undefined : preSelectedIndex;
 }
