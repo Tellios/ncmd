@@ -45,11 +45,6 @@ function getSelectableItems(
   const partOne = items.slice(0, preSelectedIndex);
   const partTwo = items.slice(preSelectedIndex, items.length);
 
-  // const itemToMove = items[preSelectedIndex];
-  // const filteredItems = items.filter((_, index) => index !== preSelectedIndex);
-
-  // return [itemToMove, ...filteredItems];
-
   return [...partTwo, ...partOne];
 }
 
@@ -58,6 +53,5 @@ function getPreSelectedIndex(
   preSelectedItem?: string
 ): number | undefined {
   const preSelectedIndex = items.findIndex(s => s === preSelectedItem);
-  console.log('index', preSelectedIndex);
   return preSelectedIndex < 0 ? undefined : preSelectedIndex;
 }
