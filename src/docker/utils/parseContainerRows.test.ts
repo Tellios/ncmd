@@ -1,6 +1,6 @@
-import { parseProcessRows } from './parseProcessRows';
+import { parseContainerRows } from './parseContainerRows';
 
-describe('parse docker processes', () => {
+describe('parse docker containers', () => {
   const processes = [
     'CONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS                      PORTS               NAMES',
     '15902284efe8        nginx:1.13.1-alpine   "nginx -g \'daemon ..."   33 minutes ago      Up 33 minutes               80/tcp              agitated_leakey',
@@ -18,8 +18,8 @@ describe('parse docker processes', () => {
     ''
   ];
 
-  it('can parse process rows', () => {
-    const result = parseProcessRows(processes);
+  it('can parse container rows', () => {
+    const result = parseContainerRows(processes);
 
     const firstItem = result[0];
     expect(firstItem.containerId).toBe('15902284efe8');
@@ -40,18 +40,18 @@ describe('parse docker processes', () => {
     expect(lastItem.names).toBe('sleepy_hugle');
   });
 
-  it('can handle empty process list with columns', () => {
-    const result = parseProcessRows(onlyColumns);
+  it('can handle empty container list with columns', () => {
+    const result = parseContainerRows(onlyColumns);
     expect(result.length).toBe(0);
   });
 
-  it('can handle empty process list with empty row', () => {
-    const result = parseProcessRows(onlyColumnsAndEmptyRow);
+  it('can handle empty container list with empty row', () => {
+    const result = parseContainerRows(onlyColumnsAndEmptyRow);
     expect(result.length).toBe(0);
   });
 
-  it('can handle empty process list', () => {
-    const result = parseProcessRows([]);
+  it('can handle empty container list', () => {
+    const result = parseContainerRows([]);
     expect(result.length).toBe(0);
   });
 });

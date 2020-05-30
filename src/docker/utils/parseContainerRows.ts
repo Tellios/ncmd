@@ -11,7 +11,7 @@ function hasPortColumn(dataColumns: string[]): boolean {
   return dataColumns.length === 7;
 }
 
-export interface IProcessRow {
+export interface IContainerRow {
   containerId: string;
   names: string;
   image: string;
@@ -21,7 +21,7 @@ export interface IProcessRow {
   ports: string | null;
 }
 
-export const parseProcessRows = (processRows: string[]): IProcessRow[] => {
+export const parseContainerRows = (processRows: string[]): IContainerRow[] => {
   if (
     !Array.isArray(processRows) ||
     processRows.length <= 1 ||
@@ -37,7 +37,7 @@ export const parseProcessRows = (processRows: string[]): IProcessRow[] => {
     _.camelCase(column)
   );
 
-  const processes: IProcessRow[] = [];
+  const processes: IContainerRow[] = [];
 
   dataRows.forEach(row => {
     if (row.length === 0) {
@@ -64,7 +64,7 @@ export const parseProcessRows = (processRows: string[]): IProcessRow[] => {
       {}
     );
 
-    processes.push((process as unknown) as IProcessRow);
+    processes.push((process as unknown) as IContainerRow);
   });
 
   return processes;

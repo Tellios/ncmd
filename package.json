@@ -25,10 +25,7 @@
     "npull": "./bin/git/pull",
     "npush": "./bin/git/push",
     "nupstream": "./bin/git/setUpstream",
-    "ndps": "./bin/docker/processes",
-    "ndrm": "./bin/docker/remove",
-    "ndstart": "./bin/docker/start",
-    "ndstop": "./bin/docker/stop",
+    "nd": "./bin/nd",
     "nk": "./bin/nk",
     "nsettings": "./bin/nsettings"
   },

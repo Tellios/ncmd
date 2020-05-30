@@ -1,14 +1,14 @@
-import { yargsWrapper, ConsoleInterface, commandBase } from '../common';
-import { getProcesses, containerStatusColoring } from './utils';
+import { ConsoleInterface } from '../../common';
+import { getContainers, containerStatusColoring } from '../utils';
 
-const args = yargsWrapper().option('running', {
-  alias: 'r',
-  describe: 'Only display running containers',
-  type: 'boolean'
-}).argv;
+export interface IListCommandParams {
+  onlyShowRunning: boolean;
+}
 
-commandBase(async () => {
-  const processes = await getProcesses(args.running);
+export const listCommand = async ({
+  onlyShowRunning
+}: IListCommandParams): Promise<void> => {
+  const processes = await getContainers(onlyShowRunning);
 
   const rows: string[][] = processes.map(process => {
     const color = containerStatusColoring(process);
@@ -28,4 +28,4 @@ commandBase(async () => {
     ['Name', 'Image', 'Status', 'Ports', 'Container Id'],
     rows
   );
-});
+};
