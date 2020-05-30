@@ -10,7 +10,7 @@ export const parseCommand = (
       throw new Error('Command is an empty array');
     }
 
-    if (commandText.some(cmd => cmd === '')) {
+    if (commandText.some((cmd) => cmd === '')) {
       throw new Error('One or more command texts is an empty string');
     }
 
@@ -24,24 +24,16 @@ export const parseCommand = (
   return commands.map(
     (cmd): Alias.ICommand => {
       const positionalArgsRegex = positionalArgsRegexProvider();
-      const positionalArguments: string[] = [];
+      const positionalArguments = new Set<string>();
       let matches: string[] | null;
 
       while ((matches = positionalArgsRegex.exec(cmd)) !== null) {
-        const existingArg = positionalArguments.find(arg => {
-          return arg === matches?.[0];
-        });
-
-        if (!existingArg) {
-          positionalArguments.push(matches[0]);
-        }
-
-        matches = positionalArgsRegex.exec(cmd);
+        positionalArguments.add(matches[0]);
       }
 
       return {
         commandText: cmd,
-        positionalArguments
+        positionalArguments: [...positionalArguments.values()]
       };
     }
   );

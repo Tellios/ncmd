@@ -56,4 +56,8 @@ describe('parseCommand', () => {
   it('should throw if command text is empty', () => {
     expect(() => parseCommand('')).toThrowError();
   });
+
+  it('true', () => {
+    expect(true).toBe(true);
+  });
 });
