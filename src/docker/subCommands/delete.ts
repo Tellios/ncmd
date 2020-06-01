@@ -27,7 +27,7 @@ export const deleteCommand = async ({
     message: 'Select containers to remove'
   });
 
-  const processesToRemove = selectedIndexes.map(index => containers[index]);
+  const processesToRemove = selectedIndexes.map((index) => containers[index]);
 
   for (const process of processesToRemove) {
     await deleteContainer(forcefullyDelete, process.containerId);

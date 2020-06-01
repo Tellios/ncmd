@@ -25,7 +25,7 @@ export async function selectItem(
       pageSize: 10,
       message,
       source: (_: any, input?: string): Promise<string[]> =>
-        Promise.resolve(selectableItems.filter(i => i.includes(input ?? '')))
+        Promise.resolve(selectableItems.filter((i) => i.includes(input ?? '')))
     }
   ]);
 
@@ -52,6 +52,6 @@ function getPreSelectedIndex(
   items: string[],
   preSelectedItem?: string
 ): number | undefined {
-  const preSelectedIndex = items.findIndex(s => s === preSelectedItem);
+  const preSelectedIndex = items.findIndex((s) => s === preSelectedItem);
   return preSelectedIndex < 0 ? undefined : preSelectedIndex;
 }

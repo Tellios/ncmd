@@ -21,7 +21,7 @@ export const getAliases = (): Promise<Alias.IAlias[]> => {
             return;
           }
 
-          const invalidAliases = doc.aliases.filter(alias => {
+          const invalidAliases = doc.aliases.filter((alias) => {
             return !alias.cmd || !alias.name;
           });
 

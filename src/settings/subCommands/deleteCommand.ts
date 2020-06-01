@@ -30,7 +30,7 @@ export const deleteCommand = async (): Promise<void> => {
     items: selectables,
     message: 'Select items to delete'
   });
-  const selectedSettings = indexes.map(index => commandSettings[index]);
+  const selectedSettings = indexes.map((index) => commandSettings[index]);
 
   await deleteSettings(command, selectedSettings);
 };

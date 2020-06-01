@@ -8,7 +8,7 @@ import {
 export const stopCommand = async (): Promise<void> => {
   const containers = await getContainers();
   const runningContainers = containers.filter(
-    process =>
+    (process) =>
       process.properties.State.Running ||
       process.properties.State.Restarting ||
       process.properties.State.Paused
@@ -28,7 +28,7 @@ export const stopCommand = async (): Promise<void> => {
     message: 'Select container to stop'
   });
   const processesToStop = selectedIndexes.map(
-    index => runningContainers[index]
+    (index) => runningContainers[index]
   );
 
   for (const process of processesToStop) {

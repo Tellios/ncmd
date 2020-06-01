@@ -9,7 +9,7 @@ export async function selectScripts(
     items: scripts,
     message: 'Select the scripts to run in parallell'
   });
-  const selectedScripts = selectedIndexes.map(index => scripts[index]);
+  const selectedScripts = selectedIndexes.map((index) => scripts[index]);
 
   await executeParallellPackageJsonScripts(
     selectedScripts,

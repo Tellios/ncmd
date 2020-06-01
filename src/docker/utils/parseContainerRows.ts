@@ -33,13 +33,13 @@ export const parseContainerRows = (processRows: string[]): IContainerRow[] => {
   const columnRow = processRows[0];
   const dataRows = processRows.slice(1);
 
-  const columnNames = getRowColumns(columnRow).map(column =>
+  const columnNames = getRowColumns(columnRow).map((column) =>
     _.camelCase(column)
   );
 
   const processes: IContainerRow[] = [];
 
-  dataRows.forEach(row => {
+  dataRows.forEach((row) => {
     if (row.length === 0) {
       return;
     }

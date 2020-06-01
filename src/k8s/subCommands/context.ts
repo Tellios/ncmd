@@ -3,7 +3,7 @@ import { getAvailableContexts, useContext } from '../utils';
 
 export async function contextCommand(): Promise<void> {
   const contexts = await getAvailableContexts();
-  const contextNames = contexts.map(c => c.name);
+  const contextNames = contexts.map((c) => c.name);
 
   if (contexts.length === 0) {
     ConsoleInterface.printLine(

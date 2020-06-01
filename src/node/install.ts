@@ -39,7 +39,7 @@ commandBase(async ({ workingDirectory }) => {
     let devFlag = false;
     let typingsMode: AutoInstallTypingsMode = 'ignore';
 
-    addArgs.forEach(addArg => {
+    addArgs.forEach((addArg) => {
       if (addArg === '-da') {
         devFlag = true;
         typingsMode = 'installAsDev';

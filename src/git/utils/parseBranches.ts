@@ -8,7 +8,7 @@ export function parseBranches(branchData: string): IBranch[] {
     branchData
       .split('\n')
       // Remove the HEAD pointer from the result and any empty rows
-      .filter(branch => !branch.includes('->') && branch.trim().length !== 0)
+      .filter((branch) => !branch.includes('->') && branch.trim().length !== 0)
       .map(
         (branchString: string): IBranch => {
           // git branch returns branches with a small indentation to make room for

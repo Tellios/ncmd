@@ -24,12 +24,12 @@ const getSettingsInCurrentScope = (
   const cwd = process.cwd();
 
   return settings.filter(
-    s => s.scope === 'global' || s.workingDirectory === cwd
+    (s) => s.scope === 'global' || s.workingDirectory === cwd
   );
 };
 
 const getUniqueSettingKeys = (settings: IPersistedSetting[]): string[] => {
-  return uniqBy(settings, s => s.key).map(s => s.key);
+  return uniqBy(settings, (s) => s.key).map((s) => s.key);
 };
 
 const getAggregatedSettings = (
@@ -58,14 +58,14 @@ const getGlobalSetting = (
   settings: IPersistedSetting[],
   key: string
 ): IPersistedSetting | undefined => {
-  return settings.find(s => s.key === key && s.scope === 'global');
+  return settings.find((s) => s.key === key && s.scope === 'global');
 };
 
 const getWorkingDirectorySetting = (
   settings: IPersistedSetting[],
   key: string
 ): IPersistedSetting | undefined => {
-  return settings.find(s => s.key === key && s.scope === 'workingDirectory');
+  return settings.find((s) => s.key === key && s.scope === 'workingDirectory');
 };
 
 const getAggregatedValue = (

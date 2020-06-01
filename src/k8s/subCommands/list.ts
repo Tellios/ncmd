@@ -21,7 +21,9 @@ export async function listCommand(params: IListScriptParams): Promise<void> {
   }
 
   const columns = Object.keys(resources[0]);
-  const rows = resources.map(r => Object.entries(r).map(([_, value]) => value));
+  const rows = resources.map((r) =>
+    Object.entries(r).map(([_, value]) => value)
+  );
 
   ConsoleInterface.printTable(columns, rows);
 }

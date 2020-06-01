@@ -5,11 +5,11 @@ export const getContainers = (
   onlyRunning = false
 ): Promise<IDockerContainer[]> => {
   return getCmdResult('docker', ['ps', onlyRunning ? '' : '-a']).then(
-    result => {
+    (result) => {
       const containers = parseContainerRows(result.split('\n'));
 
       return Promise.all(
-        containers.map(container => {
+        containers.map((container) => {
           return getCmdResult('docker', [
             'inspect',
             container.containerId

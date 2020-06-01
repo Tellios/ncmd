@@ -23,7 +23,7 @@ export const parseCliTable = <T>(processRows: string[]): T[] => {
 
   const parsedRows: T[] = [];
 
-  dataRows.forEach(row => {
+  dataRows.forEach((row) => {
     if (row.length === 0) {
       return;
     }

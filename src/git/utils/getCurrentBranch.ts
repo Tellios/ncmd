@@ -4,8 +4,8 @@ import { IBranch } from './IBranch';
 export const getCurrentBranch = (
   workingDirectory: string
 ): Promise<IBranch> => {
-  return getBranches(workingDirectory, true).then(branches => {
-    const currentBranch = branches.find(branch => {
+  return getBranches(workingDirectory, true).then((branches) => {
+    const currentBranch = branches.find((branch) => {
       return branch.isCurrent;
     });
 

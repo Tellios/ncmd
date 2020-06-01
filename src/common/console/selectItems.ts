@@ -19,7 +19,7 @@ export async function selectItems({
 
   if (searchString) {
     const loweredSearchString = searchString.toLowerCase();
-    choices = choices.filter(choice =>
+    choices = choices.filter((choice) =>
       choice.toLowerCase().includes(loweredSearchString)
     );
 

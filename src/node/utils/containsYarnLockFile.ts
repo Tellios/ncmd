@@ -6,8 +6,8 @@ export async function containsYarnLockFile(
 ): Promise<boolean> {
   const filePath = path.join(directory, 'yarn.lock');
 
-  return new Promise<boolean>(resolve => {
-    exists(filePath, exists => {
+  return new Promise<boolean>((resolve) => {
+    exists(filePath, (exists) => {
       resolve(exists);
     });
   });

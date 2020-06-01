@@ -6,8 +6,8 @@ export async function containsPackageLockFile(
 ): Promise<boolean> {
   const filePath = path.join(directory, 'package-lock.json');
 
-  return new Promise<boolean>(resolve => {
-    exists(filePath, exists => {
+  return new Promise<boolean>((resolve) => {
+    exists(filePath, (exists) => {
       resolve(exists);
     });
   });

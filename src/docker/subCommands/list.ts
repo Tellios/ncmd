@@ -10,7 +10,7 @@ export const listCommand = async ({
 }: IListCommandParams): Promise<void> => {
   const processes = await getContainers(onlyShowRunning);
 
-  const rows: string[][] = processes.map(process => {
+  const rows: string[][] = processes.map((process) => {
     const color = containerStatusColoring(process);
 
     const row = [
@@ -21,7 +21,7 @@ export const listCommand = async ({
       process.containerId
     ];
 
-    return row.map(text => color(text) as string);
+    return row.map((text) => color(text) as string);
   });
 
   ConsoleInterface.printTable(

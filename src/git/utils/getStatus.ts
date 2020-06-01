@@ -12,8 +12,8 @@ function getChanges(
   filterFunc: (change: string) => boolean
 ): string[] {
   return statuses
-    .filter(status => filterFunc(status.slice(0, 2)))
-    .map(status => status.slice(3));
+    .filter((status) => filterFunc(status.slice(0, 2)))
+    .map((status) => status.slice(3));
 }
 
 function parseStatuses(statusData: string): IGitStatus {
@@ -23,10 +23,14 @@ function parseStatuses(statusData: string): IGitStatus {
     hasChanges: statusLines.length > 0,
     newFiles: getChanges(
       statusLines,
-      modifiers => modifiers.includes('?') || modifiers.includes('A')
+      (modifiers) => modifiers.includes('?') || modifiers.includes('A')
     ),
-    changedFiles: getChanges(statusLines, modifiers => modifiers.includes('M')),
-    deletedFiles: getChanges(statusLines, modifiers => modifiers.includes('D'))
+    changedFiles: getChanges(statusLines, (modifiers) =>
+      modifiers.includes('M')
+    ),
+    deletedFiles: getChanges(statusLines, (modifiers) =>
+      modifiers.includes('D')
+    )
   };
 }
 

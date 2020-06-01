@@ -34,7 +34,7 @@ function getBranchToDelete(workingDirectory: string): Promise<string> {
     false,
     'Select branch to DELETE',
     args.filter
-  ).then(branch => {
+  ).then((branch) => {
     return localizeBranchName(branch.name);
   });
 }

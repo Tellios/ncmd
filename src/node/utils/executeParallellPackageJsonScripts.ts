@@ -6,7 +6,7 @@ export async function executeParallellPackageJsonScripts(
   packageJsonScripts: NcliNode.Scripts
 ): Promise<void> {
   const invalidScripts = scripts
-    .filter(script => !(script in packageJsonScripts))
+    .filter((script) => !(script in packageJsonScripts))
     .join(', ');
 
   if (invalidScripts.length > 0) {
@@ -18,7 +18,7 @@ export async function executeParallellPackageJsonScripts(
     '../../../node_modules/.bin/concurrently'
   );
 
-  const concurrentlyArgs = scripts.map(script => `npm run ${script}`);
+  const concurrentlyArgs = scripts.map((script) => `npm run ${script}`);
 
   await runCmdInConsole(concurrentlyPath, concurrentlyArgs, true);
 }

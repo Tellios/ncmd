@@ -10,12 +10,12 @@ export async function updatePackages(
   const addLatestSuffix = (name: string): string => `${name}@latest`;
 
   const packagesToUpdate = packages
-    .filter(p => !p.dev)
-    .map(p => p.name)
+    .filter((p) => !p.dev)
+    .map((p) => p.name)
     .map(addLatestSuffix);
   const devPackagesToUpdate = packages
-    .filter(p => p.dev)
-    .map(p => p.name)
+    .filter((p) => p.dev)
+    .map((p) => p.name)
     .map(addLatestSuffix);
 
   await installPackages(

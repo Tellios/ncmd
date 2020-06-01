@@ -8,7 +8,7 @@ import {
 export const startCommand = async (): Promise<void> => {
   const containers = await getContainers();
   const stoppedContainers = containers.filter(
-    process =>
+    (process) =>
       !(
         process.properties.State.Running ||
         process.properties.State.Restarting ||
@@ -28,7 +28,7 @@ export const startCommand = async (): Promise<void> => {
   });
 
   const containersToStart = selectedIndexes.map(
-    index => stoppedContainers[index]
+    (index) => stoppedContainers[index]
   );
 
   for (const process of containersToStart) {

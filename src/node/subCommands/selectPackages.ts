@@ -35,10 +35,10 @@ export async function selectPackages(
   ];
 
   const selectedPackages = await selectItems({
-    items: packages.map(dep => dep.label),
+    items: packages.map((dep) => dep.label),
     message: 'Select the packages',
     searchString
   });
 
-  return selectedPackages.map(index => packages[index]);
+  return selectedPackages.map((index) => packages[index]);
 }

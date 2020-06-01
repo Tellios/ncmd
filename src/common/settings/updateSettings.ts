@@ -11,7 +11,7 @@ export const updateSetting = async (
   const commandSettings = settings[command] ?? [];
 
   const index = commandSettings.findIndex(
-    cs =>
+    (cs) =>
       cs.key === setting.key &&
       cs.scope === setting.scope &&
       cs.workingDirectory === setting.workingDirectory

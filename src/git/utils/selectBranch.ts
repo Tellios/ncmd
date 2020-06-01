@@ -11,7 +11,7 @@ export async function selectBranch(
   filter?: string | null
 ): Promise<IBranch> {
   let branches = await getBranches(workingDirectory, includeRemote);
-  branches = branches.filter(branch => !branch.isCurrent);
+  branches = branches.filter((branch) => !branch.isCurrent);
   branches = filterBranches(branches, filter);
 
   const itemIndex = await selectItem(branchNameColoring(branches), message);

@@ -18,5 +18,5 @@ export const getBranches = (
   return getCmdResult('git', gitArgs, repositoryPath)
     .then(parseBranches)
     .then(sortBranches)
-    .then(branches => filterBranches(branches, filter));
+    .then((branches) => filterBranches(branches, filter));
 };

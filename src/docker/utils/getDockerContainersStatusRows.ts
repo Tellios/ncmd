@@ -4,7 +4,7 @@ import { containerStatusColoring } from './containerStatusColoring';
 export const getDockerContainersStatusRows = (
   containers: IDockerContainer[]
 ): string[] => {
-  return containers.map(process => {
+  return containers.map((process) => {
     const color = containerStatusColoring(process);
 
     const row = [

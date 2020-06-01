@@ -63,16 +63,16 @@ const getMissingPositonalArguments = async (
 
 const getNamedArgumentsFromCommands = (commands: string[]): string[] => {
   return commands
-    .map(c => c.match(/\${([a-z])*}/gi))
+    .map((c) => c.match(/\${([a-z])*}/gi))
     .reduce(appendArgumentIfUnique, [])
     .map(extractArgumentName);
 };
 
 const getPositionalArgumentsFromCommands = (commands: string[]): string[] => {
   return commands
-    .map(c => c.match(/\$\d+/gi))
+    .map((c) => c.match(/\$\d+/gi))
     .reduce(appendArgumentIfUnique, [])
-    .map(a => a.substring(1))
+    .map((a) => a.substring(1))
     .sort();
 };
 
@@ -80,7 +80,7 @@ const appendArgumentIfUnique = (
   acc: string[],
   current: RegExpMatchArray | null
 ): string[] => {
-  current?.forEach(match => {
+  current?.forEach((match) => {
     if (!acc.includes(match)) {
       acc.push(match);
     }
@@ -96,7 +96,7 @@ const getNamedArgumentsMissingInUserArguments = (
   userArguments: IUserArguments,
   expectedArguments: string[]
 ): string[] => {
-  return expectedArguments.filter(commandArgument => {
+  return expectedArguments.filter((commandArgument) => {
     return (
       !(commandArgument in userArguments.named) &&
       !builtInArguments.includes(commandArgument)
@@ -148,7 +148,7 @@ const requestMissingPositionalArguments = async (
 const requestArgumentUsingConsole = async (
   argument: string
 ): Promise<string> => {
-  return await inputString(argument, input => {
+  return await inputString(argument, (input) => {
     if (/\s/g.test(input)) {
       return "Parameter can't contain whitespace";
     }

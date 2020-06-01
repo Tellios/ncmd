@@ -19,7 +19,7 @@ export function parseUserArguments(userArgs: string[]): IUserArguments {
   };
   let appendArgs = false;
 
-  userArgs.forEach(arg => {
+  userArgs.forEach((arg) => {
     if (arg === '--') {
       appendArgs = true;
     } else if (appendArgs) {

@@ -6,7 +6,7 @@ export const listAliases = async (): Promise<void> => {
   await commandBase(async () => {
     const aliases = await getAliases();
 
-    aliases.forEach(alias => {
+    aliases.forEach((alias) => {
       const helpContent = getAliasHelpTableContent(alias);
       ConsoleInterface.printLine(chalk.bold(alias.name), Type.log);
       ConsoleInterface.printVerticalTable(helpContent);

@@ -8,7 +8,7 @@ export async function uninstallPackages(
   searchString?: string
 ): Promise<void> {
   const packages = await selectPackages(packageJson, searchString);
-  const packageNames = packages.map(p => p.name);
+  const packageNames = packages.map((p) => p.name);
 
   if (await containsYarnLockFile(workingDirectory)) {
     await runCmdInConsole('yarn', ['remove', ...packageNames]);

@@ -23,7 +23,7 @@ function getBranchToMergeFrom(workingDirectory: string): Promise<string> {
     false,
     'Select branch to merge FROM',
     args.filter
-  ).then(branch => {
+  ).then((branch) => {
     return branch.name;
   });
 }

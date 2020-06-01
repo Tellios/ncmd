@@ -6,7 +6,7 @@ export const injectArguments = (
   userArguments: IUserArguments,
   workingDirectory: string
 ): string[] => {
-  return commands.map(command =>
+  return commands.map((command) =>
     injectArgumentsIntoCommandText(
       command.commandText,
       command.positionalArguments,
@@ -33,7 +33,7 @@ function injectArgumentsIntoCommandText(
 
   let commandWithArgs = commandText;
 
-  positionalArguments.forEach(posArg => {
+  positionalArguments.forEach((posArg) => {
     const userArgumentsIndex = Number(posArg.substr(1)) - 1;
     const userArg = userArguments.positional[userArgumentsIndex];
 
@@ -42,7 +42,7 @@ function injectArgumentsIntoCommandText(
     }
   });
 
-  Object.entries(userArguments.named).forEach(entry => {
+  Object.entries(userArguments.named).forEach((entry) => {
     const [key, value] = entry;
     const commandKey = `\${${key}}`;
 

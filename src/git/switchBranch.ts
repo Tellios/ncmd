@@ -29,7 +29,7 @@ function getBranchToSwitchTo(workingDirectory: string): Promise<string> {
     args.remote,
     'Select branch to switch to',
     args.filter
-  ).then(branch => {
+  ).then((branch) => {
     return localizeBranchName(branch.name);
   });
 }

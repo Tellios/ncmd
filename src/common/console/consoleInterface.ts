@@ -25,13 +25,13 @@ export class ConsoleInterface {
   }
 
   public static printLines(lines: string[], type = Type.log): void {
-    lines.forEach(line => {
+    lines.forEach((line) => {
       this.printLine(line, type);
     });
   }
 
   public static printTable(columns: string[], rows: string[][]): void {
-    columns = columns.map(column => chalk.cyan(column));
+    columns = columns.map((column) => chalk.cyan(column));
 
     const table = new Table({
       head: columns
@@ -45,7 +45,7 @@ export class ConsoleInterface {
   public static printVerticalTable(rows: Array<Record<string, any>>): void {
     const table = new Table();
 
-    rows.forEach(row => {
+    rows.forEach((row) => {
       (table as any).push(row);
     });
 

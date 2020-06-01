@@ -11,7 +11,7 @@ export const executeMatchingAlias = async (args: string[]): Promise<void> => {
       args.splice(0, 1);
     }
 
-    const matchingAlias = aliases.find(item => {
+    const matchingAlias = aliases.find((item) => {
       return item.name === args[0];
     });
 

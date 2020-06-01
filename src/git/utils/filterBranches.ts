@@ -8,7 +8,7 @@ export function filterBranches(
     const trimmedFilter = filter.trim().toLowerCase();
 
     if (trimmedFilter.length > 0) {
-      return branches.filter(branch =>
+      return branches.filter((branch) =>
         branch.name.toLowerCase().includes(trimmedFilter)
       );
     }
