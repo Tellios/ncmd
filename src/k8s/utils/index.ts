@@ -1,6 +1,7 @@
 export * from './deleteResource';
 export * from './describeResource';
 export * from './getAvailableContexts';
+export * from './getResourceInfo';
 export * from './getResources';
 export * from './IContext';
 export * from './IDeployment';
