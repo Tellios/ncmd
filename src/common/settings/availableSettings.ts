@@ -11,7 +11,7 @@ import { SettingType } from './SettingType';
  * Without this approach, keys of the setting
  * descriptions wouldn't be inferrable.
  */
-class Builder<T = {}> {
+class Builder<T = Record<string, ISettingDescription<SettingType>>> {
   private settings: any = {};
 
   public add<K extends string, TSettingType extends SettingType>(

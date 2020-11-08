@@ -4,7 +4,7 @@ import { IContext } from './IContext';
 
 export const getAvailableContexts = async (): Promise<IContext[]> => {
   const yaml = await getCmdResult('kubectl', ['config', 'view']);
-  const config = jsYaml.safeLoad(yaml);
+  const config: any = jsYaml.safeLoad(yaml);
 
   return config.contexts ?? [];
 };
