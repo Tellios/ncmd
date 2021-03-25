@@ -52,7 +52,10 @@ commandBase<'nr'>(async ({ workingDirectory, settings, setSetting }) => {
   } else if (args.async) {
     await selectScripts(packageJson);
   } else if (args._ && args._.length > 0) {
-    await runScripts(args._, packageJson);
+    await runScripts(
+      args._.map((a) => a.toString()),
+      packageJson
+    );
   } else {
     const selectedScript = await selectScript(
       packageJson.scripts,

@@ -19,7 +19,7 @@ Object.entries(commands).forEach(([cmd, config]) => {
 
 const args = yargs.argv;
 
-const runCommandIfMatch = async (cmd: string): Promise<boolean> => {
+const runCommandIfMatch = async (cmd: string | number): Promise<boolean> => {
   if (cmd === 'ls') {
     await listCommand();
   } else if (cmd === 'set') {

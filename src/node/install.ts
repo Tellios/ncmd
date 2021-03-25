@@ -64,9 +64,17 @@ commandBase(async ({ workingDirectory }) => {
       typingsMode
     );
   } else if (args._[0] === 'del') {
-    return await uninstallPackages(workingDirectory, packageJson, args._[1]);
+    return await uninstallPackages(
+      workingDirectory,
+      packageJson,
+      args._[1]?.toString()
+    );
   } else if (args._[0] === 'update') {
-    return await updatePackages(workingDirectory, packageJson, args._[1]);
+    return await updatePackages(
+      workingDirectory,
+      packageJson,
+      args._[1]?.toString()
+    );
   } else if (args._.length > 0) {
     ConsoleInterface.printLine('Unknown command');
   } else {

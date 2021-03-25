@@ -40,7 +40,6 @@ const commands: Record<
     options: {
       follow: {
         alias: 'f',
-        boolean: true,
         desc: 'If logs should be streamed'
       }
     }
@@ -63,7 +62,7 @@ const type: IResolveResourceTypeParams = {
   ingress: args.ingress === true
 };
 
-const runCommandIfMatch = async (cmd: string): Promise<boolean> => {
+const runCommandIfMatch = async (cmd: string | number): Promise<boolean> => {
   if (cmd === 'desc') {
     await describeCommand({ type });
   } else if (cmd === 'ls') {

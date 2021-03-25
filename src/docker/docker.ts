@@ -108,7 +108,7 @@ const runCommandIfMatch = async (cmd: string): Promise<boolean> => {
 
 commandBase(
   async (): Promise<void> => {
-    if (!(await runCommandIfMatch(args._[0]))) {
+    if (!(await runCommandIfMatch(args._[0] as string))) {
       const commandEntries = Object.entries(commands);
       const commandTexts = commandEntries.map(
         ([key, config]) => `${key} - ${config.desc}`
