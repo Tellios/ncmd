@@ -3,7 +3,7 @@ import { getStatus, addAll, commit } from './utils';
 
 commandBase<'ncommit'>(async ({ workingDirectory, settings }) => {
   const args = yargsWrapper()
-    .epilogue('ncommit is makes doing git commit less tedious')
+    .epilogue('ncommit makes doing git commit less tedious')
     .option('addAll', {
       alias: 'a',
       describe: 'Stage all git changes (git add .) before commit',

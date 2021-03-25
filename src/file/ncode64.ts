@@ -52,7 +52,7 @@ const args = yargs.argv;
 commandBase(
   async (): Promise<void> => {
     const readStream = createReadStream(args.input, {
-      encoding: args.inputContainer ?? args.from
+      encoding: args.inputContainer ?? (args.from as BufferEncoding)
     });
     const chunks: string[] = [];
 

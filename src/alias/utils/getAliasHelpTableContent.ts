@@ -2,7 +2,7 @@ import { colorizeCommand } from '../../common';
 
 export const getAliasHelpTableContent = (
   alias: Alias.IAlias
-): Array<object[]> => {
+): Array<Record<string, unknown>[]> => {
   const texts: any[] = [];
 
   if (alias.description) {
