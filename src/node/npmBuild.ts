@@ -30,9 +30,13 @@ commandBase(async ({ workingDirectory }) => {
   if (buildScriptKeys.length === 0) {
     ConsoleInterface.printLine(`No build scripts found`);
   } else if (buildScriptKeys.length === 1) {
-    await executePackageJsonScript(buildScriptKeys[0], buildScripts);
+    await executePackageJsonScript(
+      buildScriptKeys[0],
+      buildScripts,
+      workingDirectory
+    );
   } else {
     const scriptToRun = await selectScript(buildScripts);
-    await executePackageJsonScript(scriptToRun, buildScripts);
+    await executePackageJsonScript(scriptToRun, buildScripts, workingDirectory);
   }
 });

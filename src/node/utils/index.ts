@@ -2,6 +2,7 @@ export * from './containsPackageLockFile';
 export * from './containsYarnLockFile';
 export * from './executePackageJsonScript';
 export * from './executeParallellPackageJsonScripts';
+export * from './getWorkspacePaths';
 export * from './packageJsonParser';
 export * from './searchScripts';
 export * from './selectScript';

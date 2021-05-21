@@ -2,7 +2,8 @@ import { selectItems } from '../../common';
 import { executeParallellPackageJsonScripts } from '../utils';
 
 export async function selectScripts(
-  packageJson: NcliNode.IPackageJson
+  packageJson: NcliNode.IPackageJson,
+  directory: string
 ): Promise<void> {
   const scripts = Object.keys(packageJson.scripts);
   const selectedIndexes = await selectItems({
@@ -13,6 +14,7 @@ export async function selectScripts(
 
   await executeParallellPackageJsonScripts(
     selectedScripts,
-    packageJson.scripts
+    packageJson.scripts,
+    directory
   );
 }

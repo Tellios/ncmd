@@ -27,9 +27,13 @@ commandBase(async ({ workingDirectory }) => {
   if (testScriptKeys.length === 0) {
     ConsoleInterface.printLine(`No test scripts found`);
   } else if (testScriptKeys.length === 1) {
-    await executePackageJsonScript(testScriptKeys[0], testScripts);
+    await executePackageJsonScript(
+      testScriptKeys[0],
+      testScripts,
+      workingDirectory
+    );
   } else {
     const scriptToRun = await selectScript(testScripts);
-    await executePackageJsonScript(scriptToRun, testScripts);
+    await executePackageJsonScript(scriptToRun, testScripts, workingDirectory);
   }
 });

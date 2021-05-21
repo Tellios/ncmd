@@ -8,23 +8,23 @@ import { IPersistedSettings } from './IPersistedSettings';
 
 export const getAggregatedCommandSettings = async (
   command: NcliCommand,
-  settings: IPersistedSettings
+  settings: IPersistedSettings,
+  directory = process.cwd()
 ): Promise<ISettings> => {
   const commandSettings = settings[command] ?? [];
 
-  const settingsInScope = getSettingsInCurrentScope(commandSettings);
+  const settingsInScope = getSettingsInCurrentScope(commandSettings, directory);
   const uniqueSettingKeys: string[] = getUniqueSettingKeys(settingsInScope);
 
   return getAggregatedSettings(uniqueSettingKeys, settingsInScope);
 };
 
 const getSettingsInCurrentScope = (
-  settings: IPersistedSetting[]
+  settings: IPersistedSetting[],
+  directory: string
 ): IPersistedSetting[] => {
-  const cwd = process.cwd();
-
   return settings.filter(
-    (s) => s.scope === 'global' || s.workingDirectory === cwd
+    (s) => s.scope === 'global' || s.workingDirectory === directory
   );
 };
 

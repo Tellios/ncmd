@@ -18,6 +18,12 @@ const args = yargsWrapper()
     type: 'boolean',
     default: false
   })
+  .option('noVerify', {
+    alias: 'n',
+    describe: 'Add --no-verify to git commit and push commands',
+    type: 'boolean',
+    default: false
+  })
   .option('filter', {
     alias: 'f',
     describe: 'Branch name filter',
@@ -49,5 +55,8 @@ commandBase(async ({ workingDirectory }) => {
     );
   }
 
-  await deleteBranch(branch, args.push);
+  await deleteBranch(branch, {
+    alsoDeleteRemote: args.push,
+    noVerify: args.noVerify
+  });
 });

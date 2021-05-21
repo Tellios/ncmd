@@ -11,7 +11,8 @@ import { SettingType } from './SettingType';
  * Without this approach, keys of the setting
  * descriptions wouldn't be inferrable.
  */
-class Builder<T = Record<string, ISettingDescription<SettingType>>> {
+// eslint-disable-next-line @typescript-eslint/ban-types
+class Builder<T = {}> {
   private settings: any = {};
 
   public add<K extends string, TSettingType extends SettingType>(
@@ -59,6 +60,11 @@ export const availableSettings = {
   nr: new Builder()
     .add('lastExecutedScript', {
       description: 'Last script executed in working directory',
+      type: 'string',
+      hidden: true
+    })
+    .add('lastSelectedWorkspace', {
+      description: 'Last selected workspace',
       type: 'string',
       hidden: true
     })

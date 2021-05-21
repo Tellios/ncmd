@@ -3,7 +3,8 @@ import { runCmdInConsole } from '../../common';
 
 export async function executeParallellPackageJsonScripts(
   scripts: string[],
-  packageJsonScripts: NcliNode.Scripts
+  packageJsonScripts: NcliNode.Scripts,
+  directory: string
 ): Promise<void> {
   const invalidScripts = scripts
     .filter((script) => !(script in packageJsonScripts))
@@ -20,5 +21,5 @@ export async function executeParallellPackageJsonScripts(
 
   const concurrentlyArgs = scripts.map((script) => `npm run ${script}`);
 
-  await runCmdInConsole(concurrentlyPath, concurrentlyArgs, true);
+  await runCmdInConsole(concurrentlyPath, concurrentlyArgs, true, directory);
 }
